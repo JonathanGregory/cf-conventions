@@ -226,9 +226,9 @@ UDUNITS permits a number of alternatives to the word **`since`** in the units of
 
 The reference date/time string (appearing after the identifier **`since`**) is required.
 It may include date alone, or date and time, or date, time and time zone.
-Its format is _y_**`-`**_m_**`-`**_d_ [_H_**`:`**_M_**`:`**_S_ [_Z_]], where [...] indicates an optional element,
+Its format is _y_-_m_-_d_ [_H_:_M_:_S_ [_Z_]], where [...] indicates an optional element,
 
-* _y_ is year, _m_ month, _d_ day, _H_ hour and _M_ minute, which are all integers of one or more digits, and _Y_ may be prefixed with a sign (but note that some CF calendars do not permit negative years; see <<calendar>>),
+* _y_ is year, _m_ month, _d_ day, _H_ hour and _M_ minute, which are all integers of one or more digits, and _y_ may be prefixed with a sign (but note that some CF calendars do not permit negative years; see <<calendar>>),
 
 * _S_ is second, which may be integer or floating point,
 
@@ -241,14 +241,14 @@ The time zone _Z_ has four possible formats, any of which may be prefixed with a
 
 ** _H_, the hour alone, of one or two digits e.g. **`-6`**, **`2`**, **`+11`**, which is sufficient for many time zones.
 
-** _H_**`:`**_M_, where _H_ is hour and _M_ minute, each of one or two digits, e.g. **`5:30`**.
+** _H_:_M_, where _H_ is hour and _M_ minute, each of one or two digits, e.g. **`5:30`**.
 
 ** four digits, of which the first pair are the hours and the second the minutes e.g. **`0530`**.
 
 ** three digits, of which the first is the hour (0--9) e.g. **`530`**.
 
 For example, **`seconds since 1992-10-8 15:15:42.5 -6:00`** indicates seconds since October 8th, 1992 at 3 hours, 15 minutes and 42.5 seconds in the afternoon, in the time zone which is centred on -90 `degrees_east` of longitude, six hours behind the default time zone.
-Adding the time zone to the date/time specified converts it to the default time zone e.g. **`1989-12-31 06:00:00 -6`** identifies the same instant as **`1990-1-1 0:0:0`**.
+Subtracting the time zone from the date/time specified converts it to the default time zone e.g. **`1989-12-31 18:00:00 -6`** identifies the same instant as **`1990-1-1 0:0:0`**.
 
 
 [[calendar, Section 4.4.2, "Calendar"]]
@@ -256,7 +256,7 @@ Adding the time zone to the date/time specified converts it to the default time 
 
 In order to calculate a time coordinate value from a date/time, or the reverse, one must know the **`units`** attribute of the time coordinate variable (containing the time unit of the coordinate values and the reference date/time, see <<time-coordinate-units>>) and the calendar, indicated by the **`calendar`** attribute.
 The choice of calendar defines the set of dates (year-month-day combinations) which are permitted, and therefore it specifies the number of days between the times of **`0:0:0`** (midnight) on any two dates.
-Date/times which are not permitted in a given calendar are prohibited in both the encoded time coordinate values, and in the reference date/time string.
+Date/times which are not permitted in a given calendar are prohibited both in the time coordinate values, and in the reference date/time string.
 It is recommended that the calendar be specified by the **`calendar`** attribute of the time coordinate variable.
 
 The values currently defined for **`calendar`** are listed below.
@@ -268,7 +268,7 @@ If a negative leap second were introduced (there have been none up to now), the 
 
 In the **`julian`** and the default **`standard`** mixed Gregorian/Julian calendar, dates in years before year 0 (i.e. before 0-1-1 0:0:0) are not allowed, and the year in the reference date/time of the units must not be negative.
 In these calendars, year zero has a special use to indicate a climatology (see <<climatological-statistics>>), but this use of year zero is deprecated.
-In other calendars, years before year 1 are allowed.
+In other calendars, year 0 is the year before year 1, and negative years are allowed.
 
 **`standard`**:: Mixed Gregorian/Julian calendar as defined by UDUNITS.
 This is the default.
@@ -279,14 +279,14 @@ Year 1 AD or CE in the **`standard`** calendar is also year 1 of the **`julian`*
 In the **`standard`** calendar, 1582-10-15 0:0:0 is exactly 1 day later than 1582-10-4 0:0:0 and the intervening dates are undefined.
 Therefore it is recommended that date/times in the range from (and including) 1582-10-5 0:0:0 until (but excluding) 1582-10-15 0:0:0 should not be used as reference in **`units`**, and that a time coordinate variable should not include any date/times in this range, because their interpretation is unclear.
 It is also recommended that a reference date/time before the discontinuity should not be used for date/times after the discontinuity, and vice-versa.
-See <<leap-seconds>>.
+See also <<leap-seconds>>.
 
 **`proleptic_gregorian`**:: A calendar with the Gregorian rules for leap-years extended to dates before 1582-10-15.
 All dates consistent with these rules are allowed, both before and after 1582-10-15 0:0:0.
-See <<leap-seconds>>.
+See also <<leap-seconds>>.
 
 **`julian`**:: Julian calendar, in which a year is a leap year if it is divisible by 4, even if it is also divisible by 100.
-See <<leap-seconds>>.
+See also <<leap-seconds>>.
 
 **`utc`**:: A Gregorian calendar __with__ leap seconds that is based on Coordinated Universal Time (UTC), and is valid from 1958-01-01 0:0:0; earlier date/times are not allowed in this calendar.
 Date/times in the future are not allowed in this calendar, because it is unknown when future leap seconds will occur.
@@ -399,16 +399,16 @@ When the these calendars are being be used for date/time-sets __with__ leap seco
   
 * A date/time in the excluded range must not be used as a reference date/time e.g. **`seconds since 2016-12-31 23:59:60`** is not a permitted value for **`units`**.
 
-* If any leap seconds occurred between the reference date/time and the date/timerepresented by a time coordinate, the coordinate value does __not__ count the leap seconds (assuming that the leap seconds were known when the time coordinate was calculated).
+* If any leap seconds occurred between the reference date/time and the date/time represented by a time coordinate, the coordinate value does __not__ count the leap seconds (assuming that the leap seconds were known when the time coordinate was calculated).
   For instance, **`60 seconds after 23:59`** always means **`00:00`** on the next day, even if there was a leap second.
   In that situation, the coordinate value does not exactly equal the actual length of the interval of time between the two instants.
   By contrast, in case 1 (i.e. a date/time-set without leap seconds), the difference between two time coordinates is always equal to the length of time between the instants they represent, as is always true in all other calendars.
   It is important to be aware of this disadvantage of the **`standard`**, **`proleptic_gregorian`** and **`julian`** calendars when used with date/time-sets including leap seconds.
-  If it is essential for leap seconds to be counted in time intervals, you must use the **`utc`** calendar.
+  If it is essential for leap seconds to be counted in time coordinates, so that they exactly equal time intervals, you must use the **`utc`** calendar.
 
-An inaccuracy results from interpreting a time coordinate as a time interval if the interval includes leap seconds which were known when the time coordinate was calculated.
-An inaccuracy results from converting a time coordinate to a date/time if the interval includes leap seconds which were _not_ known when the time coordinate was calculated.
-For many applications of the **`standard`**, **`proleptic_gregorian`**, and **`julian`** calendars, these inaccuracies are too small to matter, but there are some applications where it is important.
+An inaccuracy results from interpreting a time coordinate as a time interval if the interval includes leap seconds which were known when the time coordinate was calculated (case 2, and perhaps 3 and 4).
+An inaccuracy results from converting a time coordinate to a date/time if the interval includes leap seconds which were _not_ known when the time coordinate was calculated (possible in case 3 or 4).
+For many applications of the **`standard`**, **`proleptic_gregorian`**, and **`julian`** calendars, these inaccuracies are too small to matter, but there are some applications where they are important.
 Therefore it is recommended that for each of these three calendars the appropriate treatment of leap seconds should be indicated by giving the time coordinate variable a **`units_metadata`** attribute containing a **`leap_seconds`** keyword with one of the permitted values **`none`**, **`utc**` or **`unknown`**.
 **`none`** means that leap seconds do not exist in the date/time-set (i.e. case 1), **`utc`** means that leap seconds exist in the date/time-set and are correctly accounted for (i.e. case 2), and **`unknown`** means that the data-writer did not know or did not record whether the leap seconds exist in the date/time-set, nor how they are treated if they did exist (i.e. cases 3 and 4).
 If the **`units_metadata`** attribute is not present, or does not contain the `leap_seconds` keyword, the data-reader should assume **`leap_seconds: unknown`**.
@@ -423,7 +423,7 @@ A variable's **`units_metadata`** attribute may only contain the **`leap_seconds
 variables:
   float time1 ;
     time1:standard_name = "time" ;
-    time1:long_name = "Observed station data with unreliable information about leap seconds" ;
+    time1:long_name = "Observed station data with unreliable information on leap seconds" ;
     time1:calendar = "standard" ;
     time1:units = "seconds since 2016-12-31 23:59:59" ;
     time1:units_metadata = "leap_seconds: unknown" ;
