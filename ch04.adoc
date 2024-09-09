@@ -226,7 +226,7 @@ UDUNITS permits a number of alternatives to the word **`since`** in the units of
 
 The reference date/time string (appearing after the identifier **`since`**) is required.
 It may include date alone, or date and time, or date, time and time zone.
-Its format is _y_-_m_-_d_ [_H_:_M_:_S_ [_Z_]], where [...] indicates an optional element,
+Its format is __y__-__m__-__d__ [__H__:__M__:__S__ [__Z__]], where [...] indicates an optional element,
 
 * _y_ is year, _m_ month, _d_ day, _H_ hour and _M_ minute, which are all integers of one or more digits, and _y_ may be prefixed with a sign (but note that some CF calendars do not permit negative years; see <<calendar>>),
 
@@ -241,7 +241,7 @@ The time zone _Z_ has four possible formats, any of which may be prefixed with a
 
 ** _H_, the hour alone, of one or two digits e.g. **`-6`**, **`2`**, **`+11`**, which is sufficient for many time zones.
 
-** _H_:_M_, where _H_ is hour and _M_ minute, each of one or two digits, e.g. **`5:30`**.
+** __H__:__M__, where _H_ is hour and _M_ minute, each of one or two digits, e.g. **`5:30`**.
 
 ** four digits, of which the first pair are the hours and the second the minutes e.g. **`0530`**.
 
