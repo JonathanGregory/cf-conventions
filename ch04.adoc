@@ -373,27 +373,28 @@ double time(time) ;
 [[leap-seconds, Section 4.4.3, "Leap Seconds"]]
 ==== Leap Seconds
 
-The date/time-set of the **`utc`** calendar includes leap seconds, where by "date/time-set" we mean the complete set of valid year-month-day-hour-minute-second combinations.
-The date/time-sets of all _other_ calendars, _except_ **`standard`**, **`proleptic_gregorian`**, and **`julian`**, do _not_ include leap seconds.
-The **`standard`**, **`proleptic_gregorian`**, and **`julian`** calendars are special in that they can be used for date/time-sets either __with__ or __without__ leap seconds, 
+Each calendar defines a set of valid year-month-day-hour-minute-second combinations, which we refer to as the calendar's "set of date/times".
+The set of date/times of the **`utc`** calendar includes leap seconds, where by "set of date/times" we mean the complete 
+The sets of date/times of all _other_ calendars, _except_ **`standard`**, **`proleptic_gregorian`**, and **`julian`**, do _not_ include leap seconds.
+The **`standard`**, **`proleptic_gregorian`**, and **`julian`** calendars are special in that they can be used for sets of date/times either __with__ or __without__ leap seconds, 
 
 For these calendars, there are the following cases:
 
-1. **The calendar is being used for a date/time-set in which leap seconds do not exist.**
+1. **The calendar is being used for a set of date/times in which leap seconds do not exist.**
    This is the case for a model simulation that defines every day as having a constant length of 86400 seconds.
 
-2. **The calendar is being used for a date/time-set in which leap seconds exist, and are correctly accounted for.**
+2. **The calendar is being used for a set of date/times in which leap seconds exist, and are correctly accounted for.**
    This could be the case for observations from a platform whose time recording equipment has prior knowledge of when new leap seconds are to be introduced and is able to apply a new leap second at the appropriate time.
    It could equally be the case for model whose timesteps include leap seconds.
 
-3. **The calendar is being used for a date/time-set in which leap seconds exist, but some or all leap seconds might not have not been correctly accounted for.**
+3. **The calendar is being used for a set of date/times in which leap seconds exist, but some or all leap seconds might not have not been correctly accounted for.**
    This could be the case for observations from a platform whose time recording equipment has a delay in applying a new leap second.
 
-4. **It may be unknown whether leap seconds exist in the date/time-set.**
+4. **It may be unknown whether leap seconds exist in the set of date/times.**
 
 In the **`standard`**, **`proleptic_gregorian`**, and **`julian`** calendars, when a time coordinate value is calculated from a date/time, or the reverse, it is assumed that the coordinate value increases by exactly 60 seconds from the start of any minute (identified by year, month, day, hour, minute, all being integers) to the start of the next minute.
 In other words, leap seconds (positive or negative) are not counted, even if they exist.
-When the these calendars are being be used for date/time-sets __with__ leap seconds (i.e. cases 2 and 3 and perhaps case 4), this assumption has the following consequences:
+When the these calendars are being be used for sets of date/times __with__ leap seconds (i.e. cases 2 and 3 and perhaps case 4), this assumption has the following consequences:
 
 * Any date/times between the end of the 60th second of the last minute of one hour and the start of the first second of the next hour cannot be represented by time coordinates e.g. **`2016-12-31 23:59:60.5`** cannot be represented.
   
@@ -402,15 +403,15 @@ When the these calendars are being be used for date/time-sets __with__ leap seco
 * If any leap seconds occurred between the reference date/time and the date/time represented by a time coordinate, the coordinate value does __not__ count the leap seconds (assuming that the leap seconds were known when the time coordinate was calculated).
   For instance, **`60 seconds after 23:59`** always means **`00:00`** on the next day, even if there was a leap second.
   In that situation, the coordinate value does not exactly equal the actual length of the interval of time between the two instants.
-  By contrast, in case 1 (i.e. a date/time-set without leap seconds), the difference between two time coordinates is always equal to the length of time between the instants they represent, as is always true in all other calendars.
-  It is important to be aware of this disadvantage of the **`standard`**, **`proleptic_gregorian`** and **`julian`** calendars when used with date/time-sets including leap seconds.
+  By contrast, in case 1 (i.e. a set of date/times without leap seconds), the difference between two time coordinates is always equal to the length of time between the instants they represent, as is always true in all other calendars.
+  It is important to be aware of this disadvantage of the **`standard`**, **`proleptic_gregorian`** and **`julian`** calendars when used with sets of date/times including leap seconds.
   If it is essential for leap seconds to be counted in time coordinates, so that they exactly equal time intervals, you must use the **`utc`** calendar.
 
 An inaccuracy results from interpreting a time coordinate as a time interval if the interval includes leap seconds which were known when the time coordinate was calculated (case 2, and perhaps 3 and 4).
 An inaccuracy results from converting a time coordinate to a date/time if the interval includes leap seconds which were _not_ known when the time coordinate was calculated (possible in case 3 or 4).
 For many applications of the **`standard`**, **`proleptic_gregorian`**, and **`julian`** calendars, these inaccuracies are too small to matter, but there are some applications where they are important.
 Therefore it is recommended that for each of these three calendars the appropriate treatment of leap seconds should be indicated by giving the time coordinate variable a **`units_metadata`** attribute containing a **`leap_seconds`** keyword with one of the permitted values **`none`**, **`utc**` or **`unknown`**.
-**`none`** means that leap seconds do not exist in the date/time-set (i.e. case 1), **`utc`** means that leap seconds exist in the date/time-set and are correctly accounted for (i.e. case 2), and **`unknown`** means that the data-writer did not know or did not record whether the leap seconds exist in the date/time-set, nor how they are treated if they did exist (i.e. cases 3 and 4).
+**`none`** means that leap seconds do not exist in the set of date/times (i.e. case 1), **`utc`** means that leap seconds exist in the set of date/times and are correctly accounted for (i.e. case 2), and **`unknown`** means that the data-writer did not know or did not record whether the leap seconds exist in the set of date/times, nor how they are treated if they did exist (i.e. cases 3 and 4).
 If the **`units_metadata`** attribute is not present, or does not contain the `leap_seconds` keyword, the data-reader should assume **`leap_seconds: unknown`**.
 A variable's **`units_metadata`** attribute may only contain the **`leap_seconds`** keyword if the variable's calendar is one of **`standard`** , `proleptic_gregorian`, or **`julian`**.
 
@@ -451,10 +452,10 @@ variables:
     time5:units = "seconds since 2016-12-31 23:59:59" ;
 data:
   time1 = 1; // unknown whether 2016-12-31 23:59:60 or 2017-1-1 0:0:0
-  time2 = 1; // 2017-1-1 0:0:0 because no leap seconds in date/time-set
-  time3 = 1; // 2017-1-1 0:0:0 because leap second is not counted
+  time2 = 1; // 2017-1-1 0:0:0 because no leap seconds in the set of date/times
+  time3 = 1; // 2017-1-1 0:0:0 because the leap second is not counted
   time4 = 1; // leap second 2016-12-31 23:59:60
-  time5 = 1; // 2017-1-1 0:0:0 because no leap seconds in date/time-set
+  time5 = 1; // 2017-1-1 0:0:0 because no leap seconds in the set of date/times
 ----
 ====
 
