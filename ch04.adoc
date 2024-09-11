@@ -201,8 +201,9 @@ Optionally, a time coordinate may be indicated additionally by providing the **`
 
 ----
 double time(time) ;
-  time:long_name = "time" ;
-  time:units = "days since 1990-1-1 0:0:0" ;
+  time:axis = "T"; // optional
+  time:standard_name = "time" ; // optional
+  time:units = "days since 1990-1-1 0:0:0" ; // mandatory
 ----
 
 ====
@@ -353,7 +354,7 @@ If this attribute is absent, it is assumed there are no leap years.
 If this attribute is not present, February (2) is assumed.
 This attribute is ignored if **`leap_year`** is not specified.
 
-When an explicitly defined calendar is being used, the calendar may be described by giving value not defined in <<calendar>> to the **`calendar`** attribute; alternatively, the attribute may be omitted.
+When an explicitly defined calendar is being used, the calendar may be described by giving a value not defined in <<calendar>> to the **`calendar`** attribute; alternatively, the attribute may be omitted.
 
 [[paleoclimate-time-axis-ex]]
 [caption="Example 4.6. "]
@@ -413,7 +414,7 @@ For many applications of the **`standard`**, **`proleptic_gregorian`**, and **`j
 Therefore it is recommended that for each of these three calendars the appropriate treatment of leap seconds should be indicated by giving the time coordinate variable a **`units_metadata`** attribute containing a **`leap_seconds`** keyword with one of the permitted values **`none`**, **`utc**` or **`unknown`**.
 **`none`** means that leap seconds do not exist in the set of date/times (i.e. case 1), **`utc`** means that leap seconds exist in the set of date/times and are correctly accounted for (i.e. case 2), and **`unknown`** means that the data-writer did not know or did not record whether the leap seconds exist in the set of date/times, nor how they are treated if they did exist (i.e. cases 3 and 4).
 If the **`units_metadata`** attribute is not present, or does not contain the `leap_seconds` keyword, the data-reader should assume **`leap_seconds: unknown`**.
-A variable's **`units_metadata`** attribute may only contain the **`leap_seconds`** keyword if the variable's calendar is one of **`standard`** , `proleptic_gregorian`, or **`julian`**.
+A variable's **`units_metadata`** attribute may only contain the **`leap_seconds`** keyword if the variable's calendar is one of **`standard`** , **`proleptic_gregorian`**, or **`julian`**.
 
 [[units-metadata-leap-seconds-ex]]
 [caption="Example 4.7. "]
