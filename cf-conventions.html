@@ -471,7 +471,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author30" class="author">Christopher&#160;Barker</span><br>
 <span id="author31" class="author">Sadie&#160;Bartholomew</span><br>
 <span id="revnumber">version &#160;1.12 draft,</span>
-<span id="revdate">&#160;&#160;05&#160;November,&#160;2024&#160;13:15:53Z</span>
+<span id="revdate">&#160;&#160;06&#160;November,&#160;2024&#160;21:30:39Z</span>
 <br><span id="revremark">See&#160;<a href="https://cfconventions.org" target="_blank">https://cfconventions.org</a>&#160;for&#160;further&#160;information.</span>
 </div>
 </div>
@@ -2713,8 +2713,7 @@ Only numbers (digits, <code>+</code>, <code>-</code> and <code>:</code>) are all
 In a time zone with zero offset, time (approximately) equals mean solar time for 0 <code>degrees_east</code> of longitude.
 (Although this may be exact in a model, in reality the time with zero time zone offset differs by some seconds from mean solar time; see the discussion of UTC and leap seconds in <a href="#calendar">Section 4.4.2, "Calendar"</a>.)
 If both time and time zone offset are omitted the time is 00:00:00 (the beginning of the day i.e. midnight at 0 <code>degrees_east</code>).
-Thus, <strong><code>units = "days since 1990-1-1"</code></strong> means the same as <strong><code>units = "days since 1990-1-1 0:0:0"</code></strong>.
-Note that this interpretation of omitted time, which is an aspect of UDUNITS syntax, is different from <a href="#ISO_8601">[ISO_8601]</a>, in which omitted time implies lack of precision.</p>
+Thus, <strong><code>units = "days since 1990-1-1"</code></strong> means the same as <strong><code>units = "days since 1990-1-1 0:0:0"</code></strong>.</p>
 </div>
 <div class="paragraph">
 <p>The time zone offset <em>Z</em> must be in one of the following four formats, any of which may be prefixed with a sign:</p>
@@ -2744,7 +2743,7 @@ Subtracting the time zone offset from a given datetime converts it to the equiva
 <h4 id="calendar"><a class="anchor" href="#calendar"></a>4.4.2. Calendar</h4>
 <div class="paragraph">
 <p>The calendar defines the set of valid datetimes and their order.
-Note that the CF meaning of "calendar" refers to datetimes, whereas the <a href="#ISO_8601">[ISO_8601]</a> definition refers only to dates.
+Note that the CF meaning of "calendar" refers to datetimes, not to dates alone.
 Datetimes which are not permitted in a given calendar are prohibited both in the time coordinate values and in the reference datetime string in the <strong><code>units</code></strong>.
 It is recommended that the calendar be specified by the <strong><code>calendar</code></strong> attribute of the time coordinate variable.
 The values currently defined for <strong><code>calendar</code></strong> are listed below.</p>
@@ -13340,9 +13339,6 @@ Federal Geographic Data Committee, FGDC-STD-001-1998.</p>
 <p><a id="IEEE_754"></a>[IEEE_754]  <a href="https://doi.org/10.1109/IEEESTD.2019.8766229">IEEE Standard for Floating-Point Arithmetic</a>, in <em>IEEE Std 754-2019 (Revision of IEEE 754-2008)</em>, 22 July 2019.</p>
 </li>
 <li>
-<p><a id="ISO_8601"></a>[ISO_8601]  <a href="https://www.iso.org/obp/ui/#iso:std:iso:8601:-1:ed-1:v1:en">ISO 8601-1:2019, Date and time&#8201;&#8212;&#8201;Representations for information interchange</a>.</p>
-</li>
-<li>
 <p><a id="Kou21"></a>[Kou21]  <a href="https://doi.org/10.5194/gmd-14-377-2021">A note on precision-preserving compression of scientific data</a>. Kouznetsov, R.: <em>Geosci. Model Dev.</em>, 14, 377-389, 2021.</p>
 </li>
 <li>
@@ -13391,7 +13387,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version &#160;1.12 draft<br>
-Last updated 2024-11-05 13:15:52 UTC
+Last updated 2024-11-06 21:30:39 UTC
 </div>
 </div>
 </body>
