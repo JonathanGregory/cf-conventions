@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>CF Conformance Requirements and Recommendations 1.12 draft</title>
+<title>CF Conformance Requirements and Recommendations 1.13 draft</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,7 +439,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="cf-conformance-requirements-and-recommendations">CF Conformance Requirements and Recommendations 1.12 draft</h2>
+<h2 id="cf-conformance-requirements-and-recommendations">CF Conformance Requirements and Recommendations 1.13 draft</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -484,7 +484,10 @@ See <a href="https://github.com/ugrid-conventions/ugrid-conventions" class="bare
 <div class="ulist">
 <ul>
 <li>
-<p>CF attributes that take string values must be 1D character arrays or single atomic strings.</p>
+<p>Any text stored in a CF attribute or variable must be represented in Unicode Normalization Form C and encoded in UTF-8.</p>
+</li>
+<li>
+<p>Any attribute of variable-length string type must be a scalar (not an array).</p>
 </li>
 </ul>
 </div>
@@ -498,9 +501,6 @@ See <a href="https://github.com/ugrid-conventions/ugrid-conventions" class="bare
 <ul>
 <li>
 <p>Variable, dimension and attribute names should begin with a letter and be composed of letters (A-Z, a-z), digits (0-9), and underscores(_). This corresponds to ASCII characters in the decimal ranges (65-90), (97-122), (48-57), and (95). The corresponding Unicode codepoints are (U+0041-U+005A), (U+0061-U+007A), (U+0030-U+0039), and (U+005F).</p>
-</li>
-<li>
-<p>ASCII period (.) and ASCII hyphen (-) may also be included in attribute names only.</p>
 </li>
 <li>
 <p>No two variable names should be identical when case is ignored.</p>
@@ -602,7 +602,7 @@ See <a href="https://github.com/ugrid-conventions/ugrid-conventions" class="bare
 <p>The <strong><code>Conventions</code></strong> attribute must be a single text string containing a list of convention names separated by blank space or commas, one of which shall be the full CF string as described below.</p>
 </li>
 <li>
-<p>Files that conform to the CF version 1.12 draft conventions must indicate this by setting the global <strong><code>Conventions</code></strong> attribute to contain the CF string value "CF-1.12-draft".</p>
+<p>Files that conform to the CF version 1.13 draft conventions must indicate this by setting the global <strong><code>Conventions</code></strong> attribute to contain the CF string value "CF-1.13-draft".</p>
 </li>
 </ul>
 </div>
@@ -707,7 +707,7 @@ References can be absolute, relative or with no path, in which case, the variabl
 <div class="ulist">
 <ul>
 <li>
-<p>The <strong><code>units</code></strong> attribute is required for all variables that represent dimensional quantities (except for boundary variables defined in <a href="https://cfconventions.org/cf-conventions/cf-conventions.html#cell-boundaries">section 7.1</a> and climatology variables defined in <a href="https://cfconventions.org/cf-conventions/cf-conventions.html#climatological-statistics">section 7.4</a>).</p>
+<p>The <strong><code>units</code></strong> attribute is required for all variables that represent dimensional quantities (except for boundary variables defined in <a href="https://cfconventions.org/cf-conventions/cf-conventions.html#cell-boundaries">section 7.1</a> and climatology boundary variables defined in <a href="https://cfconventions.org/cf-conventions/cf-conventions.html#climatological-statistics">section 7.4</a>).</p>
 </li>
 <li>
 <p>The type of the <strong><code>units</code></strong> attribute is a string that must be recognizable by the UDUNITS package.
@@ -1208,6 +1208,9 @@ If there are two dimensions, the leading dimension (CDL order) must match one of
 The specified variable must exist in the file.</p>
 </li>
 <li>
+<p>A boundary variable must be a numeric data type.</p>
+</li>
+<li>
 <p>A boundary variable must have the same dimensions as its associated variable, plus have a trailing dimension (CDL order) for the maximum number of vertices in a cell.
 The trailing dimension must be of size two if the associated variable is one-dimensional, and of size greater than two if the associated variable has more than one dimension.</p>
 </li>
@@ -1215,7 +1218,7 @@ The trailing dimension must be of size two if the associated variable is one-dim
 <p>Any elements of the boundary variable which contain the <strong><code>FillValue</code></strong> must form a consecutive block at the end of the trailing dimension.</p>
 </li>
 <li>
-<p>A boundary variable must be a numeric data type.</p>
+<p>If the associated coordinate variable is one-dimensional and of size greater than one, the bounds of each cell must be ordered in the same sense as the coordinates (increasing or decreasing).</p>
 </li>
 <li>
 <p>A boundary variable can only have inheritable attributes, i.e. any of those marked "BI" in the "Use" column of <a href="http://cfconventions.org/cf-conventions/cf-conventions.html#attribute-appendix">Appendix A</a>, if they are also present on its parent coordinate variable.</p>
@@ -1337,16 +1340,16 @@ The <em>value</em> must be a valid number and the <em>unit</em> a string that is
 The specified variable must exist in the file.</p>
 </li>
 <li>
-<p>A climatology variable must have the same dimension as its associated time coordinate variable, and have a trailing dimension (CDL order) of size 2.</p>
+<p>A climatology boundary variable must have the same dimension as its associated time coordinate variable, and have a trailing dimension (CDL order) of size 2.</p>
 </li>
 <li>
-<p>A climatology variable must be a numeric data type.</p>
+<p>A climatology boundary variable must be a numeric data type.</p>
 </li>
 <li>
-<p>If a climatology variable has <strong><code>units</code></strong>, <strong><code>standard_name</code></strong>, or <strong><code>calendar</code></strong> attributes, they must agree with those of its associated variable.</p>
+<p>If a climatology boundary variable has <strong><code>units</code></strong>, <strong><code>standard_name</code></strong>, or <strong><code>calendar</code></strong> attributes, they must agree with those of its associated variable.</p>
 </li>
 <li>
-<p>A climatology variable must not have <strong><code>_FillValue</code></strong> or <strong><code>missing_value</code></strong> attributes.</p>
+<p>A climatology boundary variable must not have <strong><code>_FillValue</code></strong> or <strong><code>missing_value</code></strong> attributes.</p>
 </li>
 </ul>
 </div>
@@ -1622,7 +1625,8 @@ If the optional formula term <code><strong>nsigma</strong></code> is supplied, i
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-06 21:30:39 UTC
+Version v1.12.0-rc7-24-gb724218<br>
+Last updated 2025-08-01 16:31:01 UTC
 </div>
 </div>
 </body>
