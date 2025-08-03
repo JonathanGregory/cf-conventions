@@ -472,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author31" class="author">Sadie&#160;Bartholomew</span><br>
 <span id="author32" class="author">Thomas Lavergne</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">02&#160;August,&#160;2025&#160;17:03:30Z</span>
+<span id="revdate">03&#160;August,&#160;2025&#160;07:04:47Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -5314,21 +5314,20 @@ The other dimensions of <em>N</em> are the ones over which the normal statistic 
 </div>
 <div class="paragraph">
 <p>The commonest kind of anomaly <em>A</em> is the difference between the value <em>P</em> of a quantity and the mean <em>N</em> of the same quantity over some range of time coordinates, usually called the "climatological normal", the "climate normal", or the "climatology".
-<em>N</em> is usually either a mean over a number of entire years or a climatological mean (<a href="#climatological-statistics">Section 7.4, "Climatological Statistics"</a>).
+<em>N</em> is usually either a mean over a number of entire years or a climatological mean (<a href="#climatological-statistics">Section 7.4, "Climatological Statistics"</a>), computed from the temporal variation of <em>P</em>.
 The time coordinate of the anomaly may or may not lie within the range of times from which <em>N</em> is calculated.
-In the case of an anomaly <em>A</em> with respect to a climatology, <em>N</em> has all the same dimensions and coordinate variables as <em>A</em> except for time.
-<em>N</em> is computed from the temporal variation of <em>P</em>.</p>
+<em>N</em> has all the same dimensions and coordinate variables as <em>A</em> except for time.</p>
 </div>
 <div class="paragraph">
 <p>CF offers two conventions for describing anomaly data.
 In <a href="#temporal-anomalies">Section 7.5.3, "Temporal anomalies using anomaly standard names"</a> we describe a simple convention which depends on special standard names.
-It can be used only for anomalies with respect to climatology (temporal anomalies), and the information it provides about the definition of the norm is insufficient for some use-cases.</p>
+It can be used only for anomalies with respect to time-means or climatological means (temporal anomalies), and the information it provides about the definition of the norm is insufficient for some use-cases.</p>
 </div>
 <div class="paragraph">
-<p>In the remainder of this section and in the following two (<a href="#anomalies-norm-data">Section 7.5.1, "Anomalies with respect to a norm data variable"</a> and <a href="#anomalies-norm-metadata">Section 7.5.2, "Anomalies with respect to a norm metadata variable"</a>) we describe a convention for anomalies with respect to a statistical norm that can be calculated from any single dimension or combination of dimensions, including the commonest case of temporal anomalies (i.e. with respect to a climatological norm).
+<p>In the remainder of this section and in the following two (<a href="#anomalies-norm-data">Section 7.5.1, "Anomalies with respect to a norm data variable"</a> and <a href="#anomalies-norm-metadata">Section 7.5.2, "Anomalies with respect to a norm metadata variable"</a>) we describe a convention for anomalies with respect to a statistical norm that can be calculated from any single dimension or combination of dimensions, including the commonest case of temporal anomalies.
 For example, anomalies might be calculated (as a function of longitude) with respect to the zonal mean, or (as a function of horizontal location) with respect to the minimum value in the area.
 In these examples, the norm is the zonal mean or the area minimum, respectively.
-The convention of this section provides more information than the convention of <a href="#temporal-anomalies">Section 7.5.3, "Temporal anomalies using anomaly standard names"</a> about the climatological norm in the case of temporal anomalies.</p>
+The convention of this section provides more information than the convention of <a href="#temporal-anomalies">Section 7.5.3, "Temporal anomalies using anomaly standard names"</a> about the norm in the case of temporal anomalies.</p>
 </div>
 <div class="paragraph">
 <p>In the convention of this section, a data variable is described as an anomaly by including in its <strong><code>cell_methods</code></strong> attribute a string of the form "<em>name</em><strong><code>:</code></strong> [<em>name</em><strong><code>:</code></strong> &#8230;&#8203;] <strong><code>anomaly wrt</code></strong> <em>norm</em>".
@@ -5351,17 +5350,36 @@ This is known because the entries in <strong><code>cell_methods</code></strong> 
 <div class="paragraph">
 <p>Each <em>name</em> must be the name of a coordinate variable (and dimension) or a scalar coordinate variable of the anomaly data variable <em>A</em>.
 Therefore we call these the <em>anomaly coordinate variables</em>.
-They are not coordinate variables of  <em>N</em> or <em>P</em>, but <em>N</em> and <em>P</em> have coordinate variables for the same quantities as the anomaly coordinate variables.
-Usually there is only one <em>name</em> and one anomaly coordinate variable, and usually it is a spatiotemporal coordinate variable.</p>
+Usually there is only one anomaly coordinate variable, and usually it is a spatiotemporal coordinate variable.</p>
 </div>
 <div class="paragraph">
-<p>For a data variable containing anomalies with respect to climatology, <em>name</em> identifies the time coordinate or scalar coordinate variable as the anomaly coordinate e.g. "<strong><code>time: anomaly wrt</code></strong> <em>norm</em>".
-For an anomaly with respect to the zonal mean, the anomaly coordinate is longitude.
+<p>For instance, for a data variable containing anomalies with respect to the zonal mean, <em>name</em> identifies the coordinate variable or scalar coordinate variable of longitude as the anomaly coordinate variable e.g. "<strong><code>longitude: anomaly wrt</code></strong> <em>norm</em>".
 For an anomaly with respect to the area minimum, we need two <em>name</em>s e.g. "<strong><code>lat: lon: anomaly wrt</code></strong> <em>norm</em>".
-As described in <a href="#cell-methods">Section 7.3, "Cell Methods"</a>, the combination of horizontal coordinate variables can alternatively be represented by the word <strong><code>area</code></strong>, thus "<strong><code>area: anomaly wrt</code></strong> <em>norm</em>".</p>
+As described in <a href="#cell-methods">Section 7.3, "Cell Methods"</a>, the combination of horizontal coordinate variables can alternatively be represented by the word <strong><code>area</code></strong>, thus "<strong><code>area: anomaly wrt</code></strong> <em>norm</em>".
+For an anomaly with respect to a temporal or climatological statistic, <em>name</em> identifies the time coordinate variable of the anomaly data variable.</p>
 </div>
 <div class="paragraph">
-<p>There are two alternatives for <em>norm</em>, described in <a href="#anomalies-norm-data">Section 7.5.1, "Anomalies with respect to a norm data variable"</a> and <a href="#anomalies-norm-metadata">Section 7.5.2, "Anomalies with respect to a norm metadata variable"</a>.</p>
+<p>The anomaly coordinate variables are not coordinate variables of  <em>N</em>, but for each of the anomaly coordinate variables <em>N</em> has a coordinate variable or scalar coordinate variable for the same physical quantity.
+We call these the corresponding variables the <em>norm coordinate variables</em>.
+They indicate the range(s) of coordinates over which the statistic <em>N</em> was calculated from the variation of <em>P</em>.
+For instance, if <em>N</em> contains zonal means, it has a norm coordinate variable for longitude, corresponding to the anomaly coordinate variable of <em>A</em> for longitude, and indicating the range of longitudes from which the zonal mean was calculated.
+Whereas the anomaly coordinate variable(s) are usually multivalued, the norm coordinate variable(s) must be of size one, with one exception:
+The norm coordinate variable of a climatological statistic is multivalued if the norm has values for several intervals of the diurnal or annual cycle e.g. climatological means for each of the four seasons.</p>
+</div>
+<div class="paragraph">
+<p>There are two alternatives for <em>norm</em>.
+If the data variable containing the norm <em>N</em> is present in the dataset, it can be named as <em>norm</em> in <strong><code>cell_methods</code></strong> of the anomaly variable, e.g. a data variable containing zonal means for anomalies with respect to the zonal mean.
+No modification to the metadata of <em>N</em> is required for it to serve as the norm for an anomaly data variable, and it may still be treated as a data variable in its own right as well.
+We describe the use of a norm data variable first (<a href="#anomalies-norm-data">Section 7.5.1, "Anomalies with respect to a norm data variable"</a>), although it is less common, because it is conceptually more obvious.</p>
+</div>
+<div class="paragraph">
+<p>The second alternative is for <em>norm</em> is <strong><code>cell_methods</code></strong> <em>norm metadata variable</em> instead of the norm data variable.
+If the norm is a climatological statistic</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>described in  and &lt;&lt;anomalies-norm-metadata&gt;&gt;.</pre>
+</div>
 </div>
 <div class="sect3">
 <h4 id="anomalies-norm-data"><a class="anchor" href="#anomalies-norm-data"></a>7.5.1. Anomalies with respect to a norm data variable</h4>
@@ -13994,7 +14012,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-08-02 17:03:29 UTC
+Last updated 2025-08-03 07:04:47 UTC
 </div>
 </div>
 </body>
