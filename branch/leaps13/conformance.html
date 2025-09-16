@@ -925,14 +925,17 @@ The values of <strong><code>var</code></strong> must be variables that exist in 
 <p>The time <strong><code>units</code></strong> of a time coordinate variable must contain a reference datetime.</p>
 </li>
 <li>
-<p>The value for seconds in the reference datetime must not equal or exceed <strong><code>60</code></strong>, except for valid leap seconds if the <strong><code>calendar</code></strong> is <strong><code>utc</code></strong>.</p>
+<p>The value for seconds in the reference datetime must not equal or exceed 60, except for valid leap seconds if the <strong><code>calendar</code></strong> is <strong><code>utc</code></strong>.</p>
 </li>
 <li>
 <p>A non-zero time zone offset must not appear in the reference datetime in the <strong><code>utc</code></strong> and <strong><code>tai</code></strong> calendars.</p>
 </li>
 <li>
-<p>Datetimes before <strong><code>1972-01-01 0:0:0</code></strong> are invalid in the <strong><code>utc</code></strong> calendar, datetimes before <strong><code>1958-01-01 0:0:0</code></strong> are invalid in the <strong><code>tai</code></strong> calendar, datetimes in negative years are invalid in the <strong><code>standard</code></strong> and <strong><code>julian</code></strong> calendars, and datetimes in the range from (and including) <strong><code>1582-10-5 0:0:0</code></strong> until (but excluding) <strong><code>1582-10-15 0:0:0</code></strong> are invalid in the <strong><code>standard</code></strong> calendar.
-Invalid datetimes must not appear as the reference in the <strong><code>units</code></strong>, and must not be encoded as time coordinates.</p>
+<p>Datetimes before 1972-01-01 0:0:0 are invalid in the <strong><code>utc</code></strong> calendar, datetimes before 1958-01-01 0:0:0 are invalid in the <strong><code>tai</code></strong> calendar, datetimes in negative years are invalid in the <strong><code>standard</code></strong> and <strong><code>julian</code></strong> calendars, and datetimes in the range from (and including) 1582-10-5 0:0:0 until (but excluding) 1582-10-15 0:0:0 are invalid in the <strong><code>standard</code></strong> calendar.
+Invalid datetimes must not be encoded as time coordinates.</p>
+</li>
+<li>
+<p>The reference datetime of a time coordinate variable must be a valid datetime in the specified calendar.</p>
 </li>
 </ul>
 </div>
@@ -940,12 +943,26 @@ Invalid datetimes must not appear as the reference in the <strong><code>units</c
 <p><strong>Recommendations:</strong></p>
 </div>
 <div class="paragraph">
-<p>In the first two recommendations, when we refer to a UDUNITS unit of time e.g. <strong><code>year</code></strong>, we mean the string given or any which is equivalent to it in UDUNITS e.g. <strong><code>yr</code></strong>.
-* Units of <strong><code>year</code></strong> and <strong><code>month</code></strong> should not be used in any calendar.
-* Units of <strong><code>day</code></strong>, <strong><code>hour</code></strong> and <strong><code>minute</code></strong> should not be used in the <strong><code>utc</code></strong> calendar. In that calendar, the only recommended unit is <strong><code>second</code></strong>.
-* UDUNITS permits a number of alternatives to the word <strong><code>since</code></strong> in the units of time coordinates. All the alternatives have exactly the same meaning in UDUNITS. For compatibility with other software, CF strongly recommends that <strong><code>since</code></strong> should be used.
-* A non-zero time zone offset should not be specified in the reference datetime.
-* In the <strong><code>standard</code></strong> calendar, a reference datetime before <strong><code>1582-10-5 0:0:0</code></strong> should not be used for a time coordinate representing <strong><code>1582-10-15 0:0:0</code></strong> or a later datetime, and a reference datetime of <strong><code>1582-10-15 0:0:0</code></strong> or later should not be used for a time coordinate representing a datetime earlier than <strong><code>1582-10-5 0:0:0</code></strong>.</p>
+<p>In the first two recommendations, when we refer to a UDUNITS unit of time e.g. <strong><code>year</code></strong>, we mean the string given or any which is equivalent to it in UDUNITS e.g. <strong><code>yr</code></strong>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Units of <strong><code>year</code></strong> and <strong><code>month</code></strong> should not be used in any calendar.</p>
+</li>
+<li>
+<p>Units of <strong><code>day</code></strong>, <strong><code>hour</code></strong> and <strong><code>minute</code></strong> should not be used in the <strong><code>utc</code></strong> calendar. In that calendar, the only recommended unit is <strong><code>second</code></strong>.</p>
+</li>
+<li>
+<p>UDUNITS permits a number of alternatives to the word <strong><code>since</code></strong> in the units of time coordinates. All the alternatives have exactly the same meaning in UDUNITS. For compatibility with other software, CF strongly recommends that <strong><code>since</code></strong> should be used.</p>
+</li>
+<li>
+<p>A non-zero time zone offset should not be specified in the reference datetime.</p>
+</li>
+<li>
+<p>In the <strong><code>standard</code></strong> calendar, a reference datetime before 1582-10-5 0:0:0 should not be used for a time coordinate representing 1582-10-15 0:0:0 or a later datetime, and a reference datetime of 1582-10-15 0:0:0 or later should not be used for a time coordinate representing a datetime earlier than 1582-10-5 0:0:0.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -960,9 +977,6 @@ Invalid datetimes must not appear as the reference in the <strong><code>units</c
 </li>
 <li>
 <p>If present, the value of the <strong><code>calendar</code></strong> attribute must be one of the standardized values (case insensitive) detailed in this section, unless the <strong><code>month_length</code></strong> attribute is present, in which case the <strong><code>calendar</code></strong> attribute must <em>not</em> take one of the standardized values.</p>
-</li>
-<li>
-<p>The reference datetime of a time coordinate variable must be a legal datetime in the specified calendar.</p>
 </li>
 </ul>
 </div>
@@ -979,9 +993,6 @@ Invalid datetimes must not appear as the reference in the <strong><code>units</c
 </li>
 <li>
 <p>The value <strong><code>standard</code></strong> should be used instead of <strong><code>gregorian</code></strong> in the <strong><code>calendar</code></strong> attribute.</p>
-</li>
-<li>
-<p>The time coordinate should not cross the date 1582-10-15 when the default mixed Gregorian/Julian calendar is in use.</p>
 </li>
 </ul>
 </div>
@@ -1605,7 +1616,7 @@ If the optional formula term <code><strong>nsigma</strong></code> is supplied, i
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-09-16 17:17:25 UTC
+Last updated 2025-09-16 20:25:02 UTC
 </div>
 </div>
 </body>
