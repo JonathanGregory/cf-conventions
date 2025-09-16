@@ -932,21 +932,12 @@ The values of <strong><code>var</code></strong> must be variables that exist in 
 <div class="paragraph">
 <p><strong>Recommendations:</strong></p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Units of <strong><code>year</code></strong> and <strong><code>month</code></strong> should not be used in any calendar.</p>
-</li>
-<li>
-<p>Units of <strong><code>day</code></strong>, <strong><code>hour</code></strong> and <strong><code>minute</code></strong> should not be used in the <strong><code>utc</code></strong> calendar. In that calendar, the only recommended unit is <strong><code>second</code></strong>.</p>
-</li>
-<li>
-<p>UDUNITS permits a number of alternatives to the word <strong><code>since</code></strong> in the units of time coordinates. All the alternatives have exactly the same meaning in UDUNITS. For compatibility with other software, CF strongly recommends that <strong><code>since</code></strong> should be used.</p>
-</li>
-<li>
-<p>A non-zero time zone offset should not be specified in the reference datetime.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>In the first two recommendations, when we refer to a UDUNITS unit of time e.g. <strong><code>year</code></strong>, we mean the string given or any which is equivalent to it in UDUNITS e.g. <strong><code>yr</code></strong>.
+* Units of <strong><code>year</code></strong> and <strong><code>month</code></strong> should not be used in any calendar.
+* Units of <strong><code>day</code></strong>, <strong><code>hour</code></strong> and <strong><code>minute</code></strong> should not be used in the <strong><code>utc</code></strong> calendar. In that calendar, the only recommended unit is <strong><code>second</code></strong>.
+* UDUNITS permits a number of alternatives to the word <strong><code>since</code></strong> in the units of time coordinates. All the alternatives have exactly the same meaning in UDUNITS. For compatibility with other software, CF strongly recommends that <strong><code>since</code></strong> should be used.
+* A non-zero time zone offset should not be specified in the reference datetime.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1635,7 +1626,7 @@ If the optional formula term <code><strong>nsigma</strong></code> is supplied, i
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-06-25 06:28:34 UTC
+Last updated 2025-09-16 15:35:42 UTC
 </div>
 </div>
 </body>
