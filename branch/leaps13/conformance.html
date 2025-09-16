@@ -925,7 +925,14 @@ The values of <strong><code>var</code></strong> must be variables that exist in 
 <p>The time <strong><code>units</code></strong> of a time coordinate variable must contain a reference datetime.</p>
 </li>
 <li>
-<p>A non-zero time zone offset is not allowed in the reference datetime in the <strong><code>utc</code></strong> and <strong><code>tai</code></strong> calendars.</p>
+<p>The value for seconds in the reference datetime must not equal or exceed <strong><code>60</code></strong>, except for valid leap seconds if the <strong><code>calendar</code></strong> is <strong><code>utc</code></strong>.</p>
+</li>
+<li>
+<p>A non-zero time zone offset must not appear in the reference datetime in the <strong><code>utc</code></strong> and <strong><code>tai</code></strong> calendars.</p>
+</li>
+<li>
+<p>Datetimes before <strong><code>1972-01-01 0:0:0</code></strong> are invalid in the <strong><code>utc</code></strong> calendar, datetimes before <strong><code>1958-01-01 0:0:0</code></strong> are invalid in the <strong><code>tai</code></strong> calendar, datetimes in negative years are invalid in the <strong><code>standard</code></strong> and <strong><code>julian</code></strong> calendars, and datetimes in the range from (and including) <strong><code>1582-10-5 0:0:0</code></strong> until (but excluding) <strong><code>1582-10-15 0:0:0</code></strong> are invalid in the <strong><code>standard</code></strong> calendar.
+Invalid datetimes must not appear as the reference in the <strong><code>units</code></strong>, and must not be encoded as time coordinates.</p>
 </li>
 </ul>
 </div>
@@ -937,7 +944,8 @@ The values of <strong><code>var</code></strong> must be variables that exist in 
 * Units of <strong><code>year</code></strong> and <strong><code>month</code></strong> should not be used in any calendar.
 * Units of <strong><code>day</code></strong>, <strong><code>hour</code></strong> and <strong><code>minute</code></strong> should not be used in the <strong><code>utc</code></strong> calendar. In that calendar, the only recommended unit is <strong><code>second</code></strong>.
 * UDUNITS permits a number of alternatives to the word <strong><code>since</code></strong> in the units of time coordinates. All the alternatives have exactly the same meaning in UDUNITS. For compatibility with other software, CF strongly recommends that <strong><code>since</code></strong> should be used.
-* A non-zero time zone offset should not be specified in the reference datetime.</p>
+* A non-zero time zone offset should not be specified in the reference datetime.
+* In the <strong><code>standard</code></strong> calendar, a reference datetime before <strong><code>1582-10-5 0:0:0</code></strong> should not be used for a time coordinate representing <strong><code>1582-10-15 0:0:0</code></strong> or a later datetime, and a reference datetime of <strong><code>1582-10-15 0:0:0</code></strong> or later should not be used for a time coordinate representing a datetime earlier than <strong><code>1582-10-5 0:0:0</code></strong>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -974,35 +982,6 @@ The values of <strong><code>var</code></strong> must be variables that exist in 
 </li>
 <li>
 <p>The time coordinate should not cross the date 1582-10-15 when the default mixed Gregorian/Julian calendar is in use.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="leap-seconds">4.4.3 Leap Seconds</h3>
-<div class="paragraph">
-<p><strong>Requirements:</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The reference datetime in time <strong><code>units</code></strong> is not allowed to contain seconds equal to or greater than 60, except for valid leap seconds if the <strong><code>calendar</code></strong> is <strong><code>utc</code></strong>.</p>
-</li>
-<li>
-<p>A time coordinate variable must not have a <strong><code>units_metadata</code></strong> attribute if it has a <strong><code>calendar</code></strong> attribute with a value <em>other than</em> one of the following values: <code>standard</code>, <code>gregorian</code> (deprecated), <code>proleptic_gregorian</code>, <code>julian</code>.</p>
-</li>
-<li>
-<p>If a time coordinate variable has a <strong><code>units_metadata</code></strong> attribute then it must have one of these values: <code>leap_seconds: none</code>, <code>leap_seconds: utc</code>, or <code>leap_seconds: unknown</code>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Recommendations:</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A time coordinate variable should have a <strong><code>units_metadata</code></strong>  attribute if it has no <strong><code>calendar</code></strong> attribute, or if it has a <strong><code>calendar</code></strong> attribute with one of the following values: <code>standard</code>, <code>gregorian</code> (deprecated), <code>proleptic_gregorian</code>, <code>julian</code>.</p>
 </li>
 </ul>
 </div>
@@ -1626,7 +1605,7 @@ If the optional formula term <code><strong>nsigma</strong></code> is supplied, i
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-09-16 15:35:42 UTC
+Last updated 2025-09-16 17:09:53 UTC
 </div>
 </div>
 </body>
