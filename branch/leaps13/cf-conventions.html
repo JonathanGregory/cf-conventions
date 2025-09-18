@@ -472,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author31" class="author">Sadie&#160;Bartholomew</span><br>
 <span id="author32" class="author">Thomas Lavergne</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">18&#160;September,&#160;2025&#160;20:30:56Z</span>
+<span id="revdate">18&#160;September,&#160;2025&#160;21:25:06Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -2716,7 +2716,7 @@ See <a href="#leap-seconds">Section 4.4.3, "Leap Seconds"</a>.</p>
 units of measure for time.
 The most commonly used of these units strings (and their abbreviations) are <strong><code>day</code></strong> (<strong><code>d</code></strong>), <strong><code>hour</code></strong> (<strong><code>hr</code></strong>, <strong><code>h</code></strong>), <strong><code>minute</code></strong> (<strong><code>min</code></strong>) and <strong><code>second</code></strong> (<strong><code>sec</code></strong>, <strong><code>s</code></strong>).
 Plural forms are also acceptable.
-Any unit may optionally have one of the decimal prefixes for multiples and submultiples (<a href="#table-supported-units">Prefixes for decimal multiples and submultiples of units</a>), but these are uncommon except for submultiples of <strong><code>second</code></strong> e.g. <strong><code>millisecond</code></strong> or <strong><code>ms</code></strong>.</p>
+Any unit may optionally have one of the decimal prefixes for multiples and submultiples (<a href="#table-supported-units">Table 3.1</a>), but these are uncommon except for submultiples of <strong><code>second</code></strong> e.g. <strong><code>millisecond</code></strong> or <strong><code>ms</code></strong>.</p>
 </div>
 <div class="paragraph">
 <p>UDUNITS defines a <strong><code>year</code></strong> to be exactly 365.242198781 days (the interval between 2 successive passages of the sun through vernal equinox).
@@ -2750,11 +2750,13 @@ Its format is <em>y</em>-<em>m</em>-<em>d</em> [<em>H</em>:<em>M</em>:<em>S</em>
 </li>
 <li>
 <p><em>Z</em> is the time zone offset.
-<em>Z</em> is <em>not</em> a time zone name or acronym; it is an interval of time, specified in one of the formats described below.
-The default for <em>Z</em> is zero offset, which may also be explicitly indicated in any of the numeric formats for <em>Z</em> defined below, or by the letter <code>Z</code>, sometimes referred to as "Zulu Time".
-We suggest that a zero offset be stated explicitly to avoid any confusion in any situation where omitting it might be misunderstood as indicating local time.</p>
+<em>Z</em> is <em>not</em> a time zone name or acronym; it is an interval of time.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>The default for time zone offset <em>Z</em> is zero, which may also be explicitly indicated in any of the numeric formats for <em>Z</em> defined below, or by the letter <code>Z</code>, sometimes referred to as "Zulu Time".
+We suggest that a zero offset be stated explicitly to avoid confusion in any situation where omitting it might be misunderstood as indicating local time.</p>
 </div>
 <div class="paragraph">
 <p>In a time zone with zero offset, time (approximately) equals mean solar time for 0 <code>degrees_east</code> of longitude.
@@ -2868,7 +2870,7 @@ Negative years are invalid in time coordinates and reference datetimes in the <s
 <p>A Gregorian calendar <em>with</em> leap seconds as prescribed by UTC.
 Datetimes before 1972-01-01 0:0:0 are not allowed in this calendar.
 Datetimes in the future are not allowed in this calendar, because it is unknown when future leap seconds will occur.
-In this calendar, the second is the only recommended unit of measure in the <strong><code>units</code></strong> of the time coordinate variable (denoted by any string allowed in UDUNITS, optionally with one of the prefixes of <a href="#table-supported-units">Prefixes for decimal multiples and submultiples of units</a>).
+In this calendar, the second is the only recommended unit of measure in the <strong><code>units</code></strong> of the time coordinate variable (denoted by any string allowed in UDUNITS, optionally with one of the prefixes of <a href="#table-supported-units">Table 3.1</a>).
 When a datetime is converted to a time coordinate value or vice-versa in this calendar, any leap seconds (positive or negative) must be counted that occurred in the interval between the datetime and the reference datetime in the <strong><code>units</code></strong>.
 For any given instant, the <strong><code>utc</code></strong> datetime is behind the <strong><code>tai</code></strong> datetime, where "behind" means the same as it does when describing a timezone to the west as being behind one to the east.
 Moreover, a given datetime in the <strong><code>utc</code></strong> calendar represents an instant that is earlier than the same datetime in the <strong><code>tai</code></strong> calendar.
@@ -2949,7 +2951,7 @@ Data using the <strong><code>utc</code></strong> or <strong><code>proleptic_greg
 However, <em>for data in the real-world historical Gregorian&#8212;&#8203;Julian calendar including datetimes before 1972, the <strong><code>standard</code></strong> calendar is the only applicable choice.</em></p>
 </div>
 <div class="paragraph">
-<p>CF version 1.12 introduced possible values of the form "<strong><code>leap_seconds:</code></strong> _value" for the <strong><code>units_metadata</code></strong> attribute, in order to specify the treatment of leap seconds in the <strong><code>standard</code></strong>, <strong><code>julian</code></strong> and <strong><code>proleptic_gregorian</code></strong> calendars.
+<p>CF version 1.12 introduced possible values of the form "<strong><code>leap_seconds:</code></strong> <em>value</em>" for the <strong><code>units_metadata</code></strong> attribute, in order to specify the treatment of leap seconds in the <strong><code>standard</code></strong>, <strong><code>julian</code></strong> and <strong><code>proleptic_gregorian</code></strong> calendars.
 CF version 1.13 withdrew this use of <strong><code>units_metadata</code></strong>, in favour of the recommendations given above that the <strong><code>utc</code></strong> or <strong><code>proleptic_gregorian</code></strong> calendars should be used by data-producers instead of <strong><code>standard</code></strong> if it is important to indicate whether leap seconds are included in the timeline.</p>
 </div>
 </div>
@@ -13379,7 +13381,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-09-18 20:30:56 UTC
+Last updated 2025-09-18 21:25:06 UTC
 </div>
 </div>
 </body>
