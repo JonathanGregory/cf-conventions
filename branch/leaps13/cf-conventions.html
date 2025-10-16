@@ -472,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author31" class="author">Sadie&#160;Bartholomew</span><br>
 <span id="author32" class="author">Thomas Lavergne</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">18&#160;September,&#160;2025&#160;21:25:06Z</span>
+<span id="revdate">16&#160;October,&#160;2025&#160;10:03:32Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -564,11 +564,12 @@ Eaton, B., Gregory, J., Drach, B., Taylor, K., Hankin, S. et al. (2024). NetCDF 
 </li>
 <li><a href="#time-coordinate">4.4. Time Coordinate</a>
 <ul class="sectlevel3">
-<li><a href="#time-coordinate-units">4.4.1. Time Coordinate Units</a></li>
-<li><a href="#calendar">4.4.2. Calendar</a></li>
-<li><a href="#leap-seconds">4.4.3. Leap Seconds</a></li>
-<li><a href="#none-calendar">4.4.4. Time Coordinates with no Annual Cycle</a></li>
-<li><a href="#explicit-calendar">4.4.5. Explicitly Defined Calendar</a></li>
+<li><a href="#time-coordinate-variables">4.4.1. Time Coordinate Variables</a></li>
+<li><a href="#time-coordinate-units">4.4.2. Time Coordinate Units</a></li>
+<li><a href="#calendar">4.4.3. Calendar</a></li>
+<li><a href="#leap-seconds">4.4.4. Leap Seconds</a></li>
+<li><a href="#none-calendar">4.4.5. Time Coordinates with no Annual Cycle</a></li>
+<li><a href="#explicit-calendar">4.4.6. Explicitly Defined Calendar</a></li>
 </ul>
 </li>
 <li><a href="#discrete-axis">4.5. Discrete Axis</a></li>
@@ -2135,7 +2136,7 @@ Unless it is dimensionless, a variable with a <strong><code>standard_name</code>
 Units of time coordinates (<a href="#time-coordinate">Section 4.4, "Time Coordinate"</a>), whose <strong><code>units</code></strong> attribute includes the word <strong><code>since</code></strong>, are <em>not</em> physically equivalent to time units that do not include <strong><code>since</code></strong> in the <strong><code>units</code></strong>.
 To mark this distinction, the canonical unit given for quantities used for time coordinates is <strong><code>s since 1958-1-1</code></strong>.
 The reference datetime in the canonical unit (the beginning of the day i.e. midnight on 1st January 1958 at 0 <code>degrees_east</code>) is not restrictive; the time coordinate variable&#8217;s own <strong><code>units</code></strong> may contain any reference datetime (after <strong><code>since</code></strong>) that is valid in its calendar.
-(We use <code>1958-1-1</code> because it is the beginning of International Atomic Time, and a valid datetime in all CF calendars; see also <a href="#leap-seconds">Section 4.4.3, "Leap Seconds"</a>.)
+(We use <code>1958-1-1</code> because it is the beginning of International Atomic Time, and a valid datetime in all CF calendars; see also <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a>.)
 In both kinds of time <strong><code>units</code></strong> attribute (with or without <strong><code>since</code></strong>), any unit for measuring time can be used i.e. any unit which is physically equivalent to the SI base unit of time, namely the second.</p>
 </dd>
 <dt class="hdlist1">description</dt>
@@ -2679,12 +2680,29 @@ Thus the pressure at gridpoint <strong><code>(n,k,j,i)</code></strong> would be 
 <div class="sect2">
 <h3 id="time-coordinate"><a class="anchor" href="#time-coordinate"></a>4.4. Time Coordinate</h3>
 <div class="paragraph">
-<p>A time coordinate is a number which identifies an instant along the continuous physical dimension of time, whether in reality or in a model.
-The instant can equivalently be identified by its datetime, which is a set of numbers comprising year, month, day, hour, minute and second, where the second may have a fraction but the others are all integer.
-The time coordinate and the datetime are interconvertible given the <strong><code>calendar</code></strong> attribute of the time coordinate variable (<a href="#calendar">Section 4.4.2, "Calendar"</a>) and its <strong><code>units</code></strong> attribute (containing the time unit of the coordinate values and the reference datetime, <a href="#time-coordinate-units">Section 4.4.1, "Time Coordinate Units"</a>).</p>
+<p>Variables representing time axes have time coordinates as their elements.
+In CF data, a time coordinate is a number which identifies an instant along the continuous axis of time, expressed as elapsed time relative to a specified reference point.
+Variables containing time coordinates have a <strong><code>units</code></strong> attribute (see <a href="#time-coordinate-variables">Section 4.4.1, "Time Coordinate Variables"</a> and <a href="#time-coordinate-units">Section 4.4.2, "Time Coordinate Units"</a>, e.g.\ <strong><code>units="days since 1990-1-1 0:0:0"</code></strong>) which defines both the unit of measure of elapsed time (here <strong><code>days</code></strong>) and the reference point in time (here <strong><code>1990-1-1 0:0:0</code></strong>).</p>
 </div>
 <div class="paragraph">
-<p>Variables containing time coordinates must always explicitly include the <strong><code>units</code></strong> attribute, formatted as described in <a href="#time-coordinate-units">Section 4.4.1, "Time Coordinate Units"</a>.
+<p>The interpretation of the numeric values as dates and times depends on both the <strong><code>units</code></strong> attribute and the calendar, specified by the <strong><code>calendar</code></strong> attribute.
+Given the <strong><code>units</code></strong> and <strong><code>calendar</code></strong>, a time coordinate value and its corresponding representation as a date and time are interconvertible.
+CF defines several different calendars (see~<a href="#calendar">Section 4.4.3, "Calendar"</a>) to meet diverse requirements, both for the real world and for models.</p>
+</div>
+<div class="paragraph">
+<p>In reality, the need for explicit calendar definitions arises in part because the natural astronomical periods of year and day, which are based on the Earth&#8217;s orbit and rotation, are not constants and do not align exactly.
+A year is not an integer multiple of days, the length of a day varies with changes in Earth&#8217;s rotation, and the timing of seasons is affected by the precession of the equinoxes.
+Calendars introduce an extra day (a "leap day", in leap years) to keep annual cycles aligned with the seasons, and leap seconds are occasionally inserted into Coordinated Universal Time (<a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC</a>) to maintain agreement with observed rotation.
+Some CF real-world calendars either explicitly omit leap seconds or tacitly assume they are ignored (see <a href="#calendar">Section 4.4.3, "Calendar"</a> and <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a>).</p>
+</div>
+<div class="paragraph">
+<p>In addition to real-world calendars, CF defines several simplified calendars that are widely used in numerical models including, for example, the <strong><code>360_day</code></strong> calendar (with twelve 30-day months) and the <strong><code>366_day</code></strong> calendar (with a leap day every year).
+These calendars consistently represent the lengths of days and years in those models, where the astronomical cycles are themselves simplified.</p>
+</div>
+<div class="sect3">
+<h4 id="time-coordinate-variables"><a class="anchor" href="#time-coordinate-variables"></a>4.4.1. Time Coordinate Variables</h4>
+<div class="paragraph">
+<p>Variables containing time coordinates must always explicitly include the <strong><code>units</code></strong> attribute, formatted as described in <a href="#time-coordinate-units">Section 4.4.2, "Time Coordinate Units"</a>.
 There is no default value for the <strong><code>units</code></strong>.
 A coordinate variable is identifiable as a time coordinate variable from its <strong><code>units</code></strong> alone.
 Optionally, a time coordinate variable may be indicated additionally by providing the <strong><code>standard_name</code></strong> attribute with an appropriate value, and/or the <strong><code>axis</code></strong> attribute with the value <strong><code>T</code></strong>.</p>
@@ -2702,14 +2720,15 @@ Optionally, a time coordinate variable may be indicated additionally by providin
 </div>
 </div>
 </div>
+</div>
 <div class="sect3">
-<h4 id="time-coordinate-units"><a class="anchor" href="#time-coordinate-units"></a>4.4.1. Time Coordinate Units</h4>
+<h4 id="time-coordinate-units"><a class="anchor" href="#time-coordinate-units"></a>4.4.2. Time Coordinate Units</h4>
 <div class="paragraph">
 <p>The <strong><code>units</code></strong> attribute of a time coordinate variable takes a string value that follows the formatting requirements of the <a href="#UDUNITS">[UDUNITS]</a> package (e.g. <a href="#time-axis-ex">Example of a time coordinate variable</a>).
 It must comprise a unit of measure that is physically equivalent to the SI base unit of time (i.e. the second), followed by the word <strong><code>since</code></strong> and a reference datetime.
-The format of the <strong><code>units</code></strong> string implies that the time coordinate equals the length of the time interval from the instant identified by the reference datetime to the instant identified by the time coordinate.
-This is exactly true in all cases except when leap seconds occur between the two intervals in the <strong><code>standard</code></strong> calendar.
-See <a href="#leap-seconds">Section 4.4.3, "Leap Seconds"</a>.</p>
+By a "datetime" we mean the time and date together, specified as a set of six numbers (year, month, day, hour, minute, second), which are integers except for the second, which may have a fraction.
+The time coordinate exactly equals the length of the time interval from the instant identified by the reference datetime to the instant identified by the time coordinate, in all cases except when leap seconds occur between the two intervals in the <strong><code>standard</code></strong> calendar.
+See <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a>.</p>
 </div>
 <div class="paragraph">
 <p>The CF standard follows UDUNITS (<a href="#units">Section 3.1, "Units"</a>) in the definition of the acceptable
@@ -2728,12 +2747,12 @@ We recommend that <strong><code>year</code></strong> and <strong><code>month</co
 These are not calendar units.
 When a leap second is inserted into UTC, the minute, hour and day affected differ by one second from their usual durations according to clock time, but the units of <strong><code>minute</code></strong>, <strong><code>hour</code></strong> and <strong><code>day</code></strong> do not; they are fixed units of measure.
 To avoid mistakes and confusion, we therefore recommend that these units should not be used in the <strong><code>utc</code></strong> calendar; instead, we recommend the <strong><code>second</code></strong> as the unit for time coordinates in that calendar.
-See also <a href="#calendar">Section 4.4.2, "Calendar"</a> and <a href="#leap-seconds">Section 4.4.3, "Leap Seconds"</a>.</p>
+See also <a href="#calendar">Section 4.4.3, "Calendar"</a> and <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a>.</p>
 </div>
 <div class="paragraph">
 <p>UDUNITS permits a number of alternatives to the word <strong><code>since</code></strong> in the units of time coordinates.
 All the alternatives have exactly the same meaning in UDUNITS.
-For compatibility with other software, CF strongly recommends that <code>since</code> should be used.</p>
+For compatibility with other software, CF strongly recommends that <strong><code>since</code></strong> should be used.</p>
 </div>
 <div class="paragraph">
 <p>The reference datetime string (appearing after the identifier <strong><code>since</code></strong>) is required.
@@ -2743,10 +2762,10 @@ Its format is <em>y</em>-<em>m</em>-<em>d</em> [<em>H</em>:<em>M</em>:<em>S</em>
 <div class="ulist">
 <ul>
 <li>
-<p><em>y</em> is year, <em>m</em> month, <em>d</em> day, <em>H</em> hour and <em>M</em> minute, which are all integers of one or more digits, and <em>y</em> may be prefixed with a sign (but note that some CF calendars do not permit negative years; see <a href="#calendar">Section 4.4.2, "Calendar"</a>),</p>
+<p><em>y</em> is year, <em>m</em> month, <em>d</em> day, <em>H</em> hour and <em>M</em> minute, which are all integers of one or more digits, and <em>y</em> may be prefixed with a sign (but note that some CF calendars do not permit negative years; see <a href="#calendar">Section 4.4.3, "Calendar"</a>),</p>
 </li>
 <li>
-<p><em>S</em> is second, which may be integer or floating point (see <a href="#leap-seconds">Section 4.4.3, "Leap Seconds"</a> regarding <em>S</em>&gt;59),</p>
+<p><em>S</em> is second, which may be integer or floating point (see <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a> regarding <em>S</em>,</p>
 </li>
 <li>
 <p><em>Z</em> is the time zone offset.
@@ -2755,21 +2774,21 @@ Its format is <em>y</em>-<em>m</em>-<em>d</em> [<em>H</em>:<em>M</em>:<em>S</em>
 </ul>
 </div>
 <div class="paragraph">
-<p>The default for time zone offset <em>Z</em> is zero, which may also be explicitly indicated in any of the numeric formats for <em>Z</em> defined below, or by the letter <code>Z</code>, sometimes referred to as "Zulu Time".
+<p>The default for time zone offset <em>Z</em> is zero, which may also be explicitly indicated in any of the numeric formats for <em>Z</em> defined below, or by the letter <strong><code>Z</code></strong>, sometimes referred to as "Zulu Time".
 We suggest that a zero offset be stated explicitly to avoid confusion in any situation where omitting it might be misunderstood as indicating local time.</p>
 </div>
 <div class="paragraph">
-<p>In a time zone with zero offset, time (approximately) equals mean solar time for 0 <code>degrees_east</code> of longitude.
-(Although this may be exact in a model, in reality the time with zero time zone offset differs by some seconds from mean solar time; see the discussion of UTC and leap seconds in <a href="#calendar">Section 4.4.2, "Calendar"</a>.)
-If both time and time zone offset are omitted the time is 00:00:00 (the beginning of the day i.e. midnight at 0 <code>degrees_east</code>).
+<p>In a time zone with zero offset, time (approximately) equals mean solar time for 0 <strong><code>degrees_east</code></strong> of longitude.
+(Although this may be exact in a model, in reality the time with zero time zone offset differs by some seconds from mean solar time; see the discussion of UTC and leap seconds in <a href="#calendar">Section 4.4.3, "Calendar"</a>.)
+If both time and time zone offset are omitted the time is 00:00:00 (the beginning of the day i.e. midnight at 0 <strong><code>degrees_east</code></strong>).
 Thus, <strong><code>units = "days since 1990-1-1"</code></strong> means the same as <strong><code>units = "days since 1990-1-1 00:00:00"</code></strong>.</p>
 </div>
 <div class="paragraph">
 <p>We recommend that a non-zero time zone offset should not be specified, because it is easy to make mistakes about the sign of the offset and allowance for daylight-saving/summer time.
-A non-zero offset is <em>not allowed</em> in the <strong><code>utc</code></strong> and <strong><code>tai</code></strong> calendars (see <a href="#calendar">Section 4.4.2, "Calendar"</a>).</p>
+A non-zero offset is <em>not allowed</em> in the <strong><code>utc</code></strong> and <strong><code>tai</code></strong> calendars (see <a href="#calendar">Section 4.4.3, "Calendar"</a>).</p>
 </div>
 <div class="paragraph">
-<p>Other than <code>Z</code> for zero offset, the time zone offset <em>Z</em> must be in one of the following four numeric formats, each of which may optionally be prefixed by a positive sign <code>+</code> or negative sign <code>-</code>, the default sign being positive:</p>
+<p>Other than <strong><code>Z</code></strong> for zero offset, the time zone offset <em>Z</em> must be in one of the following four numeric formats, each of which may optionally be prefixed by a positive sign <strong><code>+</code></strong> or negative sign <strong><code>-</code></strong>, the default sign being positive:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2777,7 +2796,7 @@ A non-zero offset is <em>not allowed</em> in the <strong><code>utc</code></stron
 <p><em>H</em>, the hour alone, of one or two digits e.g. <strong><code>-6</code></strong>, <strong><code>2</code></strong>, <strong><code>+11</code></strong>, which is sufficient for many time zones.</p>
 </li>
 <li>
-<p><em>H</em>:<em>M</em>, where <em>H</em> is hour and <em>M</em> minute, each of one or two digits, and separated by a colon <code>:</code>, e.g. <strong><code>5:30</code></strong>.</p>
+<p><em>H</em>:<em>M</em>, where <em>H</em> is hour and <em>M</em> minute, each of one or two digits, and separated by a colon <strong><code>:</code></strong>, e.g. <strong><code>5:30</code></strong>.</p>
 </li>
 <li>
 <p>four digits, of which the first pair are the hours and the second the minutes e.g. <strong><code>0530</code></strong>.</p>
@@ -2789,7 +2808,7 @@ A non-zero offset is <em>not allowed</em> in the <strong><code>utc</code></stron
 </div>
 <div class="paragraph">
 <p>Spaces are not allowed in the numeric formats.
-If <em>Z</em> is <code>Z</code> or begins with <code>+</code> or <code>-</code>, the space before <em>Z</em> may be omitted.</p>
+If <em>Z</em> is <strong><code>Z</code></strong> or begins with <strong><code>+</code></strong> or <strong><code>-</code></strong>, the space before <em>Z</em> may be omitted.</p>
 </div>
 <div class="paragraph">
 <p>For example, <strong><code>seconds since 1992-10-8 15:15:42.5 -6:00</code></strong> indicates seconds since October 8th, 1992 at 3 hours, 15 minutes and 42.5 seconds in the afternoon, in a time zone where the datetime is six hours behind the default.
@@ -2797,29 +2816,30 @@ Subtracting the time zone offset from a given datetime converts it to the equiva
 </div>
 </div>
 <div class="sect3">
-<h4 id="calendar"><a class="anchor" href="#calendar"></a>4.4.2. Calendar</h4>
+<h4 id="calendar"><a class="anchor" href="#calendar"></a>4.4.3. Calendar</h4>
 <div class="paragraph">
 <p>The calendar defines the set of valid datetimes and their order.
 Note that the CF meaning of "calendar" refers to datetimes, not to dates alone.
 Datetimes which are not permitted in a given calendar are prohibited both in the time coordinate values and in the reference datetime string in the <strong><code>units</code></strong>.
-It is recommended that the calendar be specified by the <strong><code>calendar</code></strong> attribute of the time coordinate variable.
+It is recommended that the calendar be specified by the <strong><code>calendar</code></strong> attribute of the time coordinate variable (rather than relying on the default).
 The values currently defined for <strong><code>calendar</code></strong> are listed below.</p>
 </div>
 <div class="paragraph">
-<p>Because the calendars have different sets of valid dates, and different treatments of leap seconds (see below in this section, and <a href="#leap-seconds">Section 4.4.3, "Leap Seconds"</a>), a given time coordinate value with given <strong><code>units</code></strong> can represent different datetimes in different calendars; conversely, a given datetime is represented by different time coordinate values in different calendars.
+<p>Because the calendars have different sets of valid dates, and different treatments of leap seconds (see below in this section, and <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a>), a given time coordinate value with given <strong><code>units</code></strong> can represent different datetimes in different calendars; conversely, a given datetime is represented by different time coordinate values in different calendars.
 Moreover, in different calendars a given datetime can identify a different instant in the continuous physical dimension of time.</p>
 </div>
 <div class="paragraph">
-<p>The lengths of the months in the Gregorian calendar are used in all calendars except <strong><code>360_day</code></strong>, <strong><code>none</code></strong> (see <a href="#none-calendar">Section 4.4.4, "Time Coordinates with no Annual Cycle"</a>) and explicitly defined calendars (see <a href="#explicit-calendar">Section 4.4.5, "Explicitly Defined Calendar"</a>).
+<p>The lengths of the months in the Gregorian calendar are used in all calendars except <strong><code>360_day</code></strong>, <strong><code>none</code></strong> (see <a href="#none-calendar">Section 4.4.5, "Time Coordinates with no Annual Cycle"</a>) and explicitly defined calendars (see <a href="#explicit-calendar">Section 4.4.6, "Explicitly Defined Calendar"</a>).
 The calendars differ in their treatment of leap years (when there are 29 days in February instead of 28).</p>
 </div>
 <div class="paragraph">
-<p>Leap seconds are adjustments made at irregular and unpredictable intervals in Coordinated Universal Time (<a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">UTC</a>).
-In response to slight variations in the Earth&#8217;s rotation speed, positive or negative leap seconds are inserted in order to keep UTC close to mean solar time at 0 <code>degrees_east</code> i.e. the time zone with the default (zero) time zone offset in UDUNITS and CF (see <a href="#time-coordinate-units">Section 4.4.1, "Time Coordinate Units"</a>).
-When a single positive leap second is introduced at the end of a minute, that minute contains 61 seconds.
+<p>Positive or negative leap seconds are inserted into UTC in order to keep it close to mean solar time at 0 <strong><code>degrees_east</code></strong> i.e. the time zone with the default (zero) time zone offset in UDUNITS and CF (see <a href="#time-coordinate-units">Section 4.4.2, "Time Coordinate Units"</a>).</p>
+</div>
+<div class="paragraph">
+<p>When a single positive leap second is introduced at the end of a minute, that minute contains 61 seconds.
 The net number of leap seconds added to UTC between 1958-1-1 and 2025-1-1 is 37.
-Leap seconds should be considered when processing datetimes and time-coordinates in the <strong><code>standard</code></strong> and <strong><code>utc</code></strong> calendars, which treat them differently (see <a href="#leap-seconds">Section 4.4.3, "Leap Seconds"</a>).
-The other CF calendars do not allow for leap seconds.</p>
+Leap seconds should be considered when processing datetimes and time-coordinates in the <strong><code>standard</code></strong> and <strong><code>utc</code></strong> calendars, which treat them differently (see <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a>).
+In the other CF calendars, leap seconds never need to be considered.</p>
 </div>
 <div class="paragraph">
 <p>In the <strong><code>julian</code></strong> and the default <strong><code>standard</code></strong> calendar, dates in years before year 0 (i.e. before 0-1-1 0:0:0) are not allowed, and the year in the reference datetime of the units must not be negative.
@@ -2849,7 +2869,7 @@ It is recommended that a reference datetime before the discontinuity should not 
 Therefore, <em>when using data written with the <strong><code>standard</code></strong> calendar, you should regard datetimes and time coordinates as uncertain by a number of seconds (but less than a minute),</em> because leap seconds may have been counted when you expected them to have been ignored, or ignored when you expected them to have been counted.
 For existing datasets, this uncertainty can be eliminated only if you have separate information about how leap seconds were treated.
 For producing new datasets, where precision to the second is important, it is recommended to use the <strong><code>utc</code></strong> calendar for data that follows the real-world calendar according to UTC including leap seconds, and the <strong><code>proleptic_gregorian</code></strong> calendar for model-generated data that follows the Gregorian calendar without leap seconds.
-See also <a href="#leap-seconds">Section 4.4.3, "Leap Seconds"</a>.</p>
+See also <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a>.</p>
 </div>
 </dd>
 <dt class="hdlist1"><strong><code>proleptic_gregorian</code></strong></dt>
@@ -2857,7 +2877,7 @@ See also <a href="#leap-seconds">Section 4.4.3, "Leap Seconds"</a>.</p>
 <p>A calendar with the Gregorian rules for leap years extended to dates before 1582-10-15.
 All dates consistent with these rules are allowed, both before and after 1582-10-15 0:0:0.
 For model-generated data following the Gregorian calendar without leap seconds, the <strong><code>proleptic_gregorian</code></strong> calendar is recommended, in preference to the <strong><code>standard</code></strong> (or default) calendar.
-See also <a href="#leap-seconds">Section 4.4.3, "Leap Seconds"</a>.</p>
+See also <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a>.</p>
 </dd>
 <dt class="hdlist1"><strong><code>julian</code></strong></dt>
 <dd>
@@ -2876,7 +2896,7 @@ For any given instant, the <strong><code>utc</code></strong> datetime is behind 
 Moreover, a given datetime in the <strong><code>utc</code></strong> calendar represents an instant that is earlier than the same datetime in the <strong><code>tai</code></strong> calendar.
 The difference between the two datetimes for a given instant of time is the net number of leap seconds introduced since 1958-01-01.
 For observational or model-generated data that follows the Gregorian calendar and UTC (after 1972) including leap seconds, where precision to the second is important, the <strong><code>utc</code></strong> calendar is recommended, in preference to the <strong><code>standard</code></strong> (or default) calendar.
-See also <a href="#leap-seconds">Section 4.4.3, "Leap Seconds"</a>.</p>
+See also <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a>.</p>
 </dd>
 <dt class="hdlist1"><strong><code>tai</code></strong></dt>
 <dd>
@@ -2900,16 +2920,16 @@ The difference between the two datetimes for a given instant of time is the net 
 </dd>
 <dt class="hdlist1"><strong><code>none</code></strong></dt>
 <dd>
-<p>To be used when there is no annual cycle. See <a href="#none-calendar">Section 4.4.4, "Time Coordinates with no Annual Cycle"</a>.</p>
+<p>To be used when there is no annual cycle. See <a href="#none-calendar">Section 4.4.5, "Time Coordinates with no Annual Cycle"</a>.</p>
 </dd>
 </dl>
 </div>
 <div class="paragraph">
-<p>Any other value may be given to the <strong><code>calendar</code></strong> attribute to describe an explicitly defined calendar. See <a href="#explicit-calendar">Section 4.4.5, "Explicitly Defined Calendar"</a>.</p>
+<p>Any other value may be given to the <strong><code>calendar</code></strong> attribute to describe an explicitly defined calendar. See <a href="#explicit-calendar">Section 4.4.6, "Explicitly Defined Calendar"</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="leap-seconds"><a class="anchor" href="#leap-seconds"></a>4.4.3. Leap Seconds</h4>
+<h4 id="leap-seconds"><a class="anchor" href="#leap-seconds"></a>4.4.4. Leap Seconds</h4>
 <div class="paragraph">
 <p>This section describes how to deal properly with leap seconds.
 Most people ignore the existence of leap seconds, including many data producers and the CF standard before version 1.12.</p>
@@ -2956,7 +2976,7 @@ CF version 1.13 withdrew this use of <strong><code>units_metadata</code></strong
 </div>
 </div>
 <div class="sect3">
-<h4 id="none-calendar"><a class="anchor" href="#none-calendar"></a>4.4.4. Time Coordinates with no Annual Cycle</h4>
+<h4 id="none-calendar"><a class="anchor" href="#none-calendar"></a>4.4.5. Time Coordinates with no Annual Cycle</h4>
 <div class="paragraph">
 <p>The <strong><code>calendar</code></strong> attribute may be set to <strong><code>none</code></strong> in climate experiments that simulate a fixed time of year.
 The time of year is indicated by the date in the reference time of the <strong><code>units</code></strong> attribute.
@@ -2984,9 +3004,9 @@ The time coordinates are interpreted as 0, 1, 2, etc. days since the start of th
 </div>
 </div>
 <div class="sect3">
-<h4 id="explicit-calendar"><a class="anchor" href="#explicit-calendar"></a>4.4.5. Explicitly Defined Calendar</h4>
+<h4 id="explicit-calendar"><a class="anchor" href="#explicit-calendar"></a>4.4.6. Explicitly Defined Calendar</h4>
 <div class="paragraph">
-<p>If none of the calendars defined in <a href="#calendar">Section 4.4.2, "Calendar"</a> applies (e.g., calendars appropriate to a different paleoclimate era), a calendar can be explicitly defined, in terms of permissible year-month-day combinations.
+<p>If none of the calendars defined in <a href="#calendar">Section 4.4.3, "Calendar"</a> applies (e.g., calendars appropriate to a different paleoclimate era), a calendar can be explicitly defined, in terms of permissible year-month-day combinations.
 To do this, the lengths of each month are explicitly defined with the <strong><code>month_lengths</code></strong> attribute of the time axis:</p>
 </div>
 <div class="dlist">
@@ -3017,7 +3037,7 @@ This attribute is ignored if <strong><code>leap_year</code></strong> is not spec
 </dl>
 </div>
 <div class="paragraph">
-<p>When an explicitly defined calendar is being used, the calendar may be described by giving a value not defined in <a href="#calendar">Section 4.4.2, "Calendar"</a> to the <strong><code>calendar</code></strong> attribute; alternatively, the attribute may be omitted.</p>
+<p>When an explicitly defined calendar is being used, the calendar may be described by giving a value not defined in <a href="#calendar">Section 4.4.3, "Calendar"</a> to the <strong><code>calendar</code></strong> attribute; alternatively, the attribute may be omitted.</p>
 </div>
 <div id="paleoclimate-time-axis-ex" class="exampleblock">
 <div class="title">Example 4.6. Paleoclimate time axis</div>
@@ -7028,7 +7048,7 @@ In cases where there is a strong constraint on dataset size, it is allowed to pa
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>calendar</code></strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">S</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">C, BI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#calendar">Section 4.4.2, "Calendar"</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#calendar">Section 4.4.3, "Calendar"</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Calendar used for encoding time axes.</p></td>
 </tr>
 <tr>
@@ -7222,14 +7242,14 @@ The index variable indicates that the indexed ragged array representation is bei
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>leap_month</code></strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">C, BI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#calendar">Section 4.4.2, "Calendar"</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#calendar">Section 4.4.3, "Calendar"</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifies which month is lengthened by a day in leap years for a user defined calendar.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>leap_year</code></strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">C, BI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#calendar">Section 4.4.2, "Calendar"</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#calendar">Section 4.4.3, "Calendar"</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Provides an example of a leap year for a user defined calendar.
 It is assumed that all years that differ from this year by a multiple of four are also leap years.</p></td>
 </tr>
@@ -7274,7 +7294,7 @@ Allowed for auxiliary coordinate variables but not allowed for coordinate variab
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>month_lengths</code></strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">C, BI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#calendar">Section 4.4.2, "Calendar"</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#calendar">Section 4.4.3, "Calendar"</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Specifies the length of each month in a non-leap year for a user defined calendar.</p></td>
 </tr>
 <tr>
@@ -13381,7 +13401,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-09-18 21:25:06 UTC
+Last updated 2025-10-16 10:03:31 UTC
 </div>
 </div>
 </body>
