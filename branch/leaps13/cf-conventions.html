@@ -472,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author31" class="author">Sadie&#160;Bartholomew</span><br>
 <span id="author32" class="author">Thomas Lavergne</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">16&#160;October,&#160;2025&#160;10:03:32Z</span>
+<span id="revdate">03&#160;November,&#160;2025&#160;10:33:35Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -1862,7 +1862,8 @@ But since it is an optional attribute, applications that implement these standar
 <h3 id="units"><a class="anchor" href="#units"></a>3.1. Units</h3>
 <div class="paragraph">
 <p>The <strong><code>units</code></strong> attribute is required for all variables that represent dimensional quantities (except for boundary variables defined in <a href="#cell-boundaries">Section 7.1, "Cell Boundaries"</a> and climatology boundary variables defined in <a href="#climatological-statistics">Section 7.4, "Climatological Statistics"</a>).
-The <strong><code>units</code></strong> attribute is permitted but not required for dimensionless quantities (see <a href="#dimensionless-units">Section 3.1.1, "Dimensionless units"</a>).</p>
+The <strong><code>units</code></strong> attribute is permitted but not required for dimensionless quantities (see <a href="#dimensionless-units">Section 3.1.1, "Dimensionless units"</a>).
+If multiplication by a dimensionless constant and addition of a dimensionless constant are the only operations required for the value of a dimensional quantity expressed in one unit to be converted to the value expressed in another unit, we describe the two units as <em>physically equivalent</em>.</p>
 </div>
 <div class="paragraph">
 <p>The value of the <strong><code>units</code></strong> attribute is a string that can be recognized by the UDUNITS package <a href="#UDUNITS">[UDUNITS]</a>, with the exceptions that are given in <a href="#dimensionless-units">Section 3.1.1, "Dimensionless units"</a> and <a href="#units-multiples">Section 3.1.3, "Scale factors and offsets"</a>.
@@ -1970,7 +1971,7 @@ For instance, when temperature is on-scale, a value in <code>kg degree_C m-2</co
 <div class="sect3">
 <h4 id="units-multiples"><a class="anchor" href="#units-multiples"></a>3.1.3. Scale factors and offsets</h4>
 <div class="paragraph">
-<p>UDUNITS recognises the SI prefixes shown in <a href="#table-supported-units">Prefixes for decimal multiples and submultiples of units</a> for decimal multiples and submultiples of units, and allows them to be applied to non-SI units as well.
+<p>UDUNITS recognises the <a href="#SI">[SI]</a> prefixes shown in <a href="#table-supported-units">Prefixes for decimal multiples and submultiples of units</a> for decimal multiples and submultiples of units, and allows them to be applied to non-SI units as well.
 UDUNITS offers a syntax for indicating arbitrary scale factors and offsets to be applied to a unit.
 (Note that this is different from the scale factors and offsets used for converting between <strong><code>units</code></strong>, as discussed for temperature in <a href="#temperature-units">Section 3.1.2, "Temperature units"</a>.)
 This UDUNITS syntax for arbitrary transformation of <strong><code>units</code></strong> is not supported by the CF standard, except for the case of specifying reference time (<a href="#time-coordinate">Section 4.4, "Time Coordinate"</a>).
@@ -2130,7 +2131,7 @@ A standard name contains no whitespace and is case sensitive.</p>
 <dt class="hdlist1">canonical units</dt>
 <dd>
 <p>Representative units of the physical quantity.
-Unless it is dimensionless, a variable with a <strong><code>standard_name</code></strong> attribute must have units which are physically equivalent (not necessarily identical) to the canonical units, possibly modified by an operation specified by the standard name modifier (see below and <a href="#standard-name-modifiers">Appendix C, Standard Name Modifiers</a>) or by the <strong><code>cell_methods</code></strong> attribute (see <a href="#cell-methods">Section 7.3, "Cell Methods"</a> and <a href="#appendix-cell-methods">Appendix E, Cell Methods</a>) or both.
+Unless it is dimensionless, a variable with a <strong><code>standard_name</code></strong> attribute must have units which are physically equivalent (not necessarily identical, see <a href="#units">Section 3.1, "Units"</a>) to the canonical units, possibly modified by an operation specified by the standard name modifier (see below and <a href="#standard-name-modifiers">Appendix C, Standard Name Modifiers</a>) or by the <strong><code>cell_methods</code></strong> attribute (see <a href="#cell-methods">Section 7.3, "Cell Methods"</a> and <a href="#appendix-cell-methods">Appendix E, Cell Methods</a>) or both.
 <br>
 <br>
 Units of time coordinates (<a href="#time-coordinate">Section 4.4, "Time Coordinate"</a>), whose <strong><code>units</code></strong> attribute includes the word <strong><code>since</code></strong>, are <em>not</em> physically equivalent to time units that do not include <strong><code>since</code></strong> in the <strong><code>units</code></strong>.
@@ -2725,17 +2726,17 @@ Optionally, a time coordinate variable may be indicated additionally by providin
 <h4 id="time-coordinate-units"><a class="anchor" href="#time-coordinate-units"></a>4.4.2. Time Coordinate Units</h4>
 <div class="paragraph">
 <p>The <strong><code>units</code></strong> attribute of a time coordinate variable takes a string value that follows the formatting requirements of the <a href="#UDUNITS">[UDUNITS]</a> package (e.g. <a href="#time-axis-ex">Example of a time coordinate variable</a>).
-It must comprise a unit of measure that is physically equivalent to the SI base unit of time (i.e. the second), followed by the word <strong><code>since</code></strong> and a reference datetime.
+It must comprise a unit of measure that is physically equivalent (see <a href="#units">Section 3.1, "Units"</a>) to the SI base unit of time (i.e. the second), followed by the word <strong><code>since</code></strong> and a reference datetime.
 By a "datetime" we mean the time and date together, specified as a set of six numbers (year, month, day, hour, minute, second), which are integers except for the second, which may have a fraction.
 The time coordinate exactly equals the length of the time interval from the instant identified by the reference datetime to the instant identified by the time coordinate, in all cases except when leap seconds occur between the two intervals in the <strong><code>standard</code></strong> calendar.
-See <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a>.</p>
+(See <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a> for details.)</p>
 </div>
 <div class="paragraph">
 <p>The CF standard follows UDUNITS (<a href="#units">Section 3.1, "Units"</a>) in the definition of the acceptable
 units of measure for time.
 The most commonly used of these units strings (and their abbreviations) are <strong><code>day</code></strong> (<strong><code>d</code></strong>), <strong><code>hour</code></strong> (<strong><code>hr</code></strong>, <strong><code>h</code></strong>), <strong><code>minute</code></strong> (<strong><code>min</code></strong>) and <strong><code>second</code></strong> (<strong><code>sec</code></strong>, <strong><code>s</code></strong>).
 Plural forms are also acceptable.
-Any unit may optionally have one of the decimal prefixes for multiples and submultiples (<a href="#table-supported-units">Table 3.1</a>), but these are uncommon except for submultiples of <strong><code>second</code></strong> e.g. <strong><code>millisecond</code></strong> or <strong><code>ms</code></strong>.</p>
+In CF, following UDUNITS, any unit may optionally have one of the decimal prefixes for multiples and submultiples (<a href="#table-supported-units">Table 3.1</a>) e.g. <strong><code>millisecond</code></strong> or <strong><code>ms</code></strong>; however, we note that <a href="#SI">[SI]</a> does not allow these prefixes for any unit of time other than <strong><code>second</code></strong>.</p>
 </div>
 <div class="paragraph">
 <p>UDUNITS defines a <strong><code>year</code></strong> to be exactly 365.242198781 days (the interval between 2 successive passages of the sun through vernal equinox).
@@ -2765,7 +2766,7 @@ Its format is <em>y</em>-<em>m</em>-<em>d</em> [<em>H</em>:<em>M</em>:<em>S</em>
 <p><em>y</em> is year, <em>m</em> month, <em>d</em> day, <em>H</em> hour and <em>M</em> minute, which are all integers of one or more digits, and <em>y</em> may be prefixed with a sign (but note that some CF calendars do not permit negative years; see <a href="#calendar">Section 4.4.3, "Calendar"</a>),</p>
 </li>
 <li>
-<p><em>S</em> is second, which may be integer or floating point (see <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a> regarding <em>S</em>,</p>
+<p><em>S</em> is second, which may be integer or floating point (see <a href="#leap-seconds">Section 4.4.4, "Leap Seconds"</a>),</p>
 </li>
 <li>
 <p><em>Z</em> is the time zone offset.
@@ -2920,12 +2921,14 @@ The difference between the two datetimes for a given instant of time is the net 
 </dd>
 <dt class="hdlist1"><strong><code>none</code></strong></dt>
 <dd>
-<p>To be used when there is no annual cycle. See <a href="#none-calendar">Section 4.4.5, "Time Coordinates with no Annual Cycle"</a>.</p>
+<p>To be used when there is no annual cycle.
+See <a href="#none-calendar">Section 4.4.5, "Time Coordinates with no Annual Cycle"</a>.</p>
 </dd>
 </dl>
 </div>
 <div class="paragraph">
-<p>Any other value may be given to the <strong><code>calendar</code></strong> attribute to describe an explicitly defined calendar. See <a href="#explicit-calendar">Section 4.4.6, "Explicitly Defined Calendar"</a>.</p>
+<p>Any other value may be given to the <strong><code>calendar</code></strong> attribute to describe an explicitly defined calendar.
+See <a href="#explicit-calendar">Section 4.4.6, "Explicitly Defined Calendar"</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -13375,6 +13378,9 @@ OGC document 12-063. 1st May 2015.</p>
 <p><a id="SCH02"></a>[SCH02] <a href="https://doi.org/10.1175/1520-0493(2002)130&lt;2459:ANTFVC&gt;2.0.CO;2">A new terrain-following vertical coordinate formulation for atmospheric prediction models</a>. C Schaer, D Leuenberger, and O Fuhrer. 2002. <em>Monthly Weather Review</em>.  130. 2459-2480.</p>
 </li>
 <li>
+<p><a id="SI"></a>[SI] <a href="https://doi.org/10.59161/AUEZ1291">SI Brochure: The International System of Units (SI)</a>, 9th edition, BIPM, 2019.</p>
+</li>
+<li>
 <p><a id="Snyder"></a>[Snyder]  <a href="https://doi.org/10.3133/pp1395">Map Projections: A Working Manual</a>. USGS Professional Paper 1395.</p>
 </li>
 <li>
@@ -13401,7 +13407,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-10-16 10:03:31 UTC
+Last updated 2025-11-03 10:33:35 UTC
 </div>
 </div>
 </body>

@@ -931,7 +931,7 @@ The values of <strong><code>var</code></strong> must be variables that exist in 
 <p>A non-zero time zone offset must not appear in the reference datetime in the <strong><code>utc</code></strong> and <strong><code>tai</code></strong> calendars.</p>
 </li>
 <li>
-<p>Datetimes before 1972-01-01 0:0:0 are invalid in the <strong><code>utc</code></strong> calendar, datetimes before 1958-01-01 0:0:0 are invalid in the <strong><code>tai</code></strong> calendar, datetimes in negative years are invalid in the <strong><code>standard</code></strong> and <strong><code>julian</code></strong> calendars, and datetimes in the range from (and including) 1582-10-5 0:0:0 until (but excluding) 1582-10-15 0:0:0 are invalid in the <strong><code>standard</code></strong> calendar.
+<p>Datetimes before 1972-01-01 0:0:0 and after the current instant (i.e. any time in the future when the data is written) are invalid in the <strong><code>utc</code></strong> calendar, datetimes before 1958-01-01 0:0:0 are invalid in the <strong><code>tai</code></strong> calendar, datetimes in negative years are invalid in the <strong><code>standard</code></strong> and <strong><code>julian</code></strong> calendars, and datetimes in the range from (and including) 1582-10-5 0:0:0 until (but excluding) 1582-10-15 0:0:0 are invalid in the <strong><code>standard</code></strong> calendar.
 Invalid datetimes must not be encoded as time coordinates.</p>
 </li>
 <li>
@@ -1616,7 +1616,7 @@ If the optional formula term <code><strong>nsigma</strong></code> is supplied, i
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-10-16 10:03:31 UTC
+Last updated 2025-11-03 10:33:35 UTC
 </div>
 </div>
 </body>
