@@ -472,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author31" class="author">Sadie&#160;Bartholomew</span><br>
 <span id="author32" class="author">Thomas Lavergne</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">10&#160;November,&#160;2025&#160;15:09:52Z</span>
+<span id="revdate">10&#160;November,&#160;2025&#160;15:29:40Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -830,7 +830,7 @@ Eaton, B., Gregory, J., Drach, B., Taylor, K., Hankin, S. et al. (2024). NetCDF 
 <p>3.1. <a href="#table-supported-units">Prefixes for decimal multiples and submultiples of units</a><br>
 3.2. <a href="#table-flag-variable-bits">Flag Variable Bits (from Example)</a><br>
 3.3. <a href="#table-flag-variable-bit-2-and-3">Flag Variable Bit 2 and Bit 3 (from Example)</a><br>
-4.1. <a href="#table-calendars">List of defined values for the <strong><code>calendar</code></strong> attribute, each with a summary of the key characteristics of the calendar it selects</a><br>
+4.1. <a href="#table-calendars">List of defined values for the <strong><code>calendar</code></strong> attribute and summary of the key characteristics of the calendars</a><br>
 7.1. <a href="#table-geometry-types">Dimensionality, description, and additional required attributes for geometry_types.</a><br>
 9.1. <a href="#table-feature-types">Logical structure and mandatory coordinates for discrete sampling geometry featureTypes</a><br>
 9.2. <a href="#table-orthogonal-array">The storage of a data variable using the orthogonal multidimensional array representation (subscripts in CDL order)</a><br>
@@ -2818,8 +2818,7 @@ Subtracting the time zone offset from a given datetime converts it to the equiva
 <p>The calendar defines the set of valid datetimes and their order.
 Note that the CF meaning of "calendar" refers to datetimes, not to dates alone.
 It is recommended that the calendar be explicitly specified by the <strong><code>calendar</code></strong> attribute of the time coordinate variable (rather than relying on the default).
-First, this section gives an overview of CF calendars.
-Second, it describes the calendar corresponding to each of the possible values for the <strong><code>calendar</code></strong> attribute; this information is summarised in <a href="#table-calendars">Table 4.1</a> at the end of the section.</p>
+This section first gives an overview of CF calendars, then describes the calendar corresponding to each of the possible values for the <strong><code>calendar</code></strong> attribute; this information is summarised in <a href="#table-calendars">Table 4.1</a> at the end of the section.</p>
 </div>
 <div class="paragraph">
 <p>In a given calendar, each valid datetime identifies a particular instant in the continuous physical dimension of time.
@@ -2940,7 +2939,7 @@ See <a href="#none-calendar">Section 4.4.5, "Time Coordinates with no Annual Cyc
 See <a href="#explicit-calendar">Section 4.4.6, "Explicitly Defined Calendar"</a>.</p>
 </div>
 <table id="table-calendars" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4.1. List of defined values for the <strong><code>calendar</code></strong> attribute, each with a summary of the key characteristics of the calendar it selects</caption>
+<caption class="title">Table 4.1. List of defined values for the <strong><code>calendar</code></strong> attribute and summary of the key characteristics of the calendars</caption>
 <colgroup>
 <col style="width: 12.5%;">
 <col style="width: 12.5%;">
@@ -13526,7 +13525,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-10 15:09:52 UTC
+Last updated 2025-11-10 15:29:40 UTC
 </div>
 </div>
 </body>
