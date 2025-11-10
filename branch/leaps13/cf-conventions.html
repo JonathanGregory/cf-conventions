@@ -472,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author31" class="author">Sadie&#160;Bartholomew</span><br>
 <span id="author32" class="author">Thomas Lavergne</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">04&#160;November,&#160;2025&#160;08:27:08Z</span>
+<span id="revdate">10&#160;November,&#160;2025&#160;10:45:10Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -2732,9 +2732,9 @@ The time coordinate exactly equals the length of the time interval from the inst
 <div class="paragraph">
 <p>The CF standard follows UDUNITS (<a href="#units">Section 3.1, "Units"</a>) in the definition of the acceptable
 units of measure for time.
-The most commonly used of these units strings (and their symbols) are <strong><code>day</code></strong> (<strong><code>d</code></strong>), <strong><code>hour</code></strong> (<strong><code>hr</code></strong>, <strong><code>h</code></strong>), <strong><code>minute</code></strong> (<strong><code>min</code></strong>) and <strong><code>second</code></strong> (<strong><code>sec</code></strong>, <strong><code>s</code></strong>).
+The most commonly used of these units strings (and their symbols) are <strong><code>day</code></strong> (<strong><code>d</code></strong>), <strong><code>hour</code></strong> (<strong><code>h</code></strong>), <strong><code>minute</code></strong> (<strong><code>min</code></strong>) and <strong><code>second</code></strong> (<strong><code>s</code></strong>).
 Plural forms are also acceptable.
-Following UDUNITS, any unit may optionally have one of the decimal prefixes for multiples and submultiples (<a href="#table-supported-units">Table 3.1</a>) e.g. <strong><code>millisecond</code></strong> or <strong><code>ms</code></strong>; however, we note that <a href="#SI">[SI]</a> does not allow these prefixes for any unit of time other than <strong><code>second</code></strong>.</p>
+In CF, following UDUNITS, any unit may optionally have one of the decimal prefixes for multiples and submultiples (<a href="#table-supported-units">Table 3.1</a>) e.g. <strong><code>millisecond</code></strong> or <strong><code>ms</code></strong>; however, we note that <a href="#SI">[SI]</a> does not allow these prefixes for any unit of time other than <strong><code>second</code></strong>.</p>
 </div>
 <div class="paragraph">
 <p>UDUNITS defines a <strong><code>year</code></strong> to be exactly 365.242198781 days (the interval between 2 successive passages of the sun through vernal equinox).
@@ -2755,7 +2755,7 @@ For compatibility with other software, CF strongly recommends that <strong><code
 </div>
 <div class="paragraph">
 <p>The reference datetime string (appearing after the identifier <strong><code>since</code></strong>) is required.
-Its format is <em>y</em>-<em>m</em>-<em>d</em> [<em>H</em>:<em>M</em>:<em>S</em> [<em>T</em>]], where [&#8230;&#8203;] indicates an optional element, as follows:</p>
+Its format is <em>y</em>-<em>m</em>-<em>d</em> [<em>H</em>:<em>M</em>:<em>S</em>[ <em>T</em>]], where [&#8230;&#8203;] indicates an optional element, as follows:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2780,30 +2780,30 @@ A non-zero offset is <em>not allowed</em> in the <strong><code>utc</code></stron
 <div class="paragraph">
 <p>In a time zone with zero offset, time (approximately) equals mean solar time for 0 <strong><code>degrees_east</code></strong> of longitude.
 If both time and time zone offset are omitted the time is 00:00:00 (the beginning of the day i.e. midnight in the time zone with zero offset).
-Thus, <strong><code>units = "days since 1990-1-1"</code></strong> means the same as <strong><code>units = "days since 1990-1-1 00:00:00"</code></strong>.</p>
+Thus, <strong><code>units = "days since 1990-1-1"</code></strong> means the same as <strong><code>units = "days since 1990-1-1 00:00:00Z"</code></strong>.</p>
 </div>
 <div class="paragraph">
-<p>Other than <strong><code>Z</code></strong> for zero offset, the time zone offset <em>T</em> must be in one of the following four numeric formats, each of which may optionally be prefixed by a positive sign <strong><code>+</code></strong> or negative sign <strong><code>-</code></strong>, the default sign being positive:</p>
+<p>Other than <strong><code>Z</code></strong> for zero offset, the time zone offset <em>T</em> must be in one of the following four signed numeric formats, where &pm; stands for the positive sign <strong><code>+</code></strong> or the negative sign <strong><code>-</code></strong>, and <em>n</em> stands for a single digit:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><em>H</em>, the hour alone, of one or two digits e.g. <strong><code>-6</code></strong>, <strong><code>2</code></strong>, <strong><code>+11</code></strong>, which is sufficient for many time zones.</p>
+<p>&pm;<em>H</em>, the hour alone, of one or two digits e.g. <strong><code>-6</code></strong>, <strong><code>-0</code></strong>, <strong><code>+0</code></strong>, <strong><code>+11</code></strong>, which is sufficient for many time zones.</p>
 </li>
 <li>
-<p><em>H</em>:<em>M</em>, where <em>H</em> is hour and <em>M</em> minute, each of one or two digits, and separated by a colon <strong><code>:</code></strong>, e.g. <strong><code>5:30</code></strong>.</p>
+<p>&pm;<em>H</em>:<em>M</em>, where <em>H</em> is hour and <em>M</em> minute, each of one or two digits, and separated by a colon <strong><code>:</code></strong>, e.g. <strong><code>+5:30</code></strong>.</p>
 </li>
 <li>
-<p>four digits, of which the first pair are the hours and the second the minutes e.g. <strong><code>0530</code></strong>.</p>
+<p>&pm;<em>nnnn</em>, where the first pair of digits are the hours and the second the minutes e.g. <strong><code>+0530</code></strong>.</p>
 </li>
 <li>
-<p>three digits, of which the first is the hour (0&#8212;&#8203;9) e.g. <strong><code>530</code></strong>.</p>
+<p>&pm;<em>nnn</em>, where the first digit is the hour (0&#8212;&#8203;9) e.g. <strong><code>530</code></strong> and the others are the minutes.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>Spaces are not allowed in the numeric formats.
-If <em>T</em> is <strong><code>Z</code></strong> or begins with <strong><code>+</code></strong> or <strong><code>-</code></strong>, the space before <em>T</em> may be omitted.</p>
+The space between the time and <em>T</em> may be omitted.</p>
 </div>
 <div class="paragraph">
 <p>For example, <strong><code>1992-10-8 15:15:42.5</code></strong> indicates 42.5 seconds after 3.15 pm on 8th October 1992, in the time zone with zero offset.
@@ -2835,7 +2835,7 @@ The calendars differ in their treatment of leap years (when there are 29 days in
 <div class="paragraph">
 <p>Positive or negative leap seconds are inserted into UTC in order to keep it close to mean solar time at 0 <strong><code>degrees_east</code></strong> i.e. the time zone with the default (zero) time zone offset in UDUNITS and CF (see <a href="#time-coordinate-units">Section 4.4.2, "Time Coordinate Units"</a>).
 When a single positive leap second is introduced at the end of a minute, that minute contains 61 seconds.
-The net number of leap seconds added to UTC between 1958-1-1 and 2025-1-1 is 37.
+The net number of leap seconds added to UTC between 1972-1-1 and 2025-1-1 is 27.
 Leap seconds should be considered when processing datetimes and time-coordinates in the <strong><code>standard</code></strong> and <strong><code>utc</code></strong> calendars, which treat them differently.
 In the other CF calendars, leap seconds never need to be considered.</p>
 </div>
@@ -2861,7 +2861,7 @@ Year 1 AD or CE in the <strong><code>standard</code></strong> calendar is also y
 Negative years are invalid in time coordinates and reference datetimes in the <strong><code>standard</code></strong> calendar.</p>
 <div class="paragraph">
 <p>In the <strong><code>standard</code></strong> calendar, datetimes in the range from (and including) 1582-10-5 0:0:0 until (but excluding) 1582-10-15 0:0:0 are invalid.
-Datetimes in this range must not be used as reference in <strong><code>units</code></strong>, and the interval between the datetimes 1582-10-15 0:0:0 and 1582-10-4 0:0:0 is exactly 1 day.
+Datetimes in this range must not be used as reference in <strong><code>units</code></strong>, and the interval between the datetimes 1582-10-4 0:0:0 and 1582-10-15 0:0:0 is exactly 1 day.
 It is recommended that a reference datetime before the discontinuity should not be used for datetimes after the discontinuity, and vice-versa.</p>
 </div>
 <div class="paragraph">
@@ -2890,7 +2890,7 @@ This instant has the datetime 1972-01-01 00:00:10 (10 seconds greater) in the <s
 Earlier datetimes than 1972-01-01 00:00 are not allowed in the <strong><code>utc</code></strong> calendar.
 For any given instant, the <strong><code>utc</code></strong> datetime is behind the <strong><code>tai</code></strong> datetime, where "behind" means the same as it does when describing a timezone to the west as being behind one to the east.
 Moreover, a given datetime in the <strong><code>utc</code></strong> calendar represents an instant that is earlier than the same datetime in the <strong><code>tai</code></strong> calendar.
-The difference between the two datetimes (<strong><code>tai</code></strong> minus <strong><code>utc</code></strong>) for a given instant of time is the net number of leap seconds introduced since 1958-01-01.</p>
+The difference between the two datetimes (<strong><code>tai</code></strong> minus <strong><code>utc</code></strong>) for a given instant of time is 10 seconds plus the net number of leap seconds introduced since 1972-01-01.</p>
 <div class="paragraph">
 <p>To avoid mistakes and confusion, the second is the only recommended unit of measure in this <strong><code>calendar</code></strong> for the <strong><code>units</code></strong> of the time coordinate variable (denoted by any string allowed in UDUNITS, optionally with one of the prefixes of <a href="#table-supported-units">Table 3.1</a>).
 When a datetime is converted to a time coordinate value or vice-versa in this calendar, any leap seconds (positive or negative) must be counted that occurred in the interval between the datetime and the reference datetime in the <strong><code>units</code></strong>.
@@ -2904,20 +2904,20 @@ A non-zero time zone offset is not allowed in this calendar.</p>
 Earlier datetimes than this are not allowed in the <strong><code>tai</code></strong> calendar.
 For any given instant, the <strong><code>tai</code></strong> datetime is ahead of the <strong><code>utc</code></strong> datetime, where "ahead" means the same as it does when describing a timezone to the east as being ahead of one to the west.
 Moreover, a given datetime in the <strong><code>tai</code></strong> calendar represents an instant that is later than the same datetime in the <strong><code>utc</code></strong> calendar.
-The difference between the two datetimes (<strong><code>tai</code></strong> minus <strong><code>utc</code></strong>) for a given instant of time is the net number of leap seconds introduced since 1958-01-01.
+The difference between the two datetimes (<strong><code>tai</code></strong> minus <strong><code>utc</code></strong>) for a given instant of time is 10 seconds plus the net number of leap seconds introduced since 1972-01-01.
 A non-zero time zone offset is not allowed in this calendar.</p>
 </dd>
 <dt class="hdlist1"><strong><code>noleap</code></strong> or <strong><code>365_day</code></strong></dt>
 <dd>
-<p>A calendar with no leap years, i.e., all years are 365 days long, and there are no leap seconds.</p>
+<p>A model calendar with no leap years, i.e., all years are 365 days long.</p>
 </dd>
 <dt class="hdlist1"><strong><code>all_leap</code></strong> or <strong><code>366_day</code></strong></dt>
 <dd>
-<p>A calendar in which every year is a leap year, i.e., all years are 366 days long, and there are no leap seconds.</p>
+<p>A model calendar in which every year is a leap year, i.e., all years are 366 days long.</p>
 </dd>
 <dt class="hdlist1"><strong><code>360_day</code></strong></dt>
 <dd>
-<p>A calendar in which all years are 360 days, and divided into 30 day months, and there are no leap seconds.</p>
+<p>A model calendar in which all years are 360 days, and divided into 30 day months.</p>
 </dd>
 <dt class="hdlist1"><strong><code>none</code></strong></dt>
 <dd>
@@ -13407,7 +13407,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-04 08:27:07 UTC
+Last updated 2025-11-10 10:45:10 UTC
 </div>
 </div>
 </body>
