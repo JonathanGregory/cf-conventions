@@ -472,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author31" class="author">Sadie&#160;Bartholomew</span><br>
 <span id="author32" class="author">Thomas Lavergne</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">12&#160;November,&#160;2025&#160;17:30:54Z</span>
+<span id="revdate">12&#160;November,&#160;2025&#160;18:07:29Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -5313,13 +5313,13 @@ data:  // time coordinates translated to datetime format
 <h3 id="anomalies"><a class="anchor" href="#anomalies"></a>7.5. Anomaly data</h3>
 <div class="paragraph">
 <p>An "anomaly" is the difference between a physical quantity and its statistical norm.
-For example, a commonly-used anomaly is the temperature at a specific time and place minus the long-term global average temperature.</p>
+For example, a commonly-used anomaly is the current temperature at a specific location minus the long-term average temperature there.</p>
 </div>
 <div class="paragraph">
 <p>CF offers two conventions for describing anomaly data.
 In <a href="#temporal-anomalies">Section 7.5.3, "Temporal anomalies using anomaly standard names"</a>, we describe a simple convention that depends on special standard names.
 It can only be used for simple temporal anomalies, and is insufficient for some use-cases.
-In the remainder of this section and the following two (<a href="#anomalies-norm-data">Section 7.5.1, "Anomalies with respect to a norm data variable"</a> and <a href="#anomalies-norm-metadata">Section 7.5.2, "Anomalies with respect to a norm metadata variable"</a>), we describe two more general conventions for anomalies that can handle more complex use-cases.</p>
+In the remainder of this section and the following two (<a href="#anomalies-norm-data">Section 7.5.1, "Anomalies with respect to a norm data variable"</a> and <a href="#anomalies-norm-metadata">Section 7.5.2, "Anomalies with respect to a norm metadata variable"</a>), we describe more general conventions for anomalies that can handle more complex use-cases.</p>
 </div>
 <div class="paragraph">
 <p>The generalized definition of an anomaly value <em>A</em> of some physical quantity <em>q</em> is the difference <em>P</em> &minus; <em>N</em> between a particular value <em>P</em> of <em>q</em> and a normal value or norm <em>N</em> of <em>q</em>.
@@ -5343,11 +5343,8 @@ The time coordinate of the anomaly may or may not lie within the range of times 
 <em>N</em> has all the same dimensions and coordinate variables as <em>A</em> except for time.</p>
 </div>
 <div class="paragraph">
-<p>In this section and the following two (<a href="#anomalies-norm-data">Section 7.5.1, "Anomalies with respect to a norm data variable"</a> and <a href="#anomalies-norm-metadata">Section 7.5.2, "Anomalies with respect to a norm metadata variable"</a>) we describe a general convention for anomalies with respect to a statistical norm calculated from any single dimension or combination of dimensions.
-In this convention the norm statistic does not have to be a mean.</p>
-</div>
-<div class="paragraph">
-<p>For example, anomalies might be calculated (as a function of longitude) with respect to the zonal mean, or (as a function of horizontal location) with respect to the minimum value in the area.
+<p>In general, a statistical norm can be calculated from any single dimension or combination of dimensions, and the norm statistic does not have to be a mean.
+For example, anomalies might be calculated (as a function of longitude) with respect to the zonal mean, or (as a function of horizontal location) with respect to the minimum value in the area.
 In these examples, the norm is the zonal mean or the area minimum, respectively.
 When temporal anomalies are described following the convention of this section, more information can be recorded about the norm than when following the alternative, less general, convention of <a href="#temporal-anomalies">Section 7.5.3, "Temporal anomalies using anomaly standard names"</a>.</p>
 </div>
@@ -5358,7 +5355,7 @@ This <strong><code>cell_methods</code></strong> entry tells us:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>that the data variable contains anomalies (<em>A</em> in the notation of the start of this section) calculated from data (<em>P</em>) with the same dimensions, as the difference from the normal statistic named <em>norm</em> (<em>N</em>).</p>
+<p>that the data variable contains anomalies (<em>A</em> in the notation of the start of this section) calculated from data (<em>P</em>) with the same dimensions, as the difference from the normal statistic (<em>N</em>) named <em>norm</em>.</p>
 </li>
 <li>
 <p>at which stage the anomaly <em>A</em> = <em>P</em> &minus; <em>N</em> was calculated.
@@ -5370,11 +5367,10 @@ This is known because the entries in <strong><code>cell_methods</code></strong> 
 </ul>
 </div>
 <div class="paragraph">
-<p>Each <em>name</em> must be the name of an "axis" of the anomaly data variable <em>A</em>.
-We call these the "anomaly axes".
+<p>Each <em>name</em> must identify an "axis" of the anomaly data variable <em>A</em>.
 By "axis" we mean a dimension and its corresponding coordinate variable, or a scalar coordinate variable.
-In either case, we refer to the variable as an <code>`anomaly coordinate variable''.
-The anomaly coordinate variable of each axis must have a <strong>`standard_name</code></strong> attribute.
+In either case, we refer to the axis as an "anomaly axis" and to the variable as an "anomaly coordinate variable".
+The anomaly coordinate variable of each axis must have a <strong><code>standard_name</code></strong> attribute.
 Usually there is only one anomaly axis, and usually it is a spatiotemporal axis.</p>
 </div>
 <div class="paragraph">
@@ -5384,14 +5380,6 @@ As described in <a href="#cell-methods">Section 7.3, "Cell Methods"</a>, the com
 </div>
 <div class="paragraph">
 <p>For an anomaly with respect to a statistic computed over time or climatological time, <em>name</em> identifies the time axis of the anomaly data variable.</p>
-</div>
-<div class="paragraph">
-<p>possible deletion <strong><strong>*
-For each anomaly axis of <em>A</em> (although usually there is only one), <em>N</em> has an axis, called a "norm axis", with a coordinate variable (and dimension of the same name) or scalar coordinate variable.
-This variable is called the "norm coordinate variable", and it must have the same </strong><code>standard_name</code><strong> as the anomaly coordinate variable.
-The norm coordinate variable indicates the range(s) of coordinates over which the statistic <em>N</em> was calculated from the variation of <em>P</em>.
-For instance, if <em>N</em> contains zonal means, it has a norm coordinate variable for longitude that indicates the range of longitudes over which the zonal mean was calculated.
-possible deletion </strong></strong>*</p>
 </div>
 <div class="paragraph">
 <p>There are two alternatives for <em>norm</em>.
@@ -5423,13 +5411,13 @@ The anomaly data variable must name the norm data variable in its <strong><code>
 <div class="paragraph">
 <p>The <em>norm</em> data variable <em>N</em> must have all the same axes as the anomaly data variable <em>A</em>, <em>except</em> for the anomaly axes.
 For each anomaly axis (although usually there is only one), the norm data variable has an axis, called a "norm axis", with a coordinate variable (and dimension of the same name) or a scalar coordinate variable (named in its <strong><code>coordinates</code></strong> attribute).
-In either case, we refer to it as a <code>`norm coordinate variable''.
-The normal coordinate variable must have the same <strong>`standard_name</code></strong> as the anomaly coordinate variable.
+In either case, we refer to it as a "norm coordinate variable".
+The norm coordinate variable must have the same <strong><code>standard_name</code></strong> as the anomaly coordinate variable.
 It must also have boundary variables to indicate the coordinate range over which <em>N</em> was calculated from <em>P</em>.</p>
 </div>
 <div class="paragraph">
 <p>A norm coordinate variable cannot have a dimension greater than 1.
-Any norm axis dimensions must be included among the dimensions of the anomaly data variable as well as the norm data variable; likewise, any scalar norm coordinate variables must be named in the <strong><code>coordinates</code></strong> attribute of the anomaly data variable as well as the norm data variable.</p>
+Any norm axis dimensions must be included among the dimensions of the anomaly data variable as well being dimensions of the norm data variable; likewise, any scalar norm coordinate variables must be named in the <strong><code>coordinates</code></strong> attribute of the anomaly data variable as well as the norm data variable.</p>
 </div>
 <div class="paragraph">
 <p>The <em>norm</em> data variable must have a <strong><code>cell_methods</code></strong> attribute with an entry for the norm coordinate variable (or the combination of them if more than one) to indicate how <em>N</em> was computed from the variation of <em>P</em>.
@@ -12418,8 +12406,9 @@ For example, if a data variable holds a variable retrieved from a satellite inst
 <div class="paragraph">
 <p>The field ancillary construct consists of an array of the ancillary data which is either scalar or which depends on one, more or all of the domain axis constructs.
 It is assumed that the data do not depend on axes of the domain which are not spanned by the array, along which the values are implicitly propagated.
-It may have a <a href="#data-model-cell-method">Cell method construct</a>, and properties to describe the data (in the same sense as for the field construct).
-Note that a field ancillary construct is constrained by the domain definition of the parent field construct but does not contribute to the domain’s definition, unlike, for instance, an auxiliary coordinate construct or domain ancillary construct.
+It may have properties to describe the data (in the same sense as for the field construct).
+Note that a field ancillary construct is constrained by the domain definition of the parent field construct but does not contribute to the domain&#8217;s definition, unlike, for instance, an auxiliary coordinate construct or domain ancillary construct.
+The field ancillary construct may have cell methods constructs (<a href="#data-model-cell-method">Cell method construct</a>), which are supplementary information for a single one of the cell method constructs of the field, but do not contribute to the definition of the domain.
 CF-netCDF ancillary data variables correspond to field ancillary constructs.</p>
 </div>
 </div>
@@ -14176,7 +14165,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-12 17:30:54 UTC
+Last updated 2025-11-12 18:07:29 UTC
 </div>
 </div>
 </body>
