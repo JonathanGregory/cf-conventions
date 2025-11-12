@@ -1355,7 +1355,38 @@ The specified variable must exist in the file.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="geometries">7.5 Geometries</h3>
+<h3 id="_7_5_anomaly_data">7.5 Anomaly data</h3>
+<div class="paragraph">
+<p><strong>Requirements:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>In a <strong><code>cell_methods</code></strong> entry of the form <em>name</em><strong><code>:</code></strong> [<em>name</em><strong><code>:</code></strong> &#8230;&#8203;] <strong><code>anomaly wrt</code></strong> <em>norm</em>, the word <em>norm</em> must be the name of a variable that is present in the file, and is named by the <strong><code>ancillary_variables</code></strong> attribute of the data variable (hence we hereafter refer to it as the "norm ancillary variable").</p>
+</li>
+<li>
+<p>If either the data variable or the norm ancillary variable has a <strong><code>standard_name</code></strong> attribute, its value must not end in <strong><code>_anomaly</code></strong>, and if they both have <strong><code>standard_name</code></strong> attributes, they must have the same value.</p>
+</li>
+<li>
+<p>Each of the coordinate variables and scalar coordinate variables identified by the <em>name</em>s in the <strong><code>anomaly wrt</code></strong> entry of <strong><code>cell_methods</code></strong> of the data variable (which we refer to hereafter as "anomaly coordinate variables") must have a <strong><code>standard_name</code></strong> attribute.</p>
+</li>
+<li>
+<p>The norm ancillary variable must not have any of the anomaly coordinate variables of the data variable as a coordinate variable or a scalar coordinate variable of its own.</p>
+</li>
+<li>
+<p>For each of the anomaly coordinate variables, the norm ancillary variable must have either a coordinate variable or a scalar coordinate variable with the same <strong><code>standard_name</code></strong> attribute. (We hereafter refer to these variables as "norm coordinate variables.)</p>
+</li>
+<li>
+<p>The norm ancillary variable must have a <strong><code>cell_methods</code></strong> attribute with an entry that refers to all the norm coordinate variables, or more than one entry if they contain <strong><code>within</code></strong> and <strong><code>over</code></strong> keywords.</p>
+</li>
+<li>
+<p>The dimensions of the norm ancillary variable must satisfy one of the following conditions: (1) The norm ancillary variable has all the same dimensions as the data variable, excluding the dimensions of anomaly coordinate variables, and with the possible inclusion of size-one dimensions for norm coordinate variables; (2) The norm ancillary variable has no dimensions other than size-one dimensions for coordinate variables which have the same <strong><code>standard_name</code></strong> attributes as anomaly coordinate variables; (3) The norm ancillary variable has a single dimension, which is the dimension of a time coordinate variable that is an ancillary data variable.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="geometries">7.6 Geometries</h3>
 <div class="paragraph">
 <p><strong>Requirements:</strong></p>
 </div>
@@ -1626,7 +1657,7 @@ If the optional formula term <code><strong>nsigma</strong></code> is supplied, i
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-12 18:07:29 UTC
+Last updated 2025-11-12 19:14:00 UTC
 </div>
 </div>
 </body>
