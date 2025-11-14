@@ -472,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author31" class="author">Sadie&#160;Bartholomew</span><br>
 <span id="author32" class="author">Thomas Lavergne</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">14&#160;November,&#160;2025&#160;17:05:32Z</span>
+<span id="revdate">14&#160;November,&#160;2025&#160;17:48:06Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -2811,11 +2811,8 @@ Subtracting the time zone offset from a given datetime converts it to the equiva
 It is recommended that the time coordinate variable should have a <strong><code>calendar</code></strong> attribute (rather than relying on the default).
 <a href="#table-calendars">Table 4.1</a> lists the possible values of the <strong><code>calendar</code></strong> attribute and the key characteristics of the calendars.</p>
 </div>
-<div id="table-calendars" class="paragraph">
-<div class="title">List of defined values for the <strong><code>calendar</code></strong> attribute and summary of the key characteristics of the calendars</div>
-<p>As well as those listed in this table, the <strong><code>calendar</code></strong> attribute may also take the value <strong><code>none</code></strong> or any other value, with meanings given at the end of <a href="#calendar">Section 4.4.3, "Calendar"</a>.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
+<table id="table-calendars" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4.1. List of defined values for the <strong><code>calendar</code></strong> attribute and summary of the key characteristics of the calendars</caption>
 <colgroup>
 <col style="width: 12.5%;">
 <col style="width: 12.5%;">
@@ -2826,17 +2823,19 @@ It is recommended that the time coordinate variable should have a <strong><code>
 <col style="width: 12.5%;">
 <col style="width: 12.5%;">
 </colgroup>
-<tbody>
+<thead>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>calendar</code></strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Days in year</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Months</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Leap days</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Leap seconds</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">First date</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Last date</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Year 0</p></td>
+<th class="tableblock halign-left valign-top"><strong><code>calendar</code></strong></th>
+<th class="tableblock halign-left valign-top">Days in year</th>
+<th class="tableblock halign-left valign-top">Months</th>
+<th class="tableblock halign-left valign-top">Leap days</th>
+<th class="tableblock halign-left valign-top">Leap seconds</th>
+<th class="tableblock halign-left valign-top">First date</th>
+<th class="tableblock halign-left valign-top">Last date</th>
+<th class="tableblock halign-left valign-top">Year 0</th>
 </tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>standard</code></strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">365/366</p></td>
@@ -2928,7 +2927,8 @@ In the <strong>Leap days</strong> column, "Gregorian" and "Julian" identify diff
 By the Gregorian rule, a year is a leap year if either (i) it is divisible by 4 but not by 100 or (ii) it is divisible by 400.
 By the Julian rule, any year that is divisible by 4 is a leap year, even if it is also divisible by 100.
 In the <strong>Year 0</strong> column, "yes" and "no" respectively indicate that there are, or are not, valid dates in year 0 in this calendar.
-In calendars marked with *, dates in year 0 are climatological; this use of year 0 is deprecated (see <a href="#climatological-statistics">Section 7.4, "Climatological Statistics"</a>).</p>
+In calendars marked with *, dates in year 0 are climatological; this use of year 0 is deprecated (see <a href="#climatological-statistics">Section 7.4, "Climatological Statistics"</a>).
+As well as those listed in this table, the <strong><code>calendar</code></strong> attribute may also take the value <strong><code>none</code></strong> or any other value, with meanings given at the end of <a href="#calendar">Section 4.4.3, "Calendar"</a>.</p>
 </div>
 <div class="paragraph">
 <p>In a given calendar, each valid datetime identifies a particular instant in the continuous physical dimension of time.
@@ -13575,7 +13575,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-14 17:05:32 UTC
+Last updated 2025-11-14 17:48:06 UTC
 </div>
 </div>
 </body>
