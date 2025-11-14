@@ -472,7 +472,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author31" class="author">Sadie&#160;Bartholomew</span><br>
 <span id="author32" class="author">Thomas Lavergne</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">13&#160;November,&#160;2025&#160;20:49:23Z</span>
+<span id="revdate">14&#160;November,&#160;2025&#160;11:17:48Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -2902,7 +2902,8 @@ A non-zero time zone offset is not allowed in this calendar.</p>
 <p>A Gregorian calendar <em>without</em> leap seconds that is based on International Atomic Time (TAI), which began on 1958-01-01 0:0:0.
 Earlier datetimes than this are not allowed in the <strong><code>tai</code></strong> calendar.
 For any given instant, the <strong><code>tai</code></strong> datetime is ahead of the <strong><code>utc</code></strong> datetime, where "ahead" means the same as it does when describing a timezone to the east as being ahead of one to the west.
-The difference between the two datetimes (<strong><code>tai</code></strong> minus <strong><code>utc</code></strong>) for a given instant of time is 10 seconds plus the net number of leap seconds introduced since 1972-01-01.
+The difference between the two datetimes (<strong><code>tai</code></strong> minus <strong><code>utc</code></strong>) for a given instant of time is 10 seconds plus the net number of leap seconds introduced since the instant with the datetime 1972-01-10 in the <strong><code>tai</code></strong> calendar, when the current definition of UTC came into force.
+This instant has the datetime 1972-01-01 00:00:00 in the <strong><code>utc</code></strong> calendar.
 Moreover, a given datetime in the <strong><code>tai</code></strong> calendar represents an instant that is earlier than the same datetime in the <strong><code>utc</code></strong> calendar.
 A non-zero time zone offset is not allowed in this calendar.</p>
 </dd>
@@ -2958,7 +2959,7 @@ See <a href="#explicit-calendar">Section 4.4.6, "Explicitly Defined Calendar"</a
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>standard</code></strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">365/366</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Gregorian</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Gregorian</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Julian/Gregorian</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">unknown</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0001-01-01</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">+&#x221E;</p></td>
@@ -13516,7 +13517,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-13 20:49:23 UTC
+Last updated 2025-11-14 11:17:47 UTC
 </div>
 </div>
 </body>
