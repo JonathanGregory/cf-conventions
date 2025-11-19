@@ -1402,7 +1402,7 @@ The specified variable must exist in the file.</p>
 <p>In cases (2) and (3), <strong><code>cell_methods</strong></code> must have no entries other that the ones described in the previous two points.</p>
 </li>
 <li>
-<p>In case (3), the norm ancillary variable must have an auxiliary coordinate variable with a <strong><code>gather</code></strong> attribute naming a time coordinate variable that has a <strong><code>climatology</code></strong> attribute. The auxiliary coordinate values must be non-negative integers that are less than the dimension named by the <strong><code>gather</code></strong> attribute.</p>
+<p>In case (3), the norm ancillary variable must have an auxiliary coordinate variable of integer type with a <strong><code>gather</code></strong> attribute naming a time coordinate variable that has a <strong><code>climatology</code></strong> attribute. The auxiliary coordinate values must be non-negative and less than the dimension named by the <strong><code>gather</code></strong> attribute.</p>
 </li>
 </ul>
 </div>
@@ -1689,7 +1689,7 @@ If the optional formula term <code><strong>nsigma</strong></code> is supplied, i
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-19 18:22:30 UTC
+Last updated 2025-11-19 22:31:48 UTC
 </div>
 </div>
 </body>
