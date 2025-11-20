@@ -915,7 +915,7 @@ The values of <strong><code>var</code></strong> must be variables that exist in 
 </div>
 </div>
 <div class="sect2">
-<h3 id="time-coordinate">4.4.1 Time Coordinate Units</h3>
+<h3 id="time-coordinate">4.4.2 Time Coordinate Units</h3>
 <div class="paragraph">
 <p><strong>Requirements:</strong></p>
 </div>
@@ -925,17 +925,7 @@ The values of <strong><code>var</code></strong> must be variables that exist in 
 <p>The time <strong><code>units</code></strong> of a time coordinate variable must contain a reference datetime.</p>
 </li>
 <li>
-<p>The value for seconds in the reference datetime must not equal or exceed 60, except for valid leap seconds if the <strong><code>calendar</code></strong> is <strong><code>utc</code></strong>.</p>
-</li>
-<li>
 <p>A non-zero time zone offset must not appear in the reference datetime in the <strong><code>utc</code></strong> and <strong><code>tai</code></strong> calendars.</p>
-</li>
-<li>
-<p>Datetimes before 1972-01-01 0:0:0 and after the current instant (i.e. any time in the future when the data is written) are invalid in the <strong><code>utc</code></strong> calendar, datetimes before 1958-01-01 0:0:0 are invalid in the <strong><code>tai</code></strong> calendar, datetimes in negative years are invalid in the <strong><code>standard</code></strong> and <strong><code>julian</code></strong> calendars, and datetimes in the range from (and including) 1582-10-5 0:0:0 until (but excluding) 1582-10-15 0:0:0 are invalid in the <strong><code>standard</code></strong> calendar.
-Datetimes which are invalid in the specified calendar must not be encoded as time coordinates.</p>
-</li>
-<li>
-<p>The reference datetime of a time coordinate variable must be a valid datetime in the specified calendar.</p>
 </li>
 <li>
 <p>The reference datetime must be written in the correct format.
@@ -963,14 +953,11 @@ In particular, it must include the date, and the time zone offset must not be in
 <li>
 <p>A non-zero time zone offset should not be specified in the reference datetime.</p>
 </li>
-<li>
-<p>In the <strong><code>standard</code></strong> calendar, a reference datetime before 1582-10-5 0:0:0 should not be used for a time coordinate representing 1582-10-15 0:0:0 or a later datetime, and a reference datetime of 1582-10-15 0:0:0 or later should not be used for a time coordinate representing a datetime earlier than 1582-10-5 0:0:0.</p>
-</li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="calendar">4.4.2 Calendar</h3>
+<h3 id="calendar">4.4.3 Calendar</h3>
 <div class="paragraph">
 <p><strong>Requirements:</strong></p>
 </div>
@@ -981,6 +968,13 @@ In particular, it must include the date, and the time zone offset must not be in
 </li>
 <li>
 <p>If present, the value of the <strong><code>calendar</code></strong> attribute must be one of the standardized values (case insensitive) detailed in this section, unless the <strong><code>month_length</code></strong> attribute is present, in which case the <strong><code>calendar</code></strong> attribute must <em>not</em> take one of the standardized values.</p>
+</li>
+<li>
+<p>Datetimes before 1972-01-01 0:0:0 and after the current instant (i.e. any time in the future when the data is written) are invalid in the <strong><code>utc</code></strong> calendar, datetimes before 1958-01-01 0:0:0 are invalid in the <strong><code>tai</code></strong> calendar, datetimes in negative years are invalid in the <strong><code>standard</code></strong> and <strong><code>julian</code></strong> calendars, and datetimes in the range from (and including) 1582-10-5 0:0:0 until (but excluding) 1582-10-15 0:0:0 are invalid in the <strong><code>standard</code></strong> calendar.
+Datetimes which are invalid in the specified calendar must not be encoded as time coordinates.</p>
+</li>
+<li>
+<p>The reference datetime of a time coordinate variable must be a valid datetime in the specified calendar.</p>
 </li>
 </ul>
 </div>
@@ -998,11 +992,18 @@ In particular, it must include the date, and the time zone offset must not be in
 <li>
 <p>The value <strong><code>standard</code></strong> should be used instead of <strong><code>gregorian</code></strong> in the <strong><code>calendar</code></strong> attribute.</p>
 </li>
+<li>
+<p>In the <strong><code>standard</code></strong> calendar, a reference datetime before 1582-10-5 0:0:0 should not be used for a time coordinate representing 1582-10-15 0:0:0 or a later datetime, and a reference datetime of 1582-10-15 0:0:0 or later should not be used for a time coordinate representing a datetime earlier than 1582-10-5 0:0:0.</p>
+</li>
+<li>
+<p>A datetime during a leap second (i.e. with a value for seconds that equals or exceeds 60) should not be used as the reference datetime of a time coordinate variable if the <strong><code>calendar</code></strong> is <strong><code>utc</code></strong>.
+(In other calendars, leap seconds must not be used because they are not valid datetimes.)</p>
+</li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="explicitly-defined-calendar">4.4.5 Explicitly Defined Calendar</h3>
+<h3 id="explicitly-defined-calendar">4.4.4 Explicitly Defined Calendar</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1620,7 +1621,7 @@ If the optional formula term <code><strong>nsigma</strong></code> is supplied, i
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-17 17:15:25 UTC
+Last updated 2025-11-20 16:31:27 UTC
 </div>
 </div>
 </body>
