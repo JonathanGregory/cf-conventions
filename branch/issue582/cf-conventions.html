@@ -473,7 +473,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author32" class="author">Thomas&#160;Lavergne</span><br>
 <span id="author33" class="author">Seth&#160;McGinnis</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">21&#160;November,&#160;2025&#160;13:10:42Z</span>
+<span id="revdate">21&#160;November,&#160;2025&#160;13:25:09Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -5820,9 +5820,11 @@ data:
 It indicates that <strong><code>delta_tas(0,:,:)</code></strong>, where by <strong><code>:</code></strong> we mean the entire range of the dimension, is the difference between <strong><code>tas(0,:,:)</code></strong> and <strong><code>climatological_tas(5,:,:)</code></strong>.</p>
 </div>
 <div class="paragraph">
-<p>If we chose instead to show the climatological time axis with only the three months needed in this example (June, July, and August), the following lines would replace the corresponding ones in the example above:
----
-dimensions:
+<p>If we chose instead to show the climatological time axis with only the three months needed in this example (June, July, and August), the following lines would replace the corresponding ones in the example above:</p>
+</div>
+<hr>
+<div class="paragraph">
+<p>dimensions:
   climatological_time=3;
 data:
   climatological_time=165, 196, 227;  // 1990-06-15, 1990-07-16, 1990-08-16
@@ -14175,7 +14177,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-21 13:10:42 UTC
+Last updated 2025-11-21 13:25:09 UTC
 </div>
 </div>
 </body>
