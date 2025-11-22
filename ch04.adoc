@@ -341,17 +341,18 @@ The net number of leap seconds added to UTC between 1972-01-01 and 2025-01-01 is
 Leap seconds do not need to be considered for model-generated data in any model calendar.
 Leap seconds should be considered:
 
-* if you are using an existing observational dataset for dates since 1972 with time coordinates in the **`standard`**, **`proleptic_gregorian`** or **`utc`** calendar, which treat them differently.
+* if you are using an existing observational dataset for dates since 1972 with time coordinates in the **`standard`**pass:q[<del><span style="color: red">, `proleptic_gregorian`</span></del>] or **`utc`** calendar, which treat them differently.
 Later paragraphs of this section give further information about these cases.
 
-* if you are using an observational datasets with time coordinates in the **`tai`** calendar.
+* if you are using an existing observational dataset with time coordinates in the **`tai`** calendar.
 These do not give UTC when converted to datetimes.
 See the later paragraph about the **`tai`** calendar.
 
 * if you are writing an observational dataset for dates since 1972 using datetimes from a clock or data logging device whose time and date are related to civil time e.g. clocks based on UTC or computers obtaining time signals from an NTP server.
-It is recommended to use the **`proleptic_gregorian`** or the **`utc`** calendar in preference to the **`standard`** calendar in this case.
+pass:q[<del><span style="color: red">It is recommended to use the `proleptic_gregorian` or the `utc` calendar in preference to the `standard` calendar in this case.</span></del>]
+##In order to preserve precision to the second in all datetimes and time intervals, you need to use the **`utc`** calendar instead of the **`standard`** calendar.##
 <<appendix-leap-seconds>> compares these calendars' treatment of leap seconds in detail.
-You need the **`utc`** calendar to preserve precision to the second in all datetimes and differences between time coordinates.
+pass:q[<del><span style="color: red">You need the `utc` calendar to preserve precision to the second in all datetimes and differences between time coordinates.</span></del>]
 
 WARNING: The **`utc`** calendar requires both the writer **and the user** of the dataset to have software that takes leap seconds into account for converting between datetimes and time coordinates.
 Leap seconds are ignored by most software, including UDUNITS.
@@ -377,15 +378,25 @@ The interval between the datetimes 1582-10-4 0:0:0 and 1582-10-15 0:0:0 is exact
 It is recommended that a reference datetime before the discontinuity should not be used for datetimes after the discontinuity, and vice-versa.
 +
 The **`standard`** calendar has been used for both observational data and model-generated data with real-world datetimes.
-When using data written with the **`standard`** calendar for dates since 1972, you should regard datetimes and time coordinates as uncertain by a number of seconds (but less than a minute), because leap seconds may or may not have been taken into account.
-See <<appendix-leap-seconds>> for details.
-For existing datasets, this uncertainty can be eliminated only if you have separate information about how leap seconds were treated.
+In data written ##in CF versions before 1.13## with the **`standard`** calendar for dates since 1972, datetimes and time coordinates should be regarded as uncertain by a number of seconds (but less than a minute), because leap seconds may or may not have been taken into account.
+For pass:q[<del><span style="color: red">existing</span></del>] ##such## datasets, this uncertainty can be eliminated only if you have separate information about how leap seconds were treated.
+##In data written with CF 1.13 or later in the **`standard`** calendar##,
 
-**`proleptic_gregorian`**:: A calendar with the Gregorian rule for leap years, extended to dates before 1582-10-15.
-All dates consistent with these rules are allowed, both before and after 1582-10-15 0:0:0.
-If the time coordinates identify real-world instants from 1972 onwards, they represent UTC datetimes.
-In this case, the difference between two time coordinates will not exactly equal the length of the interval between the instants concerned if there are any intervening leap seconds.
+* ##datetimes since 1972 are UTC##,
+
+* ##time coordinates and datetimes should be interconverted assuming 60 seconds in every minute (i.e. no leap seconds), and##
+
+* ##the difference between two time coordinates is less than the length of the time interval between them by the number of intervening leap seconds.##
+
++
 See <<appendix-leap-seconds>> for details.
+
+**`proleptic_gregorian`**:: A ##model## calendar with the Gregorian rule for leap years, extended to dates before 1582-10-15.
+All dates consistent with these rules are allowed, both before and after 1582-10-15 0:0:0.
+##There are no leap seconds in this calendar.##
+pass:q[<del><span style="color: red">If the time coordinates identify real-world instants from 1972 onwards, they represent UTC datetimes.
+In this case, the difference between two time coordinates will not exactly equal the length of the interval between the instants concerned if there are any intervening leap seconds.
+See `appendix-leap-seconds` for details.</span></del>]
 
 **`julian`**:: A calendar which follows the Julian rule for leap years.
 Year 1 AD or CE in the **`julian`** calendar is also year 1 of the **`standard`** calendar.
