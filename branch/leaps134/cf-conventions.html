@@ -474,7 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author33" class="author">Seth&#160;McGinnis</span><br>
 <span id="author34" class="author">Patrick&#160;Van&#160;Laake</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">22&#160;November,&#160;2025&#160;19:00:56Z</span>
+<span id="revdate">22&#160;November,&#160;2025&#160;19:12:53Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -12810,17 +12810,19 @@ The "Use" values are <strong>MT</strong> for mesh topology variables, <strong>LI
 <div class="sectionbody">
 <div class="paragraph">
 <p>This appendix describes the treatment of leap seconds in CF in more detail than <a href="#calendar">Section 4.4.3, "Calendar"</a>.
-Since precision to the second has rarely been needed in the climate and forecast community, leap seconds have typically been ignored, including in many datasets and earlier versions of the CF standard.
-In all calendars except <strong><code>utc</code></strong>, datetimes within leap seconds are not valid, reference datetimes in the <strong><code>units</code></strong> attribute must not contain seconds equal to or greater than 60, and the elapsed time between the same time of day on consecutive days is always 86400 seconds.</p>
+Because precision to the second has rarely been needed in the climate and forecast community, leap seconds have typically been ignored, including in many datasets and earlier versions of the CF standard.</p>
 </div>
 <div class="paragraph">
-<p>If you are producing model-generated datasets with datetimes that follow the Gregorian calendar~~ but do not include leap seconds~~, the <strong><code>proleptic_gregorian</code></strong> calendar is recommended, <mark>because it indicates unequivocally to the user of the dataset that there are no leap seconds.
+<p>In all calendars except <strong><code>utc</code></strong>, datetimes within leap seconds are not valid, reference datetimes in the <strong><code>units</code></strong> attribute must not contain seconds equal to or greater than 60, and the elapsed time between the same time of day on consecutive days is always 86400 seconds.</p>
+</div>
+<div class="paragraph">
+<p>If you are producing model-generated datasets with datetimes that follow the Gregorian calendar<del><span style="color: red"> but do not include leap seconds</span></del>, the <strong><code>proleptic_gregorian</code></strong> calendar is recommended, <mark>because it unequivocally indicates to the user of the dataset that there are no leap seconds.
 On these grounds, it is preferable to the <strong><code>standard</code></strong> calendar, which is ambiguous about the inclusion of leap seconds in CF versions before 1.13 (see below).</mark></p>
 </div>
 <div class="paragraph">
-<p>If you are producing real-world datasets with datetimes in UTC, and if it&#8217;s important for ~~your time coordinates and~~ <mark>the</mark> datetimes <mark>and time intervals</mark> to be accurate to the second, the <strong><code>utc</code></strong> calendar is recommended.
+<p>If you are producing real-world datasets with datetimes in UTC, and if it&#8217;s important for <del><span style="color: red">your time coordinates and</span></del> <mark>the</mark> datetimes <mark>and time intervals</mark> to be accurate to the second, the <strong><code>utc</code></strong> calendar is recommended.
 When a datetime is converted to a time coordinate or vice-versa in the <strong><code>utc</code></strong> calendar, any leap seconds must be counted that occurred between the instant concerned and the reference datetime in the <strong><code>units</code></strong> attribute.
-Therefore both the writer and the user of the dataset will need ~~leap-second-aware software for conversion between datetimes and time coordinates.~~ ##software that has access to a list of dates on which leap seconds were inserted, such as the linkhttps://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat[<code>Leap_Second.dat</code> from IERS].</p>
+Therefore both the writer and the user of the dataset will need <del><span style="color: red">leap-second-aware software for conversion between datetimes and time coordinates.</span></del> <mark>software that has access to a list of dates on which leap seconds were inserted, such as <a href="https://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat"><code>Leap_Second.dat</code> from IERS</a>.</mark></p>
 </div>
 <div class="paragraph">
 <p><mark>If you are producing real-world datasets with datetimes in UTC but do not expect all users of your datasets to have such software, the <strong><code>standard</code></strong> calendar is recommended.</mark>
@@ -12840,33 +12842,33 @@ It has two caveats:</mark></p>
 </ul>
 </div>
 <div class="paragraph">
-<p><mark>We illustrate the differences between the <strong><code>utc</code></strong> and <strong><code>standard</code></strong> calendars with the examples related to the leap second that</mark> was added to UTC at the end of 2016.
-<sub>~Therefore</sub>~ If <strong><code>calendar="utc"</code></strong> and <strong><code>units="seconds since 2016-12-31 23:59:58"</code></strong>, a value of 4 for the time coordinate represents the datetime 2017-01-01 00:00:01, because four seconds had elapsed by that instant since 2016-12-31 23:59:58 (seconds ending at 2016-12-31 23:59:59, 2016-12-31 23:59:60, 2017-01-01 00:00:00, 2017-01-01 00:00:01).
-If <strong><code>calendar="standard"</code></strong> and <mark>with the same</mark> <strong><code>units="seconds since 2016-12-31 23:59:58"</code></strong>, the datetime 2017-01-01 00:00:01 is represented by a time coordinate of 3, because the UTC leap second (from 2016-12-31 23:59:60 to 2017-01-01 00:00:00) ~~does not exist~~ <mark>is ignored when calculating time coordinates</mark> in the <strong><code>standard</code></strong> calendar ~~whereas the time coordinate is 4 in <strong><code>utc</code></strong> with the same <strong><code>units</code></strong> attribute~~.</p>
+<p><mark>We illustrate the differences between the <strong><code>utc</code></strong> and <strong><code>standard</code></strong> calendars with examples related to the leap second that</mark> was added to UTC at the end of 2016.
+<del><span style="color: red">Therefore</span></del> If <strong><code>calendar="utc"</code></strong> and <strong><code>units="seconds since 2016-12-31 23:59:58"</code></strong>, a value of 4 for the time coordinate represents the datetime 2017-01-01 00:00:01, because four seconds had elapsed by that instant since 2016-12-31 23:59:58 (seconds ending at 2016-12-31 23:59:59, 2016-12-31 23:59:60, 2017-01-01 00:00:00, 2017-01-01 00:00:01).
+If <strong><code>calendar="standard"</code></strong>, <mark>with the same</mark> <strong><code>units="seconds since 2016-12-31 23:59:58"</code></strong>, the datetime 2017-01-01 00:00:01 is represented by a time coordinate of 3, because the UTC leap second (from 2016-12-31 23:59:60 to 2017-01-01 00:00:00) <del><span style="color: red">does not exist</span></del> <mark>is ignored when calculating time coordinates</mark> in the <strong><code>standard</code></strong> calendar <del><span style="color: red">whereas the time coordinate is 4 in <strong><code>utc</code></strong> with the same <strong><code>units</code></strong> attribute</span></del>.</p>
 </div>
 <div class="paragraph">
 <p>In the <strong><code>utc</code></strong> calendar, the elapsed time between the same time of day on consecutive days is normally 86400 seconds, but increases to 86401 seconds when a positive leap second intervenes.
 For example, with respect to the the reference datetime in <strong><code>units="seconds since 2016-12-31 23:59:58"</code></strong>, the datetime 2017-01-01 23:59:58, which is one calendar day later, is represented by a time coordinate of 86401.
-In the <strong><code>standard</code></strong> calendar, the time coordinate for 2017-01-01 00:00:58 is 60, and for 2017-01-01 23:59:58 is 86400.</p>
+In the <strong><code>standard</code></strong> calendar, <mark>with the same <strong><code>units</code></strong>,</mark> the time coordinate for 2017-01-01 23:59:58 is 86400, and for 2017-01-01 00:00:58 is 60.</p>
 </div>
 <div class="paragraph">
-<p>~~Because the <strong><code>proleptic_gregorian</code></strong> calendar includes no leap seconds, the time coordinate for a given datetime and <strong><code>units</code></strong> may differ between this calendar and <strong><code>utc</code></strong>.
-The <strong><code>standard</code></strong> calendar is not recommended for new datasets because of its uncertainty about leap seconds.~~</p>
+<p><del><span style="color: red">Because the <strong><code>proleptic_gregorian</code></strong> calendar includes no leap seconds, the time coordinate for a given datetime and <strong><code>units</code></strong> may differ between this calendar and <strong><code>utc</code></strong>.
+The <strong><code>standard</code></strong> calendar is not recommended for new datasets because of its uncertainty about leap seconds.</span></del></p>
 </div>
 <div class="paragraph">
-<p>In <sub>~existing</sub> datasets <mark>written in CF versions before 1.13</mark>, the <strong><code>standard</code></strong> calendar has been used both for real-world data and for data generated by models that follow the Gregorian calendar (and do not include leap seconds in the timeline).
-~~Hence leap seconds may have occurred between the instant of the reference datetime in the <strong><code>udunits</code></strong> and the instant referred to by a time coordinate.~~
+<p>In <del><span style="color: red">existing</span></del> datasets <mark>written in CF versions before 1.13</mark>, the <strong><code>standard</code></strong> calendar has been used both for real-world data and for data generated by models that follow the Gregorian calendar (and do not include leap seconds in the timeline).
+<del><span style="color: red">Hence leap seconds may have occurred between the instant of the reference datetime in the <strong><code>udunits</code></strong> and the instant referred to by a time coordinate.</span></del>
 <mark>Moreover,</mark> some real-world datasets take leap seconds into account, and others do not.
 For example, equipment that automatically records data with UTC datetimes can insert a new leap second only if it has prior knowledge of when this is to be done, or is appropriately synchronized to UTC time services that deliver leap second support.</p>
 </div>
 <div class="paragraph">
-<p>As a consequence of such differences, users of real-world data in the <strong><code>standard</code></strong> calendar <mark>and versions of CF before 1.13</mark> need to be aware that the difference between two time coordinates might not exactly equal the duration of the time interval between the two instants, but could be inaccurate by a number of seconds.
-~~Similar uncertainties apply if you do not know whether the data is observational or model-generated.~~
+<p>As a consequence of such differences, users of <del><span style="color: red">real-world</span></del> data in the <strong><code>standard</code></strong> calendar <mark>and versions of CF before 1.13</mark> need to be aware that the difference between two time coordinates might not exactly equal the duration of the time interval between the two instants <mark>in the real world</mark>, but could be inaccurate by a number of seconds.
+<del><span style="color: red">Similar uncertainties apply if you do not know whether the data is observational or model-generated.</span></del>
 Furthermore, the time coordinates for the same real-world instant in two datasets, both using the <strong><code>standard</code></strong> calendar, could disagree by some number of seconds.</p>
 </div>
 <div class="paragraph">
 <p>CF version 1.12 introduced possible values of the form "<strong><code>leap_seconds:</code></strong> <em>value</em>" for the <strong><code>units_metadata</code></strong> attribute, in order to specify the treatment of leap seconds in the <strong><code>standard</code></strong>, <strong><code>julian</code></strong> and <strong><code>proleptic_gregorian</code></strong> calendars.
-CF version 1.13 withdrew this use of <strong><code>units_metadata</code></strong>, in favour of the recommendations given above that the <strong><code>utc</code></strong> or <strong><code>proleptic_gregorian</code></strong> calendars should be used by data-producers instead of <strong><code>standard</code></strong>.</p>
+CF version 1.13 withdrew this use of <strong><code>units_metadata</code></strong>, in favour of the recommendations given above <del><span style="color: red">that the <strong><code>utc</code></strong> or <strong><code>proleptic_gregorian</code></strong> calendars should be used by data-producers instead of <strong><code>standard</code></strong></span></del>.</p>
 </div>
 </div>
 </div>
@@ -13600,7 +13602,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-22 19:00:56 UTC
+Last updated 2025-11-22 19:12:53 UTC
 </div>
 </div>
 </body>
