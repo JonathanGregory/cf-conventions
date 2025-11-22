@@ -474,7 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author33" class="author">Seth&#160;McGinnis</span><br>
 <span id="author34" class="author">Patrick&#160;Van&#160;Laake</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">21&#160;November,&#160;2025&#160;19:46:33Z</span>
+<span id="revdate">22&#160;November,&#160;2025&#160;16:23:02Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -12792,7 +12792,7 @@ The "Use" values are <strong>MT</strong> for mesh topology variables, <strong>LI
 <div class="sectionbody">
 <div class="paragraph">
 <p>This appendix describes the treatment of leap seconds in CF in more detail than <a href="#calendar">Section 4.4.3, "Calendar"</a>.
-As second-level precision has rarely been needed in the climate and forecast community, leap seconds have typically been ignored, including in many datasets and earlier versions of the CF standard.</p>
+Since precision to the second has rarely been needed in the climate and forecast community, leap seconds have typically been ignored, including in many datasets and earlier versions of the CF standard.</p>
 </div>
 <div class="paragraph">
 <p>If you are producing real-world datasets with datetimes in UTC, and if it&#8217;s important for your time coordinates and datetimes to be accurate to the second, the <strong><code>utc</code></strong> calendar is recommended.
@@ -12803,8 +12803,10 @@ Therefore both the writer and the user of the dataset will need leap-second-awar
 <p>For example, a leap second was added to UTC at the end of 2016.
 Therefore if <strong><code>calendar="utc"</code></strong> and <strong><code>units="seconds since 2016-12-31 23:59:58"</code></strong>, a value of 4 for the time coordinate represents the datetime 2017-01-01 00:00:01, because four seconds had elapsed by that instant since 2016-12-31 23:59:58 (seconds ending at 2016-12-31 23:59:59, 2016-12-31 23:59:60, 2017-01-01 00:00:00, 2017-01-01 00:00:01).
 In the <strong><code>utc</code></strong> calendar, the elapsed time between the same time of day on consecutive days is normally 86400 seconds, but increases to 86401 seconds when a positive leap second intervenes.
-For example, with respect to the the reference datetime in <strong><code>units="seconds since 2016-12-31 23:59:58"</code></strong>, the datetime 2017-01-01 23:59:58, which is one calendar day later, is represented by a time coordinate of 86401.
-In all calendars except <strong><code>utc</code></strong>, datetimes within leap seconds are not valid, reference datetimes in the <strong><code>units</code></strong> attribute must not contain seconds equal to or greater than 60, and the elapsed time between the same time of day on consecutive days is always 86400 seconds.</p>
+For example, with respect to the the reference datetime in <strong><code>units="seconds since 2016-12-31 23:59:58"</code></strong>, the datetime 2017-01-01 23:59:58, which is one calendar day later, is represented by a time coordinate of 86401.</p>
+</div>
+<div class="paragraph">
+<p>In all calendars except <strong><code>utc</code></strong>, datetimes within leap seconds are not valid, reference datetimes in the <strong><code>units</code></strong> attribute must not contain seconds equal to or greater than 60, and the elapsed time between the same time of day on consecutive days is always 86400 seconds.</p>
 </div>
 <div class="paragraph">
 <p>If you are producing model-generated datasets with datetimes that follow the Gregorian calendar but do not include leap seconds, the <strong><code>proleptic_gregorian</code></strong> calendar is recommended.
@@ -13587,7 +13589,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-21 19:46:32 UTC
+Last updated 2025-11-22 16:23:02 UTC
 </div>
 </div>
 </body>
