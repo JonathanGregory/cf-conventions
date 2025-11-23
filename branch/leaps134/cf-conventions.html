@@ -474,7 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author33" class="author">Seth&#160;McGinnis</span><br>
 <span id="author34" class="author">Patrick&#160;Van&#160;Laake</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">23&#160;November,&#160;2025&#160;19:03:09Z</span>
+<span id="revdate">23&#160;November,&#160;2025&#160;19:14:33Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -12814,7 +12814,7 @@ The "Use" values are <strong>MT</strong> for mesh topology variables, <strong>LI
 </div>
 <div class="paragraph">
 <p>Because precision to the second has rarely been needed in the climate and forecast community, leap seconds have typically been ignored, including in many datasets and <del><span style="color: red">earlier</span></del> versions of the CF standard <mark>before 1.12</mark>.
-In all calendars except <strong><code>utc</code></strong>, datetimes within leap seconds are not valid, reference datetimes in the <strong><code>units</code></strong> attribute must not contain seconds equal to or greater than 60, and the elapsed time between the same time of day on consecutive days is always 86400 seconds.</p>
+In all calendars except <strong><code>utc</code></strong>, datetimes within leap seconds are invalid, reference datetimes in the <strong><code>units</code></strong> attribute must not contain seconds equal to or greater than 60, and the elapsed time between the same time of day on consecutive days is always 86400 seconds.</p>
 </div>
 <div class="paragraph">
 <p>If you are producing model-generated datasets with datetimes that follow the Gregorian calendar, the <strong><code>proleptic_gregorian</code></strong> calendar is recommended, <mark>because it unequivocally indicates to the user of the dataset that there are no leap seconds in the timeline (we assume this is true for model data).
@@ -13599,7 +13599,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-23 19:03:09 UTC
+Last updated 2025-11-23 19:14:33 UTC
 </div>
 </div>
 </body>
