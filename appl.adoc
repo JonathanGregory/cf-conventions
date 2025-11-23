@@ -5,8 +5,9 @@
 == Leap Seconds
 
 This appendix describes the treatment of leap seconds in CF in more detail than <<calendar>>.
-Because precision to the second has rarely been needed in the climate and forecast community, leap seconds have typically been ignored, including in many datasets and earlier versions of the CF standard.
+##It provides guidance for writers of datasets about the choice of a suitable CF calendar.##
 
+Because precision to the second has rarely been needed in the climate and forecast community, leap seconds have typically been ignored, including in many datasets and pass:q[<del><span style="color: red">earlier</span></del>] versions of the CF standard ##before 1.12##.
 In all calendars except **`utc`**, datetimes within leap seconds are not valid, reference datetimes in the **`units`** attribute must not contain seconds equal to or greater than 60, and the elapsed time between the same time of day on consecutive days is always 86400 seconds.
 
 If you are producing model-generated datasets with datetimes that follow the Gregorian calendar, the **`proleptic_gregorian`** calendar is recommended, ##because it unequivocally indicates to the user of the dataset that there are no leap seconds in the timeline (we assume this is true for model data).
@@ -14,7 +15,7 @@ On these grounds, it is preferable to the **`standard`** calendar, which is ambi
 
 If you are producing real-world datasets with datetimes in UTC, and if it's important for pass:q[<del><span style="color: red">your time coordinates and</span></del>] ##the## datetimes ##and time intervals## to be accurate to the second, the **`utc`** calendar is recommended.
 When a datetime is converted to a time coordinate or vice-versa in the **`utc`** calendar, any leap seconds must be counted that occurred between the instant concerned and the reference datetime in the **`units`** attribute.
-Therefore both the writer and the user of the dataset will need pass:q[<del><span style="color: red">leap-second-aware software for conversion between datetimes and time coordinates.</span></del>] ##software that has access to a list of dates on which leap seconds were inserted, such as link:$$https://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat$$[`Leap_Second.dat` from IERS].##
+Therefore both the writer and the user of the dataset will need pass:q[<del><span style="color: red">leap-second-aware software for conversion between datetimes and time coordinates.</span></del>] ##software that has access to a list of dates (such as link:$$https://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat$$[`Leap_Second.dat` from IERS]) on which leap seconds were inserted.##
 
 ##If you are producing real-world datasets with datetimes in UTC but do not expect all users of your datasets to have such software, the **`standard`** calendar is recommended.##
 For real-world data in the **`standard`** calendar since 1972, datetimes are in UTC or a local time zone offset from UTC.
