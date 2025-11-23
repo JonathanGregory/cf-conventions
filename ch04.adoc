@@ -295,11 +295,12 @@ It is recommended that the time coordinate variable should have a **`calendar`**
 ====
 [[table-calendars]]
 .List of defined values for the **`calendar`** attribute and summary of the key characteristics of the calendars
-[options="header",caption="Table 4.1. "]
+[options="header",caption="Table 4.1. ",cols="18,12,10,18,10,10"]
 |===============
 | **`calendar`** | Days in year | Leap days | Leap seconds | First date | Last date
 | **`standard`** | 365/366 | Julian/
-Gregorian | unknown | 0001-01-01 | +&#x221E;
+Gregorian | before CF 1.13: unknown
+since CF 1.13: no | 0001-01-01 | +&#x221E;
 | **`julian`** | 365/366 | Julian | no | 0001-01-01 | +&#x221E;
 | **`proleptic_gregorian`** | 365/366 | Gregorian | no | -&#x221E; | +&#x221E;
 | **`no_leap`**/**`365_day`** | 365 | never | no | -&#x221E; | +&#x221E;
@@ -313,6 +314,7 @@ As well as those listed in this table, the **`calendar`** attribute may also tak
 In the **Leap days** column, "Gregorian" and "Julian" identify different rules for determining whether a given year is a common year (with 365 days) or a leap year (with 366).
 By the Gregorian rule, a year is a leap year if either (i) it is divisible by 4 but not by 100 or (ii) it is divisible by 400.
 By the Julian rule, any year that is divisible by 4 is a leap year, even if it is also divisible by 100.
+##In the **Leap seconds** column, "no" means that seconds equal to or exceeding 60 are not allowed in datetimes, and that time coordinates and datetimes must be interconverted assuming 60 seconds in every minute, as if leap seconds never occurred.##
 ====
 
 The lengths of the months defined by the Julian and Gregorian calendars (12 months in the year, 31 days in January, etc.) are used in all calendars except **`360_day`** (in which there are 12 months of 30 days each), **`none`** (see <<none-calendar>>) and explicitly defined calendars (see <<explicit-calendar>>).
@@ -378,13 +380,13 @@ The interval between the datetimes 1582-10-4 0:0:0 and 1582-10-15 0:0:0 is exact
 It is recommended that a reference datetime before the discontinuity should not be used for datetimes after the discontinuity, and vice-versa.
 +
 The **`standard`** calendar has been used for both observational data and model-generated data with real-world datetimes.
-In data written ##in CF versions before 1.13## with the **`standard`** calendar for dates since 1972, datetimes and time coordinates should be regarded as uncertain by a number of seconds (but less than a minute), because leap seconds may or may not have been taken into account.
+In data written ##with CF versions before 1.13## in the **`standard`** calendar for dates since 1972, datetimes and time coordinates should be regarded as uncertain by a number of seconds (but less than a minute), because leap seconds may or may not have been taken into account.
 For pass:q[<del><span style="color: red">existing</span></del>] ##such## datasets, this uncertainty can be eliminated only if you have separate information about how leap seconds were treated.
-##In data written with CF 1.13 or later in the **`standard`** calendar##,
++
+##In CF 1.13 or later, it is recommended to write data from models that follow the Gregorian rule for leap days in the **`proleptic_gregorian`** calendar rather than the **`standard`** calendar.
+In real-world data written with CF 1.13 or later in the **`standard`** calendar##,
 
 * ##datetimes since 1972 are UTC##,
-
-* ##time coordinates and datetimes should be interconverted assuming 60 seconds in every minute (i.e. no leap seconds), and##
 
 * ##the difference between two time coordinates is less than the length of the time interval between them by the number of intervening leap seconds.##
 
