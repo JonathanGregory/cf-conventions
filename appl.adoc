@@ -8,7 +8,7 @@ This appendix describes the treatment of leap seconds in CF in more detail than 
 ##It provides guidance for writers of datasets about the choice of a suitable CF calendar.##
 
 Because precision to the second has rarely been needed in the climate and forecast community, leap seconds have typically been ignored, including in many datasets and pass:q[<del><span style="color: red">earlier</span></del>] versions of the CF standard ##before 1.12##.
-In all calendars except **`utc`**, datetimes within leap seconds are not valid, reference datetimes in the **`units`** attribute must not contain seconds equal to or greater than 60, and the elapsed time between the same time of day on consecutive days is always 86400 seconds.
+In all calendars except **`utc`**, datetimes within leap seconds are invalid, reference datetimes in the **`units`** attribute must not contain seconds equal to or greater than 60, and the elapsed time between the same time of day on consecutive days is always 86400 seconds.
 
 If you are producing model-generated datasets with datetimes that follow the Gregorian calendar, the **`proleptic_gregorian`** calendar is recommended, ##because it unequivocally indicates to the user of the dataset that there are no leap seconds in the timeline (we assume this is true for model data).
 On these grounds, it is preferable to the **`standard`** calendar, which is ambiguous about the inclusion of leap seconds in CF versions before 1.13 (see below).##
