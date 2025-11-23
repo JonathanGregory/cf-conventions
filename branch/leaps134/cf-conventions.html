@@ -474,7 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author33" class="author">Seth&#160;McGinnis</span><br>
 <span id="author34" class="author">Patrick&#160;Van&#160;Laake</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">22&#160;November,&#160;2025&#160;23:21:42Z</span>
+<span id="revdate">23&#160;November,&#160;2025&#160;19:03:09Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -12810,10 +12810,11 @@ The "Use" values are <strong>MT</strong> for mesh topology variables, <strong>LI
 <div class="sectionbody">
 <div class="paragraph">
 <p>This appendix describes the treatment of leap seconds in CF in more detail than <a href="#calendar">Section 4.4.3, "Calendar"</a>.
-Because precision to the second has rarely been needed in the climate and forecast community, leap seconds have typically been ignored, including in many datasets and earlier versions of the CF standard.</p>
+<mark>It provides guidance for writers of datasets about the choice of a suitable CF calendar.</mark></p>
 </div>
 <div class="paragraph">
-<p>In all calendars except <strong><code>utc</code></strong>, datetimes within leap seconds are not valid, reference datetimes in the <strong><code>units</code></strong> attribute must not contain seconds equal to or greater than 60, and the elapsed time between the same time of day on consecutive days is always 86400 seconds.</p>
+<p>Because precision to the second has rarely been needed in the climate and forecast community, leap seconds have typically been ignored, including in many datasets and <del><span style="color: red">earlier</span></del> versions of the CF standard <mark>before 1.12</mark>.
+In all calendars except <strong><code>utc</code></strong>, datetimes within leap seconds are not valid, reference datetimes in the <strong><code>units</code></strong> attribute must not contain seconds equal to or greater than 60, and the elapsed time between the same time of day on consecutive days is always 86400 seconds.</p>
 </div>
 <div class="paragraph">
 <p>If you are producing model-generated datasets with datetimes that follow the Gregorian calendar, the <strong><code>proleptic_gregorian</code></strong> calendar is recommended, <mark>because it unequivocally indicates to the user of the dataset that there are no leap seconds in the timeline (we assume this is true for model data).
@@ -12822,7 +12823,7 @@ On these grounds, it is preferable to the <strong><code>standard</code></strong>
 <div class="paragraph">
 <p>If you are producing real-world datasets with datetimes in UTC, and if it&#8217;s important for <del><span style="color: red">your time coordinates and</span></del> <mark>the</mark> datetimes <mark>and time intervals</mark> to be accurate to the second, the <strong><code>utc</code></strong> calendar is recommended.
 When a datetime is converted to a time coordinate or vice-versa in the <strong><code>utc</code></strong> calendar, any leap seconds must be counted that occurred between the instant concerned and the reference datetime in the <strong><code>units</code></strong> attribute.
-Therefore both the writer and the user of the dataset will need <del><span style="color: red">leap-second-aware software for conversion between datetimes and time coordinates.</span></del> <mark>software that has access to a list of dates on which leap seconds were inserted, such as <a href="https://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat"><code>Leap_Second.dat</code> from IERS</a>.</mark></p>
+Therefore both the writer and the user of the dataset will need <del><span style="color: red">leap-second-aware software for conversion between datetimes and time coordinates.</span></del> <mark>software that has access to a list of dates (such as <a href="https://hpiers.obspm.fr/iers/bul/bulc/Leap_Second.dat"><code>Leap_Second.dat</code> from IERS</a>) on which leap seconds were inserted.</mark></p>
 </div>
 <div class="paragraph">
 <p><mark>If you are producing real-world datasets with datetimes in UTC but do not expect all users of your datasets to have such software, the <strong><code>standard</code></strong> calendar is recommended.</mark>
@@ -12888,7 +12889,7 @@ CF version 1.13 withdrew this use of <strong><code>units_metadata</code></strong
 <p><a href="https://github.com/cf-convention/cf-conventions/issues/583">Issue #583</a>: Correct "most rapidly varying dimension" in terminology section.</p>
 </li>
 <li>
-<p><a href="https://github.com/cf-convention/cf-conventions/issues/584">Issue #584</a>: Allow <code>Z</code> as time-zone offset, with a couple of examples, and allow time-zone offset with date alone, both being consistent with UDUNITS syntax.</p>
+<p><a href="https://github.com/cf-convention/cf-conventions/issues/584">Issue #584</a>: Allow <code>Z</code> as time-zone offset in <strong><code>units</code></strong>, consistent with UDUNITS syntax; a time-zone offset without a time was allowed by #584 but disallowed by #613</p>
 </li>
 </ul>
 </div>
@@ -13598,7 +13599,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-22 23:21:41 UTC
+Last updated 2025-11-23 19:03:09 UTC
 </div>
 </div>
 </body>
