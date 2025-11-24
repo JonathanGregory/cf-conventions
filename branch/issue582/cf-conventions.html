@@ -473,7 +473,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author32" class="author">Thomas&#160;Lavergne</span><br>
 <span id="author33" class="author">Seth&#160;McGinnis</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">24&#160;November,&#160;2025&#160;22:32:08Z</span>
+<span id="revdate">24&#160;November,&#160;2025&#160;22:36:51Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -5569,7 +5569,7 @@ It must have a <strong><code>_FillValue</code></strong> attribute, and its singl
 </div>
 <div class="paragraph">
 <p>In the case where <em>N</em> has a multivalued climatological time axis (as described in <a href="#climatological-statistics">Section 7.4, "Climatological Statistics"</a> and illustrated in Examples 7.9, 7.10, and 7.11), the norm metadata variable has, as its sole dimension, the anomaly time dimension of <em>A</em>.
-In this case, the norm metadata variable can have more than one element, and its values are immaterial.</p>
+In this case, the norm metadata variable has more than one element, and its values are immaterial.</p>
 </div>
 <div class="paragraph">
 <p>In all cases, norm coordinate variables must have boundary variables that indicate the coordinate ranges over which <em>N</em> was calculated from <em>P</em>.
@@ -5731,7 +5731,7 @@ The <strong><code>zmlongitude</code></strong> should be a value within the range
 For example, in the case of an anomaly relative to a monthly climatology, all of the January anomaly values will be relative to the average value for January, all the February anomalies will be relative to the average value for February, and so on.</p>
 </div>
 <div class="paragraph">
-<p>The norm metadata variable for a multivalued climatological time axis has the time dimension of the anomaly data variable as its sole dimension, and is thus itself multivalued, but its values are arbitrary and meaningless.
+<p>The norm metadata variable for a multivalued climatological time axis has the time dimension of the anomaly data variable as its sole dimension.
 The mapping between the anomaly time axis of the anomaly variable and the climatological time axis of the norm is recorded by an auxiliary coordinate variable of integer type named by the <strong><code>coordinates</code></strong> attribute of the norm metadata variable.
 The auxiliary coordinate variable is one-dimensional and has the same time dimension as the anomaly data variable.
 The climatological time axis of <em>N</em> (i.e. its dimension and coordinate variable) must be included in the file, although <em>N</em> itself need not be present.
@@ -14178,7 +14178,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-24 22:32:07 UTC
+Last updated 2025-11-24 22:36:51 UTC
 </div>
 </div>
 </body>
