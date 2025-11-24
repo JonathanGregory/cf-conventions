@@ -474,7 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author33" class="author">Seth&#160;McGinnis</span><br>
 <span id="author34" class="author">Patrick&#160;Van&#160;Laake</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">23&#160;November,&#160;2025&#160;22:53:40Z</span>
+<span id="revdate">24&#160;November,&#160;2025&#160;09:55:04Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -2824,12 +2824,13 @@ It is recommended that the time coordinate variable should have a <strong><code>
 <table id="table-calendars" class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 4.1. List of defined values for the <strong><code>calendar</code></strong> attribute and summary of the key characteristics of the calendars</caption>
 <colgroup>
-<col style="width: 23.0769%;">
-<col style="width: 15.3846%;">
-<col style="width: 12.8205%;">
-<col style="width: 23.0769%;">
-<col style="width: 12.8205%;">
-<col style="width: 12.8206%;">
+<col style="width: 23.2558%;">
+<col style="width: 9.3023%;">
+<col style="width: 25.5813%;">
+<col style="width: 9.3023%;">
+<col style="width: 9.3023%;">
+<col style="width: 11.6279%;">
+<col style="width: 11.6281%;">
 </colgroup>
 <thead>
 <tr>
@@ -2837,26 +2838,33 @@ It is recommended that the time coordinate variable should have a <strong><code>
 <th class="tableblock halign-left valign-top">Days in year</th>
 <th class="tableblock halign-left valign-top">Leap days</th>
 <th class="tableblock halign-left valign-top">Leap seconds</th>
+<th class="tableblock halign-left valign-top">Exact intervals</th>
 <th class="tableblock halign-left valign-top">First date</th>
 <th class="tableblock halign-left valign-top">Last date</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>standard</code></strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">365/366</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Julian/
-Gregorian</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">before CF 1.13: unknown
-since CF 1.13: no</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0001-01-01</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+&#x221E;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>standard</code></strong> <mark>before CF 1.13</mark></p></td>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">365/366</p></td>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">Julian <mark>before 1582-10-05</mark>
+Gregorian <mark>from 1582-10-15</mark></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">unknown</p></td>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">0001-01-01</p></td>
+<td class="tableblock halign-left valign-top" rowspan="2"><p class="tableblock">+&#x221E;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>standard</code></strong> <mark>since CF 1.13</mark></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><mark>no</mark></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><mark>some</mark></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>julian</code></strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">365/366</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Julian</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">all</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0001-01-01</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">+&#x221E;</p></td>
 </tr>
@@ -2865,6 +2873,7 @@ since CF 1.13: no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">365/366</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Gregorian</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">all</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-&#x221E;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">+&#x221E;</p></td>
 </tr>
@@ -2873,6 +2882,7 @@ since CF 1.13: no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">365</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">never</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">all</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-&#x221E;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">+&#x221E;</p></td>
 </tr>
@@ -2881,6 +2891,7 @@ since CF 1.13: no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">366</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">every year</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">all</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-&#x221E;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">+&#x221E;</p></td>
 </tr>
@@ -2889,6 +2900,7 @@ since CF 1.13: no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">360</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">never</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">all</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-&#x221E;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">+&#x221E;</p></td>
 </tr>
@@ -2897,14 +2909,16 @@ since CF 1.13: no</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">365/366</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Gregorian</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">all</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1972-01-01</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">present day</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><mark>today</mark></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>tai</code></strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">365/366</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Gregorian</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">no</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">all</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1958-01-01</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">+&#x221E;</p></td>
 </tr>
@@ -2916,7 +2930,8 @@ As well as those listed in this table, the <strong><code>calendar</code></strong
 In the <strong>Leap days</strong> column, "Gregorian" and "Julian" identify different rules for determining whether a given year is a common year (with 365 days) or a leap year (with 366).
 By the Gregorian rule, a year is a leap year if either (i) it is divisible by 4 but not by 100 or (ii) it is divisible by 400.
 By the Julian rule, any year that is divisible by 4 is a leap year, even if it is also divisible by 100.
-<mark>In the <strong>Leap seconds</strong> column, "no" means that seconds equal to or exceeding 60 are not allowed in datetimes, and that time coordinates and datetimes must be interconverted assuming 60 seconds in every minute, as if leap seconds never occurred.</mark></p>
+<mark>In the <strong>Leap seconds</strong> column: "no" means that seconds &ge;60 are not allowed in datetimes, and that time coordinates and datetimes must be interconverted assuming 60 seconds in every minute, as if leap seconds never occurred; "yes" means that datetimes with seconds &ge;60 are valid and must be counted in time coordinates.
+In the <strong>Exact intervals</strong> column: "all" means that the difference between two time coordinates <em>always</em> exactly equals the interval between the instants they identify; "some" means this is <em>not always</em> true.</mark></p>
 </div>
 </div>
 </div>
@@ -3005,8 +3020,8 @@ It is recommended to use the <strong><code>proleptic_gregorian</code></strong> c
 This is the default calendar when there is no <strong><code>calendar</code></strong> attribute, except when the attribute <code>month_lengths</code> is present (see <a href="#explicit-calendar">Section 4.4.6, "Explicitly Defined Calendar"</a>).
 A deprecated alternative name for this calendar is <strong><code>gregorian</code></strong>.
 The Gregorian and Julian calendars have the same lengths of their months; they differ only in respect of the rules that decide which years are leap years.
-In the <strong><code>standard</code></strong> calendar, datetimes after and including 1582-10-15 0:0:0 follow the Gregorian rule for leap years.
-Datetimes before (and excluding) 1582-10-5 0:0:0 follow the Julian rule for leap years.
+In the <strong><code>standard</code></strong> calendar, datetimes after, and including, 1582-10-15 0:0:0 follow the Gregorian rule for leap years.
+Datetimes before, and excluding, 1582-10-5 0:0:0 follow the Julian rule for leap years.
 Year 1 AD or CE in the <strong><code>standard</code></strong> calendar is also year 1 of the <strong><code>julian</code></strong> calendar.
 Negative years are invalid in time coordinates and reference datetimes in the <strong><code>standard</code></strong> calendar.</p>
 <div class="paragraph">
@@ -3066,7 +3081,7 @@ Datetimes in the future are not allowed in this calendar, because it is unknown 
 <p>To avoid mistakes and confusion, the second is the only recommended unit of measure in this <strong><code>calendar</code></strong> for the <strong><code>units</code></strong> of the time coordinate variable (denoted by any string allowed in UDUNITS, optionally with one of the prefixes of <a href="#table-supported-units">Table 3.1</a>).
 For the same reason, it is recommended not to use a datetime during a leap second as the reference datetime in the <strong><code>units</code></strong> attribute.
 When a datetime is converted to a time coordinate value or vice-versa in this calendar, any leap seconds (positive or negative) must be counted that occurred in the interval between the datetime and the reference datetime in the <strong><code>units</code></strong>.
-If time coordinates in the <strong><code>utc</code></strong> calendar are converted to datetimes by software that is unaware of leap seconds, they will be later than the correct UTC datetimes by a number of seconds.</p>
+If time coordinates in the <strong><code>utc</code></strong> calendar are converted to datetimes by software that <mark>does not take leap seconds into account</mark><del><span style="color: red">is unaware of leap seconds</span></del>, they will be later than the correct UTC datetimes by a number of seconds.</p>
 </div>
 <div class="paragraph">
 <p>A non-zero time zone offset is not allowed in this calendar.</p>
@@ -12812,8 +12827,10 @@ The "Use" values are <strong>MT</strong> for mesh topology variables, <strong>LI
 <div class="sectionbody">
 <div class="paragraph">
 <p>This appendix describes the treatment of leap seconds in CF in more detail than <a href="#calendar">Section 4.4.3, "Calendar"</a>, and <mark>provides guidance for writers of datasets about the choice of a suitable CF calendar.</mark>
-Because precision to the second has rarely been needed in the climate and forecast community, leap seconds have typically been ignored, including in many datasets and <del><span style="color: red">earlier</span></del> versions of the CF standard <mark>before 1.12</mark>.
-<mark>In CF 1.13 and later, in <em>all except the <strong><code>utc</code></strong> calendar</em>,</mark></p>
+Because precision to the second has rarely been needed in the climate and forecast community, leap seconds have typically been ignored, including in many datasets and <del><span style="color: red">earlier</span></del> versions of the CF standard <mark>before 1.12</mark>.</p>
+</div>
+<div class="paragraph">
+<p><mark>In CF 1.13 and later, <em>in all calendars except the <strong><code>utc</code></strong> calendar</em>,</mark></p>
 </div>
 <div class="ulist">
 <ul>
@@ -12841,10 +12858,10 @@ For real-world data since 1972, <mark>time coordinates in the <strong><code>stan
 <div class="ulist">
 <ul>
 <li>
-<p><mark> <em>as if there were no leap seconds</em> (i.e. assuming 60 seconds elapsed between the start of each minute and the next)</mark></p>
+<p>from datetimes in UTC or a local time zone offset from UTC,</p>
 </li>
 <li>
-<p>from datetimes in UTC or a local time zone offset from UTC.</p>
+<p><mark> <em>as if there were no leap seconds</em> (i.e. assuming 60 seconds elapsed between the start of each minute and the next).</mark></p>
 </li>
 </ul>
 </div>
@@ -12873,13 +12890,12 @@ For example, with respect to the the reference datetime in <strong><code>units="
 In the <strong><code>standard</code></strong> calendar, <mark>with the same <strong><code>units</code></strong>,</mark> the time coordinate for 2017-01-01 23:59:58 is 86400<del><span style="color: red"> and for 2017-01-01 00:00:58 is 60</span></del>.</p>
 </div>
 <div class="paragraph">
-<p><del><span style="color: red">
-The <strong><code>standard</code></strong> calendar has been used in existing datasets both for real-world data, and for data generated by models that follow the Gregorian calendar and do not include leap seconds in the timeline.
-Some real-world datasets take leap seconds into account, and others do not.
-For example, equipment that automatically records data with UTC datetimes can insert a new leap second only if it has prior knowledge of when this is to be done, or is appropriately synchronized to UTC time services that deliver leap second support.
-As a consequence of such differences, users of real-world data in the <strong><code>standard</code></strong> calendar need to be aware that the difference between two time coordinates might not exactly equal the duration of the time interval between the two instants, but could be inaccurate by a number of seconds.
+<p>In <del><span style="color: red">existing</span></del> datasets <mark>written with CF versions before 1.13</mark>, the <strong><code>standard</code></strong> calendar has been used  both for real-world data, and for data generated by models that follow the Gregorian calendar and do not include leap seconds in the timeline.
+<mark>Moreover, time coordinates in</mark> some real-world datasets take leap seconds into account, and others do not.
+<del><span style="color: red">For example, equipment that automatically records data with UTC datetimes can insert a new leap second only if it has prior knowledge of when this is to be done, or is appropriately synchronized to UTC time services that deliver leap second support.</span></del>
+As a consequence of such differences, users of real-world data in the <strong><code>standard</code></strong> calendar need to be aware that <del><span style="color: red">the difference between two time coordinates might not exactly equal the duration of the time interval between the two instants, but could be inaccurate by a number of seconds.
 Similar uncertainties apply if you do not know whether the data is observational or model-generated.
-Furthermore, the time coordinates for the same real-world instant in two datasets, both using the <strong><code>standard</code></strong> calendar, could disagree by some number of seconds.</span></del></p>
+Furthermore,</span></del> the time coordinates for the same real-world instant in two datasets, both using the <strong><code>standard</code></strong> calendar, could disagree by some number of seconds.</p>
 </div>
 <div class="paragraph">
 <p>CF version 1.12 introduced possible values of the form "<strong><code>leap_seconds:</code></strong> <em>value</em>" for the <strong><code>units_metadata</code></strong> attribute, in order to specify the treatment of leap seconds in the <strong><code>standard</code></strong>, <strong><code>julian</code></strong> and <strong><code>proleptic_gregorian</code></strong> calendars.
@@ -13617,7 +13633,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-23 22:53:40 UTC
+Last updated 2025-11-24 09:55:04 UTC
 </div>
 </div>
 </body>
