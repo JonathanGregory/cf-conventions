@@ -473,7 +473,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author32" class="author">Thomas&#160;Lavergne</span><br>
 <span id="author33" class="author">Seth&#160;McGinnis</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">24&#160;November,&#160;2025&#160;12:27:40Z</span>
+<span id="revdate">24&#160;November,&#160;2025&#160;22:32:08Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -5553,11 +5553,8 @@ data:
 <div class="paragraph">
 <p>In this case, the word <em>norm</em> in <strong><code>cell_methods</code></strong> is the the name of the <em>norm metadata variable</em>.
 This is a variable in the dataset that is <em>not</em> the norm data variable itself (although the latter may also be present in the dataset), but a variable that records the definition of the norm via the attributes <strong><code>cell_methods</code></strong> (which is mandatory) and <strong><code>coordinates</code></strong> (optional).
-The norm metadata data variable is a "dummy" variable, of arbitrary type, like a grid mapping variable, for instance.</p>
-</div>
-<div class="paragraph">
-<p>Although it is formally a data variable, CF recommends that the norm metadata variable not have any of the attributes of <a href="#attribute-appendix">Appendix A, Attributes</a> other than <strong><code>cell_methods</code></strong>, <strong><code>coordinates</code></strong> and <strong><code>_FillValue</code></strong>.
-Attributes describing the <em>norm</em> quantity (standard name, units, etc.) are unnecessary, because they must be the same as for the anomaly data variable.
+The norm metadata data variable is a "dummy" variable, of arbitrary type, like a grid mapping variable, for instance.
+It does not need attributes describing the <em>norm</em> quantity (standard name, units, etc.), because they must be the same as for the anomaly data variable.
 The anomaly data variable must name the norm metadata variable in its <strong><code>ancillary_variables</code></strong> attribute (<a href="#ancillary-data">Section 3.4, "Ancillary Data"</a>), as well as in <strong><code>cell_methods</code></strong>, in order to indicate the link between them.</p>
 </div>
 <div class="paragraph">
@@ -5567,7 +5564,7 @@ Scalar norm coordinate variables must be named in the <strong><code>coordinates<
 Size-one dimensions of the norm metadata variable must also be dimensions of the anomaly data variable.
 The norm metadata variable must have no coordinate variables or scalar coordinate variables other than the norm coordinate variables, which are of size one.
 Therefore the norm metadata variable has only one element.
-It must have a <strong><code>_FillValue</code></strong> attribute, and its single element must be equal to the <strong><code>_FillValue</code></strong>, to indicate that it contains no meaningful data.
+It must have a <strong><code>_FillValue</code></strong> attribute, and its single element must indicate missing data.
 (Under some circumstances, this condition alone distinguishes a norm metadata variable from a norm data variable.)</p>
 </div>
 <div class="paragraph">
@@ -5734,15 +5731,12 @@ The <strong><code>zmlongitude</code></strong> should be a value within the range
 For example, in the case of an anomaly relative to a monthly climatology, all of the January anomaly values will be relative to the average value for January, all the February anomalies will be relative to the average value for February, and so on.</p>
 </div>
 <div class="paragraph">
-<p>The mapping between the anomaly time axis of the anomaly variable and the climatological time axis of the norm is recorded by an auxiliary coordinate variable of integer type named by the <strong><code>coordinates</code></strong> attribute of the norm metadata variable.
-This auxiliary coordinate variable is one-dimensional and has the same time dimension as the anomaly data variable.
+<p>The norm metadata variable for a multivalued climatological time axis has the time dimension of the anomaly data variable as its sole dimension, and is thus itself multivalued, but its values are arbitrary and meaningless.
+The mapping between the anomaly time axis of the anomaly variable and the climatological time axis of the norm is recorded by an auxiliary coordinate variable of integer type named by the <strong><code>coordinates</code></strong> attribute of the norm metadata variable.
+The auxiliary coordinate variable is one-dimensional and has the same time dimension as the anomaly data variable.
+The climatological time axis of <em>N</em> (i.e. its dimension and coordinate variable) must be included in the file, although <em>N</em> itself need not be present.
+The auxiliary coordinate variable has a <strong><code>select</code></strong> attribute naming the climatological time dimension, in order to make the link between them.
 The value of element <em>i</em> of the auxiliary coordinate variable is the index (numbering from 0) along the climatological time dimension of the norm corresponding to element <em>i</em> of the anomaly time dimension.
-The norm metadata variable also has the same time dimension as the anomaly data variable (rather than being a scalar), but as usual, its values are arbitrary and meaningless.</p>
-</div>
-<div class="paragraph">
-<p>The climatological time axis of <em>N</em> (i.e. its dimension and coordinate variable) must be included in the file, although <em>N</em> itself need not be present.
-The auxiliary coordinate variable has a <strong><code>compress</code></strong> attribute naming the climatological time dimension, in order to make the link between them.
-This method of mapping between axes is equivalent to <a href="#compression-by-gathering">Section 8.2, "Lossless Compression by Gathering"</a>.
 Using this method means that the norm metadata variable can refer to a subset of elements of the climatological time axis if only some of them are relevant, and it can refer repeatedly to elements of climatological time axis if there is more than one anomaly time referring to a given climatological time.</p>
 </div>
 <div class="paragraph">
@@ -5783,12 +5777,12 @@ variables:
     delta_tas:units_metadata="temperature: difference";
     delta_tas:cell_methods="time: maximum time: anomaly_wrt climatological_tas";
     delta_tas:ancillary_variables="climatological_tas_metadata";
-  int climatological_tas(time); // norm metadata variable
-    climatological_tas:coordinates="month_indices";
-    climatological_tas:cell_methods="climatological_time: mean within years
+  int climatological_tas_metadata(time); // norm metadata variable
+    climatological_tas_metadata:coordinates="month_indices";
+    climatological_tas_metadata:cell_methods="climatological_time: mean within years
       climatological_time: mean over years";
   int month_indices(time);
-    month_indices:compress="climatological_time";
+    month_indices:select="climatological_time";
   double time(time); // anomaly coordinate variable
     time:standard_name="time";
     time:units="days since 2023-06-01";
@@ -7860,7 +7854,7 @@ Identifies the roles of mesh topology and location index set variables (see <a h
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>compress</code></strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">S</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#reduced-horizontal-grid">Section 5.3, "Reduced Horizontal Grid"</a>, <a href="#anomalies-norm-metadata">Section 7.5.2, "Anomalies with respect to a norm metadata variable"</a>, <a href="#compression-by-gathering">Section 8.2, "Lossless Compression by Gathering"</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#reduced-horizontal-grid">Section 5.3, "Reduced Horizontal Grid"</a>, <a href="#compression-by-gathering">Section 8.2, "Lossless Compression by Gathering"</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Identifies other dimension(s) to which the values in this variable are indices, used for compression by gathering.</p></td>
 </tr>
 <tr>
@@ -8147,6 +8141,13 @@ The count variable indicates that the contiguous ragged array representation is 
 <td class="tableblock halign-left valign-top"><p class="tableblock">If present for a variable, the data are to be multiplied by this factor after the data are read by an application.
 See also the <strong><code>add_offset</code></strong> attribute.
 In cases where there is a strong constraint on dataset size, it is allowed to pack the coordinate variables (using add_offset and/or scale_factor), but this is not recommended in general.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>select</code></strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">S</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#anomalies-norm-metadata">Section 7.5.2, "Anomalies with respect to a norm metadata variable"</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identifies a dimension to which the values in this variable are indices, used for selection of climatological time coordinates for norm metadata variables.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>source</code></strong></p></td>
@@ -14177,7 +14178,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-24 12:27:39 UTC
+Last updated 2025-11-24 22:32:07 UTC
 </div>
 </div>
 </body>
