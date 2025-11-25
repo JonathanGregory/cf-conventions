@@ -238,7 +238,8 @@ The time coordinate exactly equals the length of the time interval from the inst
 The CF standard follows UDUNITS (<<units>>) in the definition of the acceptable units of measure for time.
 The most commonly used of these units (and their symbols) are **`day`** (**`d`**), **`hour`** (**`h`**), **`minute`** (**`min`**) and **`second`** (**`s`**).
 Plural forms are also acceptable.
-In CF, following UDUNITS, any unit may optionally have one of the decimal prefixes for multiples and submultiples (<<table-supported-units, Table 3.1>>) e.g. **`millisecond`** or **`ms`**; however, we note that <<SI>> (chapter 4) does not allow these prefixes for any unit of time other than **`second`**.
+In CF, following UDUNITS, any unit may optionally have one of the decimal prefixes for multiples and submultiples (<<table-supported-units, Table 3.1>>) e.g. **`millisecond`** or **`ms`**.
+CF recommends __not__ to use these prefixes with any unit of time other than **`second`**, because <<SI>> (chapter 4) does not allow them except with **`second`**.
 
 UDUNITS defines a **`year`** to be exactly 365.242198781 days (the interval between 2 successive passages of the sun through vernal equinox).
 __It is not a calendar year.__ UDUNITS defines a  **`month`** to be exactly **`year/12`**, which is __not a calendar month__.
@@ -276,7 +277,7 @@ Other than **`Z`** for zero offset, the time zone offset __T__ must be in one of
 
 * &pm;__n__ or &pm;__nn__, the hour alone, of one or two digits e.g. **`-6`**, **`+2`**, **`+11`**. This format is sufficient for many time zones. Zero hours must have a positive sign e.g. **`+0`**, which means the same as **`Z`**.
 
-* &pm;__n__:__nn__ or &pm;__nn__:__nn__, the hour and minute, separated by a colon **`:`**, where the hour is one or two digits, and the minute is two digits e.g. **-10:00`**, **`-3:30`**, **`+5:30`**, **`+12:45`**.
+* &pm;__n__:__nn__ or &pm;__nn__:__nn__, the hour and minute, separated by a colon **`:`**, where the hour is one or two digits, and the minute is two digits e.g. **`-10:00`**, **`-3:30`**, **`+5:30`**, **`+12:45`**.
 
 Spaces are not allowed in the numeric formats.
 The space between the time and __T__ may be omitted.
@@ -341,28 +342,31 @@ Owing to variations in Earth rotation, positive or negative leap seconds are ins
 When a single positive leap second is inserted at the end of a minute, that minute contains 61 seconds.
 The net number of leap seconds added to UTC between 1972-01-01 and 2025-01-01 is 27.
 
-Leap seconds do not need to be considered for model-generated data in any model calendar.
-Leap seconds should be considered:
+pass:q[<del><span style="color: red">Leap seconds should be considered:`</span></del>]
 
-* if you are using an existing observational dataset for dates since 1972 with time coordinates in the **`standard`**pass:q[<del><span style="color: red">, `proleptic_gregorian`</span></del>] or **`utc`** calendar, which treat them differently.
-Later paragraphs of this section give further information about these cases.
+* pass:q[<del><span style="color: red">if you are using an existing observational dataset for dates since 1972 with time coordinates in the **`standard`**, `proleptic_gregorian or **`utc`** calendar, which treat them differently.
+Later paragraphs of this section give further information about these cases.`</span></del>]
 
-* if you are using an existing observational dataset with time coordinates in the **`tai`** calendar.
+* pass:q[<del><span style="color: red">if you are using an existing observational dataset with time coordinates in the **`tai`** calendar.
 These do not give UTC when converted to datetimes.
-See the later paragraph about the **`tai`** calendar.
+See the later paragraph about the **`tai`** calendar.`</span></del>]
 
-* if you are writing an observational dataset for dates since 1972 using datetimes from a clock or data logging device whose time and date are related to civil time e.g. clocks based on UTC or computers obtaining time signals from an NTP server.
-pass:q[<del><span style="color: red">It is recommended to use the `proleptic_gregorian` or the `utc` calendar in preference to the `standard` calendar in this case.</span></del>]
-##In order to preserve precision to the second in all datetimes and time intervals, you need to use the **`utc`** calendar instead of the **`standard`** calendar.##
-<<appendix-leap-seconds>> compares these calendars' treatment of leap seconds in detail.
-pass:q[<del><span style="color: red">You need the `utc` calendar to preserve precision to the second in all datetimes and differences between time coordinates.</span></del>]
+##If you are producing a dataset which follows the Gregorian calendar, the recommended choice of CF **`calendar`** is as follows:##
+
+* ##Use the **`utc`** calendar for observational data## pass:q[<del><span style="color: red">if you are writing an observational dataset for dates since 1972 using datetimes from a clock or data logging device whose time and date are related to civil time (e.g. from clocks based on UTC or computers obtaining time signals from an NTP server)</span></del>]##for datetimes since 1972 based on UTC, if it is necessary to preserve precision to the second in both datetimes and time intervals.##
 
 WARNING: The **`utc`** calendar requires both the writer **and the user** of the dataset to have software that takes leap seconds into account for converting between datetimes and time coordinates.
 Leap seconds are ignored by most software, including UDUNITS.
 
-* if you are writing a model dataset following the real-world Gregorian calendar for dates since 1972.
-It is recommended to use the **`proleptic_gregorian`** calendar in preference to the **`standard`** calendar in this case, in order to be completely clear to the dataset user that there are no leap seconds.
+* ##Use the **`tai`** calendar for observational data with TAI datetimes.##
+
+* ##Use the **`standard`** calendar for observational data in other cases.##
+
+* ##Use the **`proleptic_gregorian`** calendar for model-generated data.##
 (In principle a model could be programmed to include leap seconds, but we assume that this is not the case.)
+
+<<appendix-leap-seconds>> compares these calendars' treatment of leap seconds ##and explains the above recommendations##.
+Leap seconds do not need to be considered pass:q[<del><span style="color: red">for model-generated data in any model calendar</span></del>]##in the **`360_day`**, **`365_day`** and **`366_day`** calendars##.
 
 Further details of each calendar are as follows:
 
@@ -384,8 +388,7 @@ The **`standard`** calendar has been used for both observational data and model-
 In data written ##with CF versions before 1.13## in the **`standard`** calendar for dates since 1972, datetimes and time coordinates should be regarded as uncertain by a number of seconds (but less than a minute), because leap seconds may or may not have been taken into account.
 For pass:q[<del><span style="color: red">existing</span></del>] ##such## datasets, this uncertainty can be eliminated only if you have separate information about how leap seconds were treated.
 +
-##In CF 1.13 or later, it is recommended to write data from models that follow the Gregorian rule for leap days in the **`proleptic_gregorian`** calendar rather than the **`standard`** calendar.
-In real-world data written with CF 1.13 or later in the **`standard`** calendar##,
+##In real-world data written with CF 1.13 or later in the **`standard`** calendar##,
 
 * ##datetimes since 1972 are UTC##,
 
@@ -394,7 +397,7 @@ In real-world data written with CF 1.13 or later in the **`standard`** calendar#
 +
 See <<appendix-leap-seconds>> for details.
 
-**`proleptic_gregorian`**:: A ##model## calendar with the Gregorian rule for leap years, extended to dates before 1582-10-15.
+**`proleptic_gregorian`**:: A calendar with the Gregorian rule for leap years, extended to dates before 1582-10-15.
 All dates consistent with these rules are allowed, both before and after 1582-10-15 0:0:0.
 ##There are no leap seconds in this calendar.##
 pass:q[<del><span style="color: red">If the time coordinates identify real-world instants from 1972 onwards, they represent UTC datetimes.
