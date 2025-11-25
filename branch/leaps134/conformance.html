@@ -937,7 +937,7 @@ In particular, it must include the date, and the time zone offset must not be in
 <p><strong>Recommendations:</strong></p>
 </div>
 <div class="paragraph">
-<p>In the first two recommendations, when we refer to a UDUNITS unit of time e.g. <strong><code>year</code></strong>, we mean the string given or any which is equivalent to it in UDUNITS e.g. <strong><code>yr</code></strong>, optionally with one of the prefixes of Table 3.1.</p>
+<p>In the first three recommendations, when we refer to a UDUNITS unit of time e.g. <strong><code>year</code></strong>, we mean the string given or any which is equivalent to it in UDUNITS e.g. <strong><code>yr</code></strong>.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -946,6 +946,9 @@ In particular, it must include the date, and the time zone offset must not be in
 </li>
 <li>
 <p>Units of <strong><code>day</code></strong>, <strong><code>hour</code></strong> and <strong><code>minute</code></strong> should not be used in the <strong><code>utc</code></strong> calendar. In that calendar, the only recommended unit is <strong><code>second</code></strong>.</p>
+</li>
+<li>
+<p>The decimal prefixes of Table 3.1 should not be used with any unit of time apart from <strong><code>second</code></strong>.</p>
 </li>
 <li>
 <p>UDUNITS permits a number of alternatives to the word <strong><code>since</code></strong> in the units of time coordinates. All the alternatives have exactly the same meaning in UDUNITS. For compatibility with other software, CF strongly recommends that <strong><code>since</code></strong> should be used.</p>
@@ -1621,7 +1624,7 @@ If the optional formula term <code><strong>nsigma</strong></code> is supplied, i
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-24 09:55:04 UTC
+Last updated 2025-11-25 00:14:11 UTC
 </div>
 </div>
 </body>

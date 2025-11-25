@@ -474,7 +474,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author33" class="author">Seth&#160;McGinnis</span><br>
 <span id="author34" class="author">Patrick&#160;Van&#160;Laake</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">24&#160;November,&#160;2025&#160;09:55:04Z</span>
+<span id="revdate">25&#160;November,&#160;2025&#160;00:14:11Z</span>
 <br><span id="revremark"></span>
 </div>
 </div>
@@ -2743,7 +2743,8 @@ The time coordinate exactly equals the length of the time interval from the inst
 <p>The CF standard follows UDUNITS (<a href="#units">Section 3.1, "Units"</a>) in the definition of the acceptable units of measure for time.
 The most commonly used of these units (and their symbols) are <strong><code>day</code></strong> (<strong><code>d</code></strong>), <strong><code>hour</code></strong> (<strong><code>h</code></strong>), <strong><code>minute</code></strong> (<strong><code>min</code></strong>) and <strong><code>second</code></strong> (<strong><code>s</code></strong>).
 Plural forms are also acceptable.
-In CF, following UDUNITS, any unit may optionally have one of the decimal prefixes for multiples and submultiples (<a href="#table-supported-units">Table 3.1</a>) e.g. <strong><code>millisecond</code></strong> or <strong><code>ms</code></strong>; however, we note that <a href="#SI">[SI]</a> (chapter 4) does not allow these prefixes for any unit of time other than <strong><code>second</code></strong>.</p>
+In CF, following UDUNITS, any unit may optionally have one of the decimal prefixes for multiples and submultiples (<a href="#table-supported-units">Table 3.1</a>) e.g. <strong><code>millisecond</code></strong> or <strong><code>ms</code></strong>.
+CF recommends <em>not</em> to use these prefixes with any unit of time other than <strong><code>second</code></strong>, because <a href="#SI">[SI]</a> (chapter 4) does not allow them except with <strong><code>second</code></strong>.</p>
 </div>
 <div class="paragraph">
 <p>UDUNITS defines a <strong><code>year</code></strong> to be exactly 365.242198781 days (the interval between 2 successive passages of the sun through vernal equinox).
@@ -2799,7 +2800,7 @@ Thus, <strong><code>units = "days since 1990-1-1"</code></strong> means the same
 <p>&pm;<em>n</em> or &pm;<em>nn</em>, the hour alone, of one or two digits e.g. <strong><code>-6</code></strong>, <strong><code>+2</code></strong>, <strong><code>+11</code></strong>. This format is sufficient for many time zones. Zero hours must have a positive sign e.g. <strong><code>+0</code></strong>, which means the same as <strong><code>Z</code></strong>.</p>
 </li>
 <li>
-<p>&pm;<em>n</em>:<em>nn</em> or &pm;<em>nn</em>:<em>nn</em>, the hour and minute, separated by a colon <strong><code>:</code></strong>, where the hour is one or two digits, and the minute is two digits e.g. <strong>-10:00`</strong>, <strong><code>-3:30</code></strong>, <strong><code>+5:30</code></strong>, <strong><code>+12:45</code></strong>.</p>
+<p>&pm;<em>n</em>:<em>nn</em> or &pm;<em>nn</em>:<em>nn</em>, the hour and minute, separated by a colon <strong><code>:</code></strong>, where the hour is one or two digits, and the minute is two digits e.g. <strong><code>-10:00</code></strong>, <strong><code>-3:30</code></strong>, <strong><code>+5:30</code></strong>, <strong><code>+12:45</code></strong>.</p>
 </li>
 </ul>
 </div>
@@ -2964,26 +2965,28 @@ When a single positive leap second is inserted at the end of a minute, that minu
 The net number of leap seconds added to UTC between 1972-01-01 and 2025-01-01 is 27.</p>
 </div>
 <div class="paragraph">
-<p>Leap seconds do not need to be considered for model-generated data in any model calendar.
-Leap seconds should be considered:</p>
+<p><del><span style="color: red">Leap seconds should be considered:`</span></del></p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>if you are using an existing observational dataset for dates since 1972 with time coordinates in the <strong><code>standard</code></strong><del><span style="color: red">, <code>proleptic_gregorian</code></span></del> or <strong><code>utc</code></strong> calendar, which treat them differently.
-Later paragraphs of this section give further information about these cases.</p>
+<p><del><span style="color: red">if you are using an existing observational dataset for dates since 1972 with time coordinates in the <strong><code>standard</code></strong>, <code>proleptic_gregorian or <strong>`utc</code></strong> calendar, which treat them differently.
+Later paragraphs of this section give further information about these cases.`</span></del></p>
 </li>
 <li>
-<p>if you are using an existing observational dataset with time coordinates in the <strong><code>tai</code></strong> calendar.
+<p><del><span style="color: red">if you are using an existing observational dataset with time coordinates in the <strong><code>tai</code></strong> calendar.
 These do not give UTC when converted to datetimes.
-See the later paragraph about the <strong><code>tai</code></strong> calendar.</p>
+See the later paragraph about the <strong><code>tai</code></strong> calendar.`</span></del></p>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>If you are producing a dataset which follows the Gregorian calendar, the recommended choice of CF <strong><code>calendar</code></strong> is as follows:</mark></p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p>if you are writing an observational dataset for dates since 1972 using datetimes from a clock or data logging device whose time and date are related to civil time e.g. clocks based on UTC or computers obtaining time signals from an NTP server.
-<del><span style="color: red">It is recommended to use the <code>proleptic_gregorian</code> or the <code>utc</code> calendar in preference to the <code>standard</code> calendar in this case.</span></del>
-<mark>In order to preserve precision to the second in all datetimes and time intervals, you need to use the <strong><code>utc</code></strong> calendar instead of the <strong><code>standard</code></strong> calendar.</mark>
-<a href="#appendix-leap-seconds">Appendix L, Leap Seconds</a> compares these calendars' treatment of leap seconds in detail.
-<del><span style="color: red">You need the <code>utc</code> calendar to preserve precision to the second in all datetimes and differences between time coordinates.</span></del></p>
+<p><mark>Use the <strong><code>utc</code></strong> calendar for observational data</mark> <del><span style="color: red">if you are writing an observational dataset for dates since 1972 using datetimes from a clock or data logging device whose time and date are related to civil time (e.g. from clocks based on UTC or computers obtaining time signals from an NTP server)</span></del><mark>for datetimes since 1972 based on UTC, if it is necessary to preserve precision to the second in both datetimes and time intervals.</mark></p>
 </li>
 </ul>
 </div>
@@ -3003,11 +3006,20 @@ Leap seconds are ignored by most software, including UDUNITS.
 <div class="ulist">
 <ul>
 <li>
-<p>if you are writing a model dataset following the real-world Gregorian calendar for dates since 1972.
-It is recommended to use the <strong><code>proleptic_gregorian</code></strong> calendar in preference to the <strong><code>standard</code></strong> calendar in this case, in order to be completely clear to the dataset user that there are no leap seconds.
+<p><mark>Use the <strong><code>tai</code></strong> calendar for observational data with TAI datetimes.</mark></p>
+</li>
+<li>
+<p><mark>Use the <strong><code>standard</code></strong> calendar for observational data in other cases.</mark></p>
+</li>
+<li>
+<p><mark>Use the <strong><code>proleptic_gregorian</code></strong> calendar for model-generated data.</mark>
 (In principle a model could be programmed to include leap seconds, but we assume that this is not the case.)</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><a href="#appendix-leap-seconds">Appendix L, Leap Seconds</a> compares these calendars' treatment of leap seconds <mark>and explains the above recommendations</mark>.
+Leap seconds do not need to be considered <del><span style="color: red">for model-generated data in any model calendar</span></del><mark>in the <strong><code>360_day</code></strong>, <strong><code>365_day</code></strong> and <strong><code>366_day</code></strong> calendars</mark>.</p>
 </div>
 <div class="paragraph">
 <p>Further details of each calendar are as follows:</p>
@@ -3036,8 +3048,7 @@ In data written <mark>with CF versions before 1.13</mark> in the <strong><code>s
 For <del><span style="color: red">existing</span></del> <mark>such</mark> datasets, this uncertainty can be eliminated only if you have separate information about how leap seconds were treated.</p>
 </div>
 <div class="paragraph">
-<p><mark>In CF 1.13 or later, it is recommended to write data from models that follow the Gregorian rule for leap days in the <strong><code>proleptic_gregorian</code></strong> calendar rather than the <strong><code>standard</code></strong> calendar.
-In real-world data written with CF 1.13 or later in the <strong><code>standard</code></strong> calendar</mark>,</p>
+<p><mark>In real-world data written with CF 1.13 or later in the <strong><code>standard</code></strong> calendar</mark>,</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3055,7 +3066,7 @@ In real-world data written with CF 1.13 or later in the <strong><code>standard</
 </dd>
 <dt class="hdlist1"><strong><code>proleptic_gregorian</code></strong></dt>
 <dd>
-<p>A <mark>model</mark> calendar with the Gregorian rule for leap years, extended to dates before 1582-10-15.
+<p>A calendar with the Gregorian rule for leap years, extended to dates before 1582-10-15.
 All dates consistent with these rules are allowed, both before and after 1582-10-15 0:0:0.
 <mark>There are no leap seconds in this calendar.</mark>
 <del><span style="color: red">If the time coordinates identify real-world instants from 1972 onwards, they represent UTC datetimes.
@@ -13633,7 +13644,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-24 09:55:04 UTC
+Last updated 2025-11-25 00:14:11 UTC
 </div>
 </div>
 </body>
