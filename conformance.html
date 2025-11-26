@@ -696,6 +696,102 @@ References can be absolute, relative or with no path, in which case, the variabl
 </div>
 </div>
 <div class="sect2">
+<h3 id="aggregation-variables">2.8 Aggregation Variables</h3>
+<div class="paragraph">
+<p><strong>Requirements:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An aggregation variable has an <strong><code>aggregated_dimensions</code></strong> attribute whose string value is a blank-separated list of zero or more aggregated dimension names.</p>
+</li>
+<li>
+<p>Each aggregated dimension must name a dimension in the file.</p>
+</li>
+<li>
+<p>An aggregation variable must be a scalar.</p>
+</li>
+<li>
+<p>An aggregation variable must have an <strong><code>aggregated_data</code></strong> attribute whose string value comprises blank-separated elements of the form <em>feature: variable</em>.
+Each <em>variable</em> must be the name of a variable in the file.
+The feature keywords must comprise either all three of <code>map</code>, <code>uris</code>, and <code>identifiers</code>; or else both of <code>map</code> and <code>unique_values</code>.</p>
+</li>
+<li>
+<p>A <code>uris</code> variable must have a string data type.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>uris</code> variable must have the same number of dimensions as there are aggregated dimensions.</p>
+</li>
+<li>
+<p>The size of each dimension must be the equal to number of valid values in the corresponding row of the <code>map</code> variable.</p>
+</li>
+<li>
+<p>The variable must have no missing values.</p>
+</li>
+<li>
+<p>A data value of a <code>uris</code> variable must be either an absolute URI or else a relative-path URI reference.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>An <code>identifiers</code> variable must be either a scalar, or else have the same dimensions in the same order as the <code>uris</code> variable.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The variable must have no missing values.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The <code>unique_values</code> variable must have the same number of dimensions as there are aggregated dimensions.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The size of each dimension must be equal to the number of valid values in the corresponding row of the <code>map</code> variable.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The <code>map</code> variable must have an integer data type.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If there are zero aggregated dimensions then the <code>map</code> variable must a be scalar and contain the value <code>1</code>.</p>
+</li>
+<li>
+<p>If there are one or more aggregated dimensions then the <code>map</code> variable must be two-dimensional.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The size of the slower-varying dimension (i.e. the first dimension in CDL order, representing rows) must be the number of aggregated dimensions.</p>
+</li>
+<li>
+<p>The sum of the valid values in a row must equal the size of the corresponding aggregated dimension.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Recommendations:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The following kinds of variable should not be aggregation variables: grid mapping variables, domain variables, mesh topology variables, geometry container variables, interpolation variables, and quantization variables.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
 <h3 id="description-of-the-data">3 Description of the Data</h3>
 
 </div>
@@ -915,7 +1011,7 @@ The values of <strong><code>var</code></strong> must be variables that exist in 
 </div>
 </div>
 <div class="sect2">
-<h3 id="time-coordinate">4.4.2 Time Coordinate Units</h3>
+<h3 id="time-coordinate">4.4.1 Time Coordinate Units</h3>
 <div class="paragraph">
 <p><strong>Requirements:</strong></p>
 </div>
@@ -924,43 +1020,24 @@ The values of <strong><code>var</code></strong> must be variables that exist in 
 <li>
 <p>The time <strong><code>units</code></strong> of a time coordinate variable must contain a reference datetime.</p>
 </li>
-<li>
-<p>A non-zero time zone offset must not appear in the reference datetime in the <strong><code>utc</code></strong> and <strong><code>tai</code></strong> calendars.</p>
-</li>
-<li>
-<p>The reference datetime must be written in the correct format.
-In particular, it must include the date, and the time zone offset must not be included unless the time is included.</p>
-</li>
 </ul>
 </div>
 <div class="paragraph">
 <p><strong>Recommendations:</strong></p>
 </div>
-<div class="paragraph">
-<p>In the first three recommendations, when we refer to a UDUNITS unit of time e.g. <strong><code>year</code></strong>, we mean the string given or any which is equivalent to it in UDUNITS e.g. <strong><code>yr</code></strong>.</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Units of <strong><code>year</code></strong> and <strong><code>month</code></strong> should not be used in any calendar.</p>
-</li>
-<li>
-<p>Units of <strong><code>day</code></strong>, <strong><code>hour</code></strong> and <strong><code>minute</code></strong> should not be used in the <strong><code>utc</code></strong> calendar. In that calendar, the only recommended unit is <strong><code>second</code></strong>.</p>
-</li>
-<li>
-<p>The decimal prefixes of Table 3.1 should not be used with any unit of time apart from <strong><code>second</code></strong>.</p>
+<p>Units of <strong><code>year</code></strong> and <strong><code>month</code></strong> and any equivalent units should be used with caution.</p>
 </li>
 <li>
 <p>UDUNITS permits a number of alternatives to the word <strong><code>since</code></strong> in the units of time coordinates. All the alternatives have exactly the same meaning in UDUNITS. For compatibility with other software, CF strongly recommends that <strong><code>since</code></strong> should be used.</p>
-</li>
-<li>
-<p>A non-zero time zone offset should not be specified in the reference datetime.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="calendar">4.4.3 Calendar</h3>
+<h3 id="calendar">4.4.2 Calendar</h3>
 <div class="paragraph">
 <p><strong>Requirements:</strong></p>
 </div>
@@ -973,11 +1050,7 @@ In particular, it must include the date, and the time zone offset must not be in
 <p>If present, the value of the <strong><code>calendar</code></strong> attribute must be one of the standardized values (case insensitive) detailed in this section, unless the <strong><code>month_length</code></strong> attribute is present, in which case the <strong><code>calendar</code></strong> attribute must <em>not</em> take one of the standardized values.</p>
 </li>
 <li>
-<p>Datetimes before 1972-01-01 0:0:0 and after the current instant (i.e. any time in the future when the data is written) are invalid in the <strong><code>utc</code></strong> calendar, datetimes before 1958-01-01 0:0:0 are invalid in the <strong><code>tai</code></strong> calendar, datetimes in negative years are invalid in the <strong><code>standard</code></strong> and <strong><code>julian</code></strong> calendars, and datetimes in the range from (and including) 1582-10-5 0:0:0 until (but excluding) 1582-10-15 0:0:0 are invalid in the <strong><code>standard</code></strong> calendar.
-Datetimes which are invalid in the specified calendar must not be encoded as time coordinates.</p>
-</li>
-<li>
-<p>The reference datetime of a time coordinate variable must be a valid datetime in the specified calendar.</p>
+<p>The reference datetime of a time coordinate variable must be a legal datetime in the specified calendar.</p>
 </li>
 </ul>
 </div>
@@ -996,17 +1069,42 @@ Datetimes which are invalid in the specified calendar must not be encoded as tim
 <p>The value <strong><code>standard</code></strong> should be used instead of <strong><code>gregorian</code></strong> in the <strong><code>calendar</code></strong> attribute.</p>
 </li>
 <li>
-<p>In the <strong><code>standard</code></strong> calendar, a reference datetime before 1582-10-5 0:0:0 should not be used for a time coordinate representing 1582-10-15 0:0:0 or a later datetime, and a reference datetime of 1582-10-15 0:0:0 or later should not be used for a time coordinate representing a datetime earlier than 1582-10-5 0:0:0.</p>
-</li>
-<li>
-<p>A datetime during a leap second (i.e. with a value for seconds that equals or exceeds 60) should not be used as the reference datetime of a time coordinate variable if the <strong><code>calendar</code></strong> is <strong><code>utc</code></strong>.
-(In other calendars, leap seconds must not be used because they are not valid datetimes.)</p>
+<p>The time coordinate should not cross the date 1582-10-15 when the default mixed Gregorian/Julian calendar is in use.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="explicitly-defined-calendar">4.4.4 Explicitly Defined Calendar</h3>
+<h3 id="leap-seconds">4.4.3 Leap Seconds</h3>
+<div class="paragraph">
+<p><strong>Requirements:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The reference datetime in time <strong><code>units</code></strong> is not allowed to contain seconds equal to or greater than 60, except for valid leap seconds if the <strong><code>calendar</code></strong> is <strong><code>utc</code></strong>.</p>
+</li>
+<li>
+<p>A time coordinate variable must not have a <strong><code>units_metadata</code></strong> attribute if it has a <strong><code>calendar</code></strong> attribute with a value <em>other than</em> one of the following values: <code>standard</code>, <code>gregorian</code> (deprecated), <code>proleptic_gregorian</code>, <code>julian</code>.</p>
+</li>
+<li>
+<p>If a time coordinate variable has a <strong><code>units_metadata</code></strong> attribute then it must have one of these values: <code>leap_seconds: none</code>, <code>leap_seconds: utc</code>, or <code>leap_seconds: unknown</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Recommendations:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A time coordinate variable should have a <strong><code>units_metadata</code></strong>  attribute if it has no <strong><code>calendar</code></strong> attribute, or if it has a <strong><code>calendar</code></strong> attribute with one of the following values: <code>standard</code>, <code>gregorian</code> (deprecated), <code>proleptic_gregorian</code>, <code>julian</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="explicitly-defined-calendar">4.4.5 Explicitly Defined Calendar</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -1624,7 +1722,7 @@ If the optional formula term <code><strong>nsigma</strong></code> is supplied, i
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-26 09:16:57 UTC
+Last updated 2025-11-26 09:55:40 UTC
 </div>
 </div>
 </body>
