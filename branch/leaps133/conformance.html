@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="generator" content="Asciidoctor 2.0.20">
 <title>CF Conformance Requirements and Recommendations 1.13 draft</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,7 +162,6 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
-body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +327,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -1208,7 +1207,7 @@ If it is an auxiliary coordinate variable, it must be listed in the coordinates 
 The legal values for the <strong><code>grid_mapping_name</code></strong> attribute are contained in Appendix F.</p>
 </li>
 <li>
-<p>The data types of the attributes of the grid mapping variable must be specified in Table 1 of Appendix F.<br></p>
+<p>The data types of the attributes of the grid mapping variable must be as specified in Table F.1 of Appendix F.<br></p>
 </li>
 <li>
 <p>If present, the <strong><code>crs_wkt</code></strong> attribute must be a text string conforming to the CRS WKT specification described in reference [OGC_CTS].</p>
@@ -1218,6 +1217,18 @@ The legal values for the <strong><code>grid_mapping_name</code></strong> attribu
 </li>
 <li>
 <p>If <strong><code>projected_crs_name</code></strong> is defined then <strong><code>geographic_crs_name</code></strong> must be also.</p>
+</li>
+<li>
+<p>If the value of the <strong><code>indexing_scheme</code></strong> attribute is <strong><code>nested</code></strong> or <strong><code>ring</code></strong>, then the <strong><code>refinement_level</code></strong> attribute must also be present.</p>
+</li>
+<li>
+<p>If the value of the <strong><code>indexing_scheme</code></strong> attribute is <strong><code>nuniq</code></strong> or <strong><code>zuniq</code></strong>, then the <strong><code>refinement_level</code></strong> attribute must not be present.</p>
+</li>
+<li>
+<p>The value of the <strong><code>refinement_level</code></strong> attribute must be an integer in the range 0-29.</p>
+</li>
+<li>
+<p>A variable with standard name <strong><code>healpix_index</code></strong> must have an integer data type and all values must be non-negative.</p>
 </li>
 </ul>
 </div>
@@ -1231,6 +1242,9 @@ The legal values for the <strong><code>grid_mapping_name</code></strong> attribu
 </li>
 <li>
 <p>Deprecated attributes for the <strong><code>grid_mapping_name</code></strong> are: <strong><code>scale_factor_at_projection_origin</code></strong> for <strong><code>grid_mapping_name = lambert_cylindrical_equal_area</code></strong> only, where <strong><code>standard_parallel</code></strong> should instead be used; and <strong><code>straight_vertical_longitude_from_pole</code></strong> for <strong><code>grid_mapping_name = polar_stereographic</code></strong> only, where <strong><code>longitude_of_projection_origin</code></strong> should instead be used.</p>
+</li>
+<li>
+<p>An auxiliary coordinate variable with standard name <strong><code>healpix_index</code></strong>, of size greater than one, all of whose values are distinct, should be a coordinate variable instead (with values ordered monotonically).</p>
 </li>
 </ul>
 </div>
@@ -1720,7 +1734,7 @@ If the optional formula term <code><strong>nsigma</strong></code> is supplied, i
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2025-11-26 13:58:59 UTC
+Last updated 2025-12-16 23:21:44 UTC
 </div>
 </div>
 </body>
