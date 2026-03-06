@@ -25,7 +25,6 @@ OGC document 12-063. 1st May 2015.
 - [[[SI]]] link:$$https://doi.org/10.59161/AUEZ1291$$[SI Brochure: The International System of Units (SI)], 9th edition, BIPM, 2019. 
 - [[[Snyder]]]  link:$$https://doi.org/10.3133/pp1395$$[Map Projections: A Working Manual]. USGS Professional Paper 1395.
 - [[[UDUNITS]]]  link:$$https://doi.org/10.5065/D6KD1WN0$$[UDUNITS Software Package].  UNIDATA Program Center of the University Corporation for Atmospheric Research.
-- [[[UDUNITS-grammar]]] link:$$https://docs.unidata.ucar.edu/udunits/current/udunits2lib.html#Grammar$$[UDUNITS Unit Grammar]
 - [[[UGRID]]]  link:$$https://ugrid-conventions.github.io/ugrid-conventions$$[UGRID Conventions for storing unstructured (or flexible mesh) data in netCDF files]
 - [[[URI]]]  link:$$https://doi.org/10.17487/RFC3986$$[RFC 3986. Uniform Resource Identifier (URI): Generic Syntax]. T. Berners-Lee, R. Fielding, L. Masinter. January 2005.
 - [[[W3C]]]  link:$$https://www.w3.org/$$[World Wide Web Consortium (W3C)].

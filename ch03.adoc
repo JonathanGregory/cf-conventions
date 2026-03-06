@@ -26,6 +26,8 @@ The COARDS conventions prohibit the unit `degrees` altogether, but this unit is 
 The unit `degrees` is also allowed on coordinate variables such as the latitude and longitude coordinates of a transformed grid.
 In this case the coordinate values are not true latitudes and longitudes, which must always be identified using the more specific forms of `degrees` as described in <<latitude-coordinate>> and <<longitude-coordinate>>.
 
+See <<units-multiples>> concerning the use of scale factors and offsets for units and data.
+
 
 [[dimensionless-units, Section 3.1.1, "Dimensionless units"]]
 ==== Dimensionless units
@@ -44,8 +46,6 @@ Information describing a dimensionless physical quantity itself (e.g.
 "area fraction" or "probability") does not belong in the **`units`** attribute, but should be given in the **`long_name`** or **`standard_name`** attributes (see <<long-name>> and <<standard-name>>), in the same way as for physical quantities with dimensional units.
 As an exception, to maintain backwards compatibility with COARDS, the text strings `level`, `layer`, and `sigma_level` are allowed in the **`units`** attribute, in order to indicate dimensionless vertical coordinates.
 This use of **`units`** is not compatible with UDUNITS, and is deprecated by these conventions because conventions for more precisely identifying dimensionless vertical coordinates are available (see <<dimensionless-vertical-coordinate>>).
-
-See <<units-multiples>> concerning the use of scale factors and offsets for units and data.
 
 
 [[temperature-units, Section 3.1.2, "Temperature units"]]
