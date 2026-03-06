@@ -182,6 +182,8 @@ References can be absolute, relative or with no path, in which case, the variabl
 
 * The **`units`** attribute is required for all variables that represent dimensional quantities (except for boundary variables defined in https://cfconventions.org/cf-conventions/cf-conventions.html#cell-boundaries[section 7.1] and climatology boundary variables defined in https://cfconventions.org/cf-conventions/cf-conventions.html#climatological-statistics[section 7.4]).
 * The type of the **`units`** attribute is a string that must be recognizable by the UDUNITS package.
+* The **`units`** string must not contain literal numbers (integer or real) as factors or offsets to a named unit of measure.
+In terms of the <<UDUNITS-grammar>>, CF does not allow **`INT`** or **`REAL`** in a string containing **`ID`**, except for the specification of a reference time in the units of time coordinates.
 Exceptions are the units **`level`**, **`layer`**, and **`sigma_level`**.
 * Dimensionless units for volume fractions defined by UDUNITS (**`ppv`**, **`ppmv`**, **`ppbv`**, **`pptv`**, **`ppqv`**) are not allowed in the **`units`** attribute of any variable which also has a **`standard_name`** attribute.
 * If present, the **`units_metadata`** attribute must have one of these values: `temperature: on_scale`, `temperature: difference`, `temperature: unknown`, `leap_seconds: none`, `leap_seconds: utc`, or `leap_seconds: unknown`.
