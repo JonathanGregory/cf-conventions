@@ -476,7 +476,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <span id="author36" class="author">Seth&#160;McGinnis</span><br>
 <span id="author37" class="author">Patrick&#160;Van&#160;Laake</span><br>
 <span id="revnumber">version v1.12.0-rc7-24-gb724218,</span>
-<span id="revdate">06&#160;March,&#160;2026&#160;11:17:36Z</span>
+<span id="revdate">06&#160;March,&#160;2026&#160;11:29:49Z</span>
 <br><span id="revremark">issue620</span>
 </div>
 </div>
@@ -2290,6 +2290,9 @@ Special treatment is required in converting the <strong><code>units</code></stro
 The unit <code>degrees</code> is also allowed on coordinate variables such as the latitude and longitude coordinates of a transformed grid.
 In this case the coordinate values are not true latitudes and longitudes, which must always be identified using the more specific forms of <code>degrees</code> as described in <a href="#latitude-coordinate">Section 4.1, "Latitude Coordinate"</a> and <a href="#longitude-coordinate">Section 4.2, "Longitude Coordinate"</a>.</p>
 </div>
+<div class="paragraph">
+<p>See <a href="#units-multiples">Section 3.1.3, "Scale factors and offsets"</a> concerning the use of scale factors and offsets for units and data.</p>
+</div>
 <div class="sect3">
 <h4 id="dimensionless-units"><a class="anchor" href="#dimensionless-units"></a>3.1.1. Dimensionless units</h4>
 <div class="paragraph">
@@ -2309,9 +2312,6 @@ These units are prohibited by CF if there is a <strong><code>standard_name</code
 "area fraction" or "probability") does not belong in the <strong><code>units</code></strong> attribute, but should be given in the <strong><code>long_name</code></strong> or <strong><code>standard_name</code></strong> attributes (see <a href="#long-name">Section 3.2, "Long Name"</a> and <a href="#standard-name">Section 3.3, "Standard Name"</a>), in the same way as for physical quantities with dimensional units.
 As an exception, to maintain backwards compatibility with COARDS, the text strings <code>level</code>, <code>layer</code>, and <code>sigma_level</code> are allowed in the <strong><code>units</code></strong> attribute, in order to indicate dimensionless vertical coordinates.
 This use of <strong><code>units</code></strong> is not compatible with UDUNITS, and is deprecated by these conventions because conventions for more precisely identifying dimensionless vertical coordinates are available (see <a href="#dimensionless-vertical-coordinate">Section 4.3.2, "Dimensionless Vertical Coordinate"</a>).</p>
-</div>
-<div class="paragraph">
-<p>See <a href="#units-multiples">Section 3.1.3, "Scale factors and offsets"</a> concerning the use of scale factors and offsets for units and data.</p>
 </div>
 </div>
 <div class="sect3">
@@ -14549,7 +14549,10 @@ CF version 1.13 withdrew this use of <strong><code>units_metadata</code></strong
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/cf-convention/cf-conventions/issues/623">Issue #623</a>: Consistently refer to "CF conventions" and use of impersonal from.</p>
+<p><a href="https://github.com/cf-convention/cf-conventions/issues/610">Issue #610</a>: Clarify the CF prohibition of the UDUNITS syntax for scale factors and additive offsets to units</p>
+</li>
+<li>
+<p><a href="https://github.com/cf-convention/cf-conventions/issues/623">Issue #623</a>: Consistently refer to "CF conventions" and use of impersonal form</p>
 </li>
 </ul>
 </div>
@@ -15282,9 +15285,6 @@ OGC document 12-063. 1st May 2015.</p>
 <p><a id="UDUNITS"></a>[UDUNITS]  <a href="https://doi.org/10.5065/D6KD1WN0">UDUNITS Software Package</a>.  UNIDATA Program Center of the University Corporation for Atmospheric Research.</p>
 </li>
 <li>
-<p><a id="UDUNITS-grammar"></a>[UDUNITS-grammar] <a href="https://docs.unidata.ucar.edu/udunits/current/udunits2lib.html#Grammar">UDUNITS Unit Grammar</a></p>
-</li>
-<li>
 <p><a id="UGRID"></a>[UGRID]  <a href="https://ugrid-conventions.github.io/ugrid-conventions">UGRID Conventions for storing unstructured (or flexible mesh) data in netCDF files</a></p>
 </li>
 <li>
@@ -15308,7 +15308,7 @@ OGC document 12-063. 1st May 2015.</p>
 <div id="footer">
 <div id="footer-text">
 Version v1.12.0-rc7-24-gb724218<br>
-Last updated 2026-03-06 11:17:29 UTC
+Last updated 2026-03-06 11:29:41 UTC
 </div>
 </div>
 </body>
