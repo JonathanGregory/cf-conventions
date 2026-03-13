@@ -92,7 +92,7 @@ Coordinates of longitude with respect to a rotated pole should be given units of
 
 Variables representing vertical coordinates must have either
 
-* a **`positive`** attribute with a value of **`up`** or **`down`** (case insensitive), which respectively mean that increasingly positive coordinate values indicate higher locations i.e. further from the centre of the Earth (**`positive="up"`**) or lower locations (**`positive="down"`**); or
+the attribute **`positive`** that takes either the value **`up`** or **`down`** (case insensitive), which respectively mean that increasingly positive coordinate 
 
 * a **`units`** attribute containing units of pressure (as determined by UDUNITS). If the **`units`** attribute value is a valid pressure unit the default value of the **`positive`** attribute is **`down`**.
 
